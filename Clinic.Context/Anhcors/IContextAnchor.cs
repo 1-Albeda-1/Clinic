@@ -1,4 +1,4 @@
-﻿namespace Clinic.Context
+﻿namespace Clinic.Context.Anhcors
 {
     /// <summary>
     /// Интерфейсный маркер, для регистрации Context

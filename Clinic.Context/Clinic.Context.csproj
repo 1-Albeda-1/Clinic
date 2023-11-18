@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clinic.Common\Clinic.Common.csproj" />
+    <ProjectReference Include="..\Clinic.Context.Contracts.Configuration\Clinic.Context.Contracts.Configuration.csproj" />
     <ProjectReference Include="..\Clinic.Context.Contract\Clinic.Context.Contracts.csproj" />
     <ProjectReference Include="..\Clinic.General\Clinic.General.csproj" />
   </ItemGroup>
