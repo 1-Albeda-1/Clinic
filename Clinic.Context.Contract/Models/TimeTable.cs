@@ -1,7 +1,4 @@
-﻿
-
-
-namespace Clinic.Context.Contracts.Models
+﻿namespace Clinic.Context.Contracts.Models
 {
     /// <summary>
     /// Рассписание 
@@ -21,6 +18,9 @@ namespace Clinic.Context.Contracts.Models
         /// <summary>
         /// ID врача
         /// </summary>
-        public Guid? Doctor { get; set; }
+        public Guid DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
+
+        public ICollection<BookingAppointment> BookingAppointments { get; set; }
     }
 }

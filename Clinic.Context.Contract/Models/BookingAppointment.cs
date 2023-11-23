@@ -1,6 +1,4 @@
-﻿
-
-namespace Clinic.Context.Contracts.Models
+﻿namespace Clinic.Context.Contracts.Models
 {
     /// <summary>
     /// Запись на приём
@@ -10,16 +8,18 @@ namespace Clinic.Context.Contracts.Models
         /// <summary>
         /// ID клиента
         /// </summary>
-        public Guid? Patient { get; set; }
+        public Guid PatientId { get; set; }
+        public Patient Patient { get; set; }
 
         /// <summary>
         /// ID Время приема пациента 
         /// </summary>
-        public Guid? TimeTable { get; set; }
+        public Guid TimeTableId { get; set; }
+        public TimeTable TimeTable { get; set; }
 
         /// <summary>
         /// Жалоба пациента
         /// </summary>
-        public string Сomplaint { get; set; } = string.Empty;
+        public string? Сomplaint { get; set; }
     }
 }

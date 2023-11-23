@@ -12,15 +12,12 @@ namespace Clinic.Context.Contracts.Configuration.Configurations
         void IEntityTypeConfiguration<TimeTable>.Configure(EntityTypeBuilder<TimeTable> builder)
         {
             builder.ToTable("TimeTables");
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired();
-            builder.Property(x => x.Patient).HasMaxLength(50).IsRequired();
-            builder.HasIndex(x => x.TimeTable).HasDatabaseName($"{nameof(TimeTable)}_{nameof(TimeTable.Title)}");
-            builder.Property(x => x.C).HasMaxLength(100).IsRequired();
-            builder.HasIndex(x => x.Сomplaint).HasDatabaseName($"{nameof(TimeTable)}_{nameof(TimeTable.Address)}")
-                .IsUnique()
-                .HasFilter($"{nameof(TimeTable.DeletedAt)} is null");
-            builder.HasMany(x => x.Tickets).WithOne(x => x.Cinema).HasForeignKey(x => x.CinemaId);
+            builder.HasIdAsKey();
+            builder.PropertyAuditConfiguration();
+            builder.Property(x => x.Time).IsRequired();
+            builder.Property(x => x.Office).IsRequired();
+            builder.Property(x => x.DoctorId).IsRequired();
+            builder.HasMany(x => x.BookingAppointments).WithOne(x => x.TimeTable).HasForeignKey(x => x.TimeTableId);
         }
     }
 }

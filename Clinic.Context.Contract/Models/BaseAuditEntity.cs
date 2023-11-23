@@ -1,9 +1,12 @@
-﻿namespace Clinic.Context.Contracts.Models
+﻿using Clinic.Common.EntityInterface;
+
+namespace Clinic.Context.Contracts.Models
 {
     /// <summary>
     /// Базовый класс с аудитом
     /// </summary>
-    public abstract class BaseAuditEntity
+    public abstract class BaseAuditEntity : IEntity, IEntityAuditCreated, 
+        IEntityAuditDeleted, IEntityAuditUpdated, IEntityWithId
     {
         /// <summary>
         /// Идентификатор

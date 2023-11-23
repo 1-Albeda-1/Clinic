@@ -1,4 +1,6 @@
-﻿namespace Clinc.Services.Contracts.Exceptions
+﻿using Clinic.Services.Contracts.Exceptions;
+
+namespace Clinc.Services.Contracts.Exceptions
 {
     public class TimeTableInvalidOperationException : TimeTableException
     {

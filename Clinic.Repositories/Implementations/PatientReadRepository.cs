@@ -1,28 +1,35 @@
-﻿using Clinic.Context.Contracts.Models;
-using Clinic.Context.Contracts.Interface;
+﻿using Clinic.Common.Interface;
+using Clinic.Common.Repositories;
+using Clinic.Context.Contracts.Models;
 using Clinic.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
+
 namespace Clinic.Repositories.Implementations
 {
-    public class PatientReadRepository : IPatientReadRepository, IReadRepositoryAnchor
+    public class PatientReadRepository : IPatientReadRepository,  IReadRepositoryAnchor
     {
-        private readonly IClinicContext context;
+        private readonly IRead reader;
 
-        public PatientReadRepository(IClinicContext context)
+        public PatientReadRepository(IRead reader)
         {
-            this.context = context;
+            this.reader = reader;
         }
 
-        Task<List<Patient>> IPatientReadRepository.GetAllAsync(CancellationToken cancellationToken)
-             => Task.FromResult(context.Patient.Where(x => x.DeletedAt == null)
-                 .OrderBy(x => x.Name)
-                 .ToList());
+        Task<IReadOnlyCollection<Patient>> IPatientReadRepository.GetAllAsync(CancellationToken cancellationToken)
+             => reader.Read<Patient>()
+                .OrderBy(x => x.Name)
+                .ThenBy(x => x.Surname)
+                .ThenBy(x => x.Patronymic)
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Patient?> IPatientReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.Patient.FirstOrDefault(x => x.Id == id));
+            => reader.Read<Patient>()
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
-        Task<Dictionary<Guid, Patient>> IPatientReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellation)
-            => Task.FromResult(context.Patient.Where(x => x.DeletedAt == null && ids.Contains(x.Id))
-                .OrderBy(x => x.Name)
-                .ToDictionary(key => key.Id));
+        Task<Dictionary<Guid, Patient>> IPatientReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => reader.Read<Patient>()
+                .ByIds(ids)
+                .ToDictionaryAsync(x => x.Id, cancellationToken);
     }
 }

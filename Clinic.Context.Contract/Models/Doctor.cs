@@ -1,7 +1,5 @@
 ﻿using Clinic.Context.Contracts.Enums;
 
-
-
 namespace Clinic.Context.Contracts.Models
 {
     /// <summary>
@@ -33,5 +31,7 @@ namespace Clinic.Context.Contracts.Models
         /// Отделение
         /// </summary>
         public DepartmentTypes DepartmentType { get; set; }
+
+        public ICollection<TimeTable> TimeTables { get; set; }
     }
 }

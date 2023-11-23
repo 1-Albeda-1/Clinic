@@ -1,4 +1,6 @@
-﻿namespace Clinic.API.Models
+﻿using Clinic.Context.Contracts.Models;
+
+namespace Clinic.API.Models
 {
     /// <summary>
     /// Пациент
@@ -43,11 +45,11 @@
         /// <summary>
         /// ID поликлиники
         /// </summary>
-        public Guid? MedClinic { get; set; }
+        public MedClinicResponse? MedClinic { get; set; }
 
         /// <summary>
         /// ID диагноза
         /// </summary>
-        public Guid? Diagnosis { get; set; }
+        public DiagnosisResponse? Diagnosis { get; set; }
     }
 }

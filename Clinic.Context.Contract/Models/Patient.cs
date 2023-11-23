@@ -1,7 +1,4 @@
-﻿
-
-
-namespace Clinic.Context.Contracts.Models
+﻿namespace Clinic.Context.Contracts.Models
 {
     /// <summary>
     /// Пациент
@@ -31,21 +28,25 @@ namespace Clinic.Context.Contracts.Models
         /// <summary>
         /// Полис
         /// </summary>
-        public long Policy { get; set; }
+        public string Policy { get; set; } = string.Empty;
 
         /// <summary>
         /// Дата рождения
         /// </summary>
-        public DateTime Birthday { get; set; }
+        public DateTimeOffset Birthday { get; set; }
 
         /// <summary>
         /// ID поликлиники
         /// </summary>
-        public Guid? MedClinic { get; set; }
+        public Guid? MedClinicId { get; set; }
+        public MedClinic? MedClinic { get; set; }
 
         /// <summary>
         /// ID диагноза
         /// </summary>
-        public Guid? Diagnosis { get; set; }
+        public Guid DiagnosisId { get; set; }
+        public Diagnosis Diagnosis { get; set; }
+
+        public ICollection<BookingAppointment> BookingAppointments { get; set; }
     }
 }

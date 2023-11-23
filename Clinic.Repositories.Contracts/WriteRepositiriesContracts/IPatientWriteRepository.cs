@@ -1,8 +1,0 @@
-﻿using Clinic.Context.Contracts.Models;
-
-namespace Clinic.Repositories.Contracts.WriteRepositiriesContracts
-{
-    public interface IPatientWriteRepository : IRepositoryWriter<Patient>
-    {
-    }
-}

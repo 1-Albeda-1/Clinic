@@ -1,9 +1,5 @@
 ﻿using Clinic.Context.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Net.Sockets;
-using System.Reflection.PortableExecutable;
-using System.Xml;
 
 namespace Clinic.Context.Contracts.Interface
 {

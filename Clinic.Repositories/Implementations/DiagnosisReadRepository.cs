@@ -1,29 +1,34 @@
-﻿using Clinic.Context.Contracts.Models;
-using Clinic.Context.Contracts.Interface;
+﻿using Clinic.Common.Interface;
+using Clinic.Common.Repositories;
+using Clinic.Context.Contracts.Models;
 using Clinic.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Repositories.Implementations
 {
     public class DiagnosisReadRepository : IDiagnosisReadRepository, IReadRepositoryAnchor
     {
-        private readonly IClinicContext context;
+        private readonly IRead reader;
 
-        public DiagnosisReadRepository(IClinicContext context)
+        public DiagnosisReadRepository(IRead reader)
         {
-            this.context = context;
+            this.reader = reader;
         }
 
-        Task<List<Diagnosis>> IDiagnosisReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult(context.Diagnosis.Where(x => x.DeletedAt == null)
+        Task<IReadOnlyCollection<Diagnosis>> IDiagnosisReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => reader.Read<Diagnosis>()
+                .NotDeletedAt()
                 .OrderBy(x => x.Name)
-                .ToList());
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Diagnosis?> IDiagnosisReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.Diagnosis.FirstOrDefault(x => x.Id == id));
+            => reader.Read<Diagnosis>()
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
-        Task<Dictionary<Guid, Diagnosis>> IDiagnosisReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellation)
-            => Task.FromResult(context.Diagnosis.Where(x => x.DeletedAt == null && ids.Contains(x.Id))
-                .OrderBy(x => x.Name)
-                .ToDictionary(key => key.Id));
+        Task<Dictionary<Guid, Diagnosis>> IDiagnosisReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => reader.Read<Diagnosis>()
+                .ByIds(ids)
+                .ToDictionaryAsync(x => x.Id, cancellationToken);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Clinic.Context.Contracts.Enums;
+using Clinic.Context.Contracts.Models;
 
 namespace Clinic.Services.Contracts.Models
 {
@@ -45,11 +46,11 @@ namespace Clinic.Services.Contracts.Models
         /// <summary>
         /// ID поликлиники
         /// </summary>
-        public Guid? MedClinic { get; set; }
+        public MedClinicModel? MedClinic { get; set; }
 
         /// <summary>
         /// ID диагноза
         /// </summary>
-        public Guid? Diagnosis { get; set; }
+        public DiagnosisModel? Diagnosis { get; set; }
     }
 }

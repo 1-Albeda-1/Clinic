@@ -1,7 +1,7 @@
 ﻿using Clinic.Common.Interface;
+using Clinic.Context.Contracts.Configuration.Configurations;
 using Clinic.Context.Contracts.Interface;
 using Clinic.Context.Contracts.Models;
-using Clinic.Context.Contracts.Configuration.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Context
@@ -28,7 +28,7 @@ namespace Clinic.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CinemaEntityTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookingAppointmentTypeConfiguration).Assembly);
         }
 
         async Task<int> IUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken)

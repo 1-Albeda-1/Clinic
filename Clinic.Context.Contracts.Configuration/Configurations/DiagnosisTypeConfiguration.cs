@@ -1,7 +1,6 @@
-﻿using Clinic.Context.Contracts.Enums;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Clinic.Context.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
-using Clinic.Context.Contracts.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.Context.Contracts.Configuration.Configurations
 {
@@ -12,16 +11,16 @@ namespace Clinic.Context.Contracts.Configuration.Configurations
     {
         void IEntityTypeConfiguration<Diagnosis>.Configure(EntityTypeBuilder<Diagnosis> builder)
         {
-            builder.ToTable("BookingAppointments");
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired();
-            builder.Property(x => x.Patient).HasMaxLength(50).IsRequired();
-            builder.HasIndex(x => x.TimeTable).HasDatabaseName($"{nameof(Diagnosis)}_{nameof(Diagnosis.Title)}");
-            builder.Property(x => x.C).HasMaxLength(100).IsRequired();
-            builder.HasIndex(x => x.Сomplaint).HasDatabaseName($"{nameof(Diagnosis)}_{nameof(Diagnosis.Address)}")
+            builder.ToTable("Diagnosis");
+            builder.HasIdAsKey();
+            builder.PropertyAuditConfiguration();
+            builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
+            builder.HasIndex(x => x.Name)
                 .IsUnique()
+                .HasDatabaseName($"{nameof(Diagnosis)}_{nameof(Diagnosis.Name)}")
                 .HasFilter($"{nameof(Diagnosis.DeletedAt)} is null");
-            builder.HasMany(x => x.Tickets).WithOne(x => x.Cinema).HasForeignKey(x => x.CinemaId);
+            builder.Property(x => x.Medicament).HasMaxLength(50).IsRequired();
+            builder.HasMany(x => x.Patients).WithOne(x => x.Diagnosis).HasForeignKey(x => x.DiagnosisId);
         }
     }
 }

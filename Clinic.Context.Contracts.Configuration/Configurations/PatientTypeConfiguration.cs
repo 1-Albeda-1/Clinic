@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Clinic.Context.Contracts.Models;
+using System;
 
 
 namespace Clinic.Context.Contracts.Configuration.Configurations
@@ -13,15 +14,26 @@ namespace Clinic.Context.Contracts.Configuration.Configurations
         void IEntityTypeConfiguration<Patient>.Configure(EntityTypeBuilder<Patient> builder)
         {
             builder.ToTable("Patients");
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired();
-            builder.Property(x => x.Patient).HasMaxLength(50).IsRequired();
-            builder.HasIndex(x => x.TimeTable).HasDatabaseName($"{nameof(Patient)}_{nameof(Patient.Title)}");
-            builder.Property(x => x.C).HasMaxLength(100).IsRequired();
-            builder.HasIndex(x => x.Сomplaint).HasDatabaseName($"{nameof(Patient)}_{nameof(Patient.Address)}")
+            builder.HasIdAsKey();
+            builder.PropertyAuditConfiguration();
+            builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.Surname).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.Patronymic).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.Phone).HasMaxLength(16).IsRequired();
+            builder.HasIndex(x => x.Phone)
                 .IsUnique()
+                .HasDatabaseName($"{nameof(Patient)}_{nameof(Patient.Phone)}")
                 .HasFilter($"{nameof(Patient.DeletedAt)} is null");
-            builder.HasMany(x => x.Tickets).WithOne(x => x.Cinema).HasForeignKey(x => x.CinemaId);
+
+            builder.Property(x => x.Policy).HasMaxLength(16).IsRequired();
+            builder.HasIndex(x => x.Policy)
+                .IsUnique()
+                .HasDatabaseName($"{nameof(Patient)}_{nameof(Patient.Policy)}")
+                .HasFilter($"{nameof(Patient.DeletedAt)} is null");
+
+            builder.Property(x => x.Birthday).IsRequired();
+            builder.Property(x => x.DiagnosisId).IsRequired();
+            builder.HasMany(x => x.BookingAppointments).WithOne(x => x.Patient).HasForeignKey(x => x.PatientId);
         }
     }
 }

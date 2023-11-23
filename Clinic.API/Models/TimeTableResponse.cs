@@ -1,4 +1,6 @@
-﻿namespace Clinic.API.Models
+﻿using Clinic.Context.Contracts.Models;
+
+namespace Clinic.API.Models
 {
     /// <summary>
     /// Рассписание 
@@ -23,6 +25,6 @@
         /// <summary>
         /// ID Врача
         /// </summary>
-        public Guid? Doctor { get; set; }
+        public DoctorResponse? Doctor { get; set; }
     }
 }

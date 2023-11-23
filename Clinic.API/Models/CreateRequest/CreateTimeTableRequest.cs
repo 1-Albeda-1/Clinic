@@ -15,6 +15,6 @@
         /// <summary>
         /// ID Врача
         /// </summary>
-        public Guid? Doctor { get; set; }
+        public Guid Doctor { get; set; }
     }
 }

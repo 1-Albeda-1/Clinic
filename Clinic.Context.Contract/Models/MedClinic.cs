@@ -1,6 +1,4 @@
-﻿
-
-namespace Clinic.Context.Contracts.Models
+﻿namespace Clinic.Context.Contracts.Models
 {
     /// <summary>
     /// Поликлиника
@@ -16,5 +14,7 @@ namespace Clinic.Context.Contracts.Models
         /// Название поликлиники
         /// </summary>
         public string Name { get; set; } = string.Empty;
+
+        public ICollection<Patient>? Patients { get; set; }
     }
 }

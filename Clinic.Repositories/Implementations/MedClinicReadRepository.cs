@@ -1,29 +1,33 @@
-﻿using Clinic.Context.Contracts.Models;
-using Clinic.Context.Contracts.Interface;
+﻿using Clinic.Common.Interface;
+using Clinic.Common.Repositories;
+using Clinic.Context.Contracts.Models;
 using Clinic.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Repositories.Implementations
 {
     public class MedClinicReadRepository : IMedClinicReadRepository, IReadRepositoryAnchor
     {
-        private readonly IClinicContext context;
+        private readonly IRead reader;
 
-        public MedClinicReadRepository(IClinicContext context)
+        public MedClinicReadRepository(IRead reader)
         {
-            this.context = context;
+            this.reader = reader;
         }
 
-        Task<List<MedClinic>> IMedClinicReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult(context.MedClinic.Where(x => x.DeletedAt == null)
+        Task<IReadOnlyCollection<MedClinic>> IMedClinicReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => reader.Read<MedClinic>()
                 .OrderBy(x => x.Name)
-                .ToList());
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<MedClinic?> IMedClinicReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.MedClinic.FirstOrDefault(x => x.Id == id));
+            => reader.Read<MedClinic>()
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
-        Task<Dictionary<Guid, MedClinic>> IMedClinicReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellation)
-            => Task.FromResult(context.MedClinic.Where(x => x.DeletedAt == null && ids.Contains(x.Id))
-                .OrderBy(x => x.Name)
-                .ToDictionary(key => key.Id));
+        Task<Dictionary<Guid, MedClinic>> IMedClinicReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => reader.Read<MedClinic>()
+                .ByIds(ids)
+                .ToDictionaryAsync(x => x.Id, cancellationToken);
     }
 }

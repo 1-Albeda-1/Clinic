@@ -1,5 +1,9 @@
-﻿using Clinic.API.Models.Response;
+﻿using AutoMapper;
+using Clinic.API.Models.CreateRequest;
+using Clinic.API.Models.Request;
+using Clinic.API.Models.Response;
 using Clinic.Services.Contracts.Interface;
+using Clinic.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.API.Controllers
@@ -13,38 +17,59 @@ namespace Clinic.API.Controllers
     public class MedClinicController : ControllerBase
     {
         private readonly IMedClinicService medClinicService;
-        public MedClinicController(IMedClinicService medClinicService)
+        private readonly IMapper mapper;
+        public MedClinicController(IMedClinicService medClinicService, IMapper mapper)
         {
             this.medClinicService = medClinicService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<MedClinicResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await medClinicService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => new MedClinicResponse
-            {
-                Id = x.Id,
-                Address = x.Address,
-                Name = x.Name,                
-            }));
+            return Ok(result.Select(x => mapper.Map<MedClinicResponse>(x)));
         }
 
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(MedClinicResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var result = await medClinicService.GetByIdAsync(id, cancellationToken);
-            if (result == null)
-            {
-                return NotFound($"Не удалось найти поликлиники с идентификатором {id}");
-            }
+            var item = await medClinicService.GetByIdAsync(id, cancellationToken);
 
-            return Ok(new MedClinicResponse
+            if (item == null)
             {
-                Id = result.Id,
-                Address = result.Address,
-                Name = result.Name,          
-            });
+                return NotFound("Поликлиники с таким Id нет!");
+            }
+            return Ok(mapper.Map<MedClinicResponse>(item));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(MedClinicResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Add(CreateMedClinicRequest model, CancellationToken cancellationToken)
+        {
+            //var result = await medClinicService.AddAsync(model.Name, model.Address, cancellationToken);
+            //return Ok(mapper.Map<MedClinicResponse>(result));
+            return Ok();
+        }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(MedClinicResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Edit(MedClinicRequest request, CancellationToken cancellationToken)
+        {
+            //var model = mapper.Map<MedClinicModel>(request);
+            //var result = await medClinicService.EditAsync(model, cancellationToken);
+            //return Ok(mapper.Map<MedClinicResponse>(result));
+            return Ok();
+        }
+
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+        {
+            //await medClinicService.DeleteAsync(id, cancellationToken);
+            return Ok();
         }
     }
 }

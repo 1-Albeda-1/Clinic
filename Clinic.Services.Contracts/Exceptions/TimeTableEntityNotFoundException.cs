@@ -1,4 +1,6 @@
-﻿namespace Clinic.Services.Contracts.Exceptions
+﻿using Clinc.Services.Contracts.Exceptions;
+
+namespace Clinic.Services.Contracts.Exceptions
 {
     public class TimeTableEntityNotFoundException<TEntity> : TimeTableNotFoundException
     {
