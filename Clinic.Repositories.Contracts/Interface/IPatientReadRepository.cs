@@ -10,7 +10,7 @@ namespace Clinic.Repositories.Contracts.Interface
         /// <summary>
         /// Получить список всех <see cref="Patient"/>
         /// </summary>
-        Task<List<Patient>> GetAllAsync(CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<Patient>> GetAllAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить <see cref="Patient"/> по идентификатору

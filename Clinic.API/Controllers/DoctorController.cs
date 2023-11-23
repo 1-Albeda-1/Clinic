@@ -1,6 +1,10 @@
-﻿using Clinic.API.Enums;
+﻿using AutoMapper;
+using Clinic.API.Enums;
+using Clinic.API.Models.CreateRequest;
+using Clinic.API.Models.Request;
 using Clinic.API.Models.Response;
 using Clinic.Services.Contracts.Interface;
+using Clinic.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.API.Controllers
@@ -14,44 +18,59 @@ namespace Clinic.API.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorService doctorService;
-        public DoctorController(IDoctorService doctorService)
+        private readonly IMapper mapper;
+        public DoctorController(IDoctorService doctorService, IMapper mapper)
         {
             this.doctorService = doctorService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<DoctorResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await doctorService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => new DoctorResponse
-            {
-                Id = x.Id,
-                Surname = x.Surname,
-                Name = x.Name,
-                Patronymic = x.Patronymic,
-                CategoriesType = (CategoriesTypesResponse)x.CategoriesType,
-                DepartmentType = (DepartmentTypesResponse)x.DepartmentType,
-            }));
+            return Ok(result.Select(x => mapper.Map<DoctorResponse>(x)));
         }
 
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(DoctorResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var result = await doctorService.GetByIdAsync(id, cancellationToken);
-            if (result == null)
-            {
-                return NotFound($"Не удалось найти клиентов с идентификатором {id}");
-            }
+            var item = await doctorService.GetByIdAsync(id, cancellationToken);
 
-            return Ok(new DoctorResponse
+            if (item == null)
             {
-                Id = result.Id,
-                Surname = result.Surname,
-                Name = result.Name,
-                Patronymic = result.Patronymic,
-                CategoriesType = (CategoriesTypesResponse)result.CategoriesType,
-                DepartmentType = (DepartmentTypesResponse)result.DepartmentType,
-            });
+                return NotFound("Врача с таким Id нет!");
+            }
+            return Ok(mapper.Map<DoctorResponse>(item));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(DoctorResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Add(CreateDoctorRequest model, CancellationToken cancellationToken)
+        {
+            //var result = await doctorService.AddAsync(model.Surname, model.Name, model.Patronymic, model.CategoriesType, model.DepartmentType, cancellationToken);
+            //return Ok(mapper.Map<DoctorResponse>(result));
+            return Ok();
+        }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(DoctorResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Edit(DoctorRequest request, CancellationToken cancellationToken)
+        {
+            //var model = mapper.Map<DoctorModel>(request);
+            //var result = await doctorService.EditAsync(model, cancellationToken);
+            //return Ok(mapper.Map<DoctorResponse>(result));
+            return Ok();
+        }
+
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+        {
+            //await doctorService.DeleteAsync(id, cancellationToken);
+            return Ok();
         }
     }
 }

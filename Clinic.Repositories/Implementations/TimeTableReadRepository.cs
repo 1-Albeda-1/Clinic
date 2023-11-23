@@ -1,29 +1,34 @@
-﻿using Clinic.Context.Contracts.Models;
-using Clinic.Context.Contracts.Interface;
+﻿using Clinic.Common.Interface;
+using Clinic.Common.Repositories;
+using Clinic.Context.Contracts.Models;
 using Clinic.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace Clinic.Repositories.Implementations
 {
     public class TimeTableReadRepository : ITimeTableReadRepository, IReadRepositoryAnchor
     {
-        private readonly IClinicContext context;
+        private readonly IRead reader;
 
-        public TimeTableReadRepository(IClinicContext context)
+        public TimeTableReadRepository(IRead reader)
         {
-            this.context = context;
+            this.reader = reader;
         }
 
-        Task<List<TimeTable>> ITimeTableReadRepository.GetAllAsync(CancellationToken cancellationToken)
-             => Task.FromResult(context.TimeTable.Where(x => x.DeletedAt == null)
-                 .OrderBy(x => x.Time)
-                 .ToList());
+        Task<IReadOnlyCollection<TimeTable>> ITimeTableReadRepository.GetAllAsync(CancellationToken cancellationToken)
+             => reader.Read<TimeTable>()
+                .OrderBy(x => x.Time)
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<TimeTable?> ITimeTableReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.TimeTable.FirstOrDefault(x => x.Id == id));
+            => reader.Read<TimeTable>()
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
-        Task<Dictionary<Guid, TimeTable>> ITimeTableReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellation)
-            => Task.FromResult(context.TimeTable.Where(x => x.DeletedAt == null && ids.Contains(x.Id))
-                .OrderBy(x => x.Time)
-                .ToDictionary(key => key.Id));
+        Task<Dictionary<Guid, TimeTable>> ITimeTableReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => reader.Read<TimeTable>()
+                .ByIds(ids)
+                .ToDictionaryAsync(x => x.Id, cancellationToken);
     }
 }

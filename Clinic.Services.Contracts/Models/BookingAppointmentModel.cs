@@ -1,4 +1,6 @@
 ﻿
+using Clinic.Context.Contracts.Models;
+
 namespace Clinic.Services.Contracts.Models
 {
     /// <summary>
@@ -14,12 +16,12 @@ namespace Clinic.Services.Contracts.Models
         /// <summary>
         /// ID клиента
         /// </summary>
-        public Guid? Patient { get; set; }
+        public PatientModel? Patient { get; set; }
 
         /// <summary>
         /// ID время приема пациента 
         /// </summary>
-        public Guid? TimeTable { get; set; }
+        public TimeTableModel? TimeTable { get; set; }
 
         /// <summary>
         /// Жалоба пациента

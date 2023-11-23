@@ -1,4 +1,7 @@
 using Clinic.API.Infrastructures;
+using Clinic.Context;
+using Microsoft.EntityFrameworkCore;
+using Clinic.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddDbContextFactory<ClinicContext>(options
+    => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
+
 builder.Services.AddDependences();
 builder.Services.AddMapper();
 builder.Services.GetSwaggerDocument();

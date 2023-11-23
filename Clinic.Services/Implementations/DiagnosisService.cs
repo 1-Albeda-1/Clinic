@@ -16,15 +16,16 @@ namespace Clinic.Services.Implementations
             this.diagnosisReadRepository = diagnosisReadRepository;
             this.mapper = mapper;
         }
-        async Task<IEnumerable<DiagnosisModel>> IDiagnosisService.GetAllAsync(System.Threading.CancellationToken cancellationToken)
+        async Task<IEnumerable<DiagnosisModel>> IDiagnosisService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await diagnosisReadRepository.GetAllAsync(cancellationToken);
-            return mapper.Map<IEnumerable<DiagnosisModel>>(result);
+            return result.Select(x => mapper.Map<DiagnosisModel>(x));
         }
 
-        async Task<DiagnosisModel?> IDiagnosisService.GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        async Task<DiagnosisModel?> IDiagnosisService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await diagnosisReadRepository.GetByIdAsync(id, cancellationToken);
+
             if (item == null)
             {
                 return null;

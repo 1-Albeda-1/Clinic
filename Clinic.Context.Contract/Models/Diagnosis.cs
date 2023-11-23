@@ -1,6 +1,4 @@
-﻿
-
-namespace Clinic.Context.Contracts.Models
+﻿namespace Clinic.Context.Contracts.Models
 {
     //// <summary>
     /// Диагноз
@@ -15,5 +13,7 @@ namespace Clinic.Context.Contracts.Models
         /// Лекарство
         /// </summary>
         public string Medicament { get; set; } = string.Empty;
+
+        public ICollection<Patient> Patients { get; set; }
     }
 }

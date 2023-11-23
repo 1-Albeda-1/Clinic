@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.API", "Clinic.API\Clinic.API.csproj", "{AFCBEDDD-728F-4E5F-B1C3-8FD45D479818}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.API", "Clinic.API\Clinic.API.csproj", "{AFCBEDDD-728F-4E5F-B1C3-8FD45D479818}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.API.Tests", "Clinic.API.Tests\Clinic.API.Tests.csproj", "{5E915ED1-F2F6-4C77-BD43-AA6D1DFAD639}"
 EndProject
@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Services", "Clinic.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Services.Contracts", "Clinic.Services.Contracts\Clinic.Services.Contracts.csproj", "{C0DE6FA6-824C-4547-8419-4BC3BB97C159}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Services.Tests", "Clinic.Services.Tests\Clinic.Services.Tests.csproj", "{2CBA2E07-7475-496C-8682-F0C051E1EFB2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Common", "Clinic.Common\Clinic.Common.csproj", "{6275B008-B54D-4E58-A4C8-6AD73FB31F67}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Context.Contracts.Configuration", "Clinic.Context.Contracts.Configuration\Clinic.Context.Contracts.Configuration.csproj", "{51C93A20-E7A8-4ED2-8F65-4BEA0AFA9594}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,14 +73,14 @@ Global
 		{C0DE6FA6-824C-4547-8419-4BC3BB97C159}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0DE6FA6-824C-4547-8419-4BC3BB97C159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0DE6FA6-824C-4547-8419-4BC3BB97C159}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CBA2E07-7475-496C-8682-F0C051E1EFB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CBA2E07-7475-496C-8682-F0C051E1EFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CBA2E07-7475-496C-8682-F0C051E1EFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CBA2E07-7475-496C-8682-F0C051E1EFB2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6275B008-B54D-4E58-A4C8-6AD73FB31F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6275B008-B54D-4E58-A4C8-6AD73FB31F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6275B008-B54D-4E58-A4C8-6AD73FB31F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6275B008-B54D-4E58-A4C8-6AD73FB31F67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51C93A20-E7A8-4ED2-8F65-4BEA0AFA9594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51C93A20-E7A8-4ED2-8F65-4BEA0AFA9594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51C93A20-E7A8-4ED2-8F65-4BEA0AFA9594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51C93A20-E7A8-4ED2-8F65-4BEA0AFA9594}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

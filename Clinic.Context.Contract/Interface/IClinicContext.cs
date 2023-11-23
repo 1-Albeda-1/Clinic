@@ -1,25 +1,28 @@
 ﻿using Clinic.Context.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Net.Sockets;
-using System.Reflection.PortableExecutable;
-using System.Xml;
 
 namespace Clinic.Context.Contracts.Interface
 {
     public interface IClinicContext
     {
-        IEnumerable<MedClinic> MedClinic { get; }
+        /// <summary>Список <inheritdoc cref="MedClinic"/></summary>
+        DbSet<MedClinic> MedClinics { get; }
 
-        IEnumerable<Doctor> Doctor { get; }
+        /// <summary>Список <inheritdoc cref="Doctor"/></summary>
+        DbSet<Doctor> Doctors { get; }
 
-        IEnumerable<Diagnosis> Diagnosis { get; }
+        /// <summary>Список <inheritdoc cref="Diagnosis"/></summary>
+        DbSet<Diagnosis> Diagnosises { get; }
 
-        IEnumerable<TimeTable> TimeTable { get; }
+        /// <summary>Список <inheritdoc cref="TimeTable"/></summary>
+        DbSet<TimeTable> TimeTables { get; }
 
-        IEnumerable<Patient> Patient { get; }
+        /// <summary>Список <inheritdoc cref="Patient"/></summary>
+        DbSet<Patient> Patients { get; }
 
-        IEnumerable<BookingAppointment> BookingAppointment { get; }
+        /// <summary>Список <inheritdoc cref="BookingAppointment"/></summary>
+        DbSet<BookingAppointment> BookingAppointments { get; }
+       
 
     }
 }
