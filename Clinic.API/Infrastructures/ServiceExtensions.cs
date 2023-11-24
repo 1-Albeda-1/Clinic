@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using Clinic.API.Extensions;
+using Clinic.Common.Interface;
+using Clinic.Common;
 using Clinic.Context;
 using Clinic.Repositories;
 using Clinic.Services;
 using Clinic.Services.Automappers;
 using Microsoft.OpenApi.Models;
+using Clinic.API.AutoMappers;
 
 namespace Clinic.API.Infrastructures
 {
@@ -11,13 +15,15 @@ namespace Clinic.API.Infrastructures
     {
         public static void AddDependences(this IServiceCollection service)
         {
+            service.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            service.AddTransient<IWriterContext, WriterContext>();
             service.RegistrationContext();
             service.RegistrationRepository();
             service.RegistrationService();
         }
         public static void AddMapper(this IServiceCollection service)
         {
-            service.AddAutoMapper(typeof(ServiceProfile));
+            service.AddAutoMapper(typeof(APIMappers), typeof(ServiceProfile));
         }
      
         public static void GetSwaggerDocument(this IServiceCollection services)
