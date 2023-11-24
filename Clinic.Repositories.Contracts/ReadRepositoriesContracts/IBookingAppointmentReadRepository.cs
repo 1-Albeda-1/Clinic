@@ -1,6 +1,7 @@
 ﻿using Clinic.Context.Contracts.Models;
+using System.Net.Sockets;
 
-namespace Clinic.Repositories.Contracts.Interface
+namespace Clinic.Repositories.Contracts.ReadRepositoriesContracts
 {
     /// <summary>
     /// Репозиторий чтения <see cref="BookingAppointment"/>

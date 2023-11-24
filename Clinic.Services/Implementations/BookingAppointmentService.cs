@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Clinic.Repositories.Contracts;
-using Clinic.Repositories.Contracts.Interface;
+using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Clinic.Services.Anchors;
 using Clinic.Services.Contracts.Exceptions;
 using Clinic.Services.Contracts.Interface;

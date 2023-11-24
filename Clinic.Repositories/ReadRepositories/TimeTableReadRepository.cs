@@ -1,13 +1,14 @@
 ﻿using Clinic.Common.Interface;
 using Clinic.Common.Repositories;
 using Clinic.Context.Contracts.Models;
-using Clinic.Repositories.Contracts.Interface;
+using Clinic.Repositories.Anchors;
+using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 
-namespace Clinic.Repositories.Implementations
+namespace Clinic.Repositories.ReadRepositories
 {
-    public class TimeTableReadRepository : ITimeTableReadRepository, IReadRepositoryAnchor
+    public class TimeTableReadRepository : ITimeTableReadRepository, IRepositoryAnchor
     {
         private readonly IRead reader;
 

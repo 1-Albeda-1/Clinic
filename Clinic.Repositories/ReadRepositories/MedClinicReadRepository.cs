@@ -1,12 +1,13 @@
 ﻿using Clinic.Common.Interface;
 using Clinic.Common.Repositories;
 using Clinic.Context.Contracts.Models;
-using Clinic.Repositories.Contracts.Interface;
+using Clinic.Repositories.Anchors;
+using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.Repositories.Implementations
+namespace Clinic.Repositories.ReadRepositories
 {
-    public class MedClinicReadRepository : IMedClinicReadRepository, IReadRepositoryAnchor
+    public class MedClinicReadRepository : IMedClinicReadRepository, IRepositoryAnchor
     {
         private readonly IRead reader;
 
