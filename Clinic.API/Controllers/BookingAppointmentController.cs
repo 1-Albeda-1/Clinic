@@ -55,30 +55,28 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(BookingAppointmentResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Add(CreateBookingAppointmentRequest model, CancellationToken cancellationToken)
         {
-            //var result = await bookingAppointmentService.AddAsync(model.TimeTable, model.Patient, model.Сomplaint, cancellationToken);
-            //return Ok(mapper.Map<BookingAppointmentResponse>(result));
-            return Ok();
+            var result = await bookingAppointmentService.AddAsync(model.TimeTable, model.Patient, model.Сomplaint, cancellationToken);
+            return Ok(mapper.Map<BookingAppointmentResponse>(result));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(BookingAppointmentResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Edit(BookingAppointmentRequest request, CancellationToken cancellationToken)
         {
-            //var model = mapper.Map<BookingAppointmentModel>(request);
+            var model = mapper.Map<BookingAppointmentModel>(request);
 
-            //model.TimeTable = await timeTableService.GetByIdAsync(request.TimeTable, cancellationToken);
-            //model.Patient = await patientService.GetByIdAsync(request.Patient, cancellationToken);
+            model.TimeTable = await timeTableService.GetByIdAsync(request.TimeTable, cancellationToken);
+            model.Patient = await patientService.GetByIdAsync(request.Patient, cancellationToken);
 
-            //var result = await bookingAppointmentService.EditAsync(model, cancellationToken);
-            //return Ok(mapper.Map<BookingAppointmentResponse>(result));
-            return Ok();
+            var result = await bookingAppointmentService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<BookingAppointmentResponse>(result));
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            //await bookingAppointmentService.DeleteAsync(id, cancellationToken);
+            await bookingAppointmentService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }

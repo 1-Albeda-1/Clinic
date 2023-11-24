@@ -18,5 +18,21 @@ namespace Clinic.Services.Contracts.Interface
         /// Получить <see cref="DoctorModel"/> по идентификатору
         /// </summary>
         Task<DoctorModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Добавляет новый билет
+        /// </summary>
+        Task<DoctorModel> AddAsync(string surname, string name, string patronymic, int categoriesType,
+            int departmentType, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Редактирует существующий билет
+        /// </summary>
+        Task<DoctorModel> EditAsync(DoctorModel source, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Удаляет существующий билет
+        /// </summary>
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

@@ -22,11 +22,11 @@ namespace Clinic.API.Models.CreateRequest
         /// <summary>
         /// Категория врача
         /// </summary>
-        public CategoriesTypesResponse CategoriesType { get; set; }
+        public int CategoriesType { get; set; }
 
         /// <summary>
         /// Отделение
         /// </summary>
-        public DepartmentTypesResponse DepartmentType { get; set; }
+        public int DepartmentType { get; set; }
     }
 }

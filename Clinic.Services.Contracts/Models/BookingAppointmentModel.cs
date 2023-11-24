@@ -26,6 +26,6 @@ namespace Clinic.Services.Contracts.Models
         /// <summary>
         /// Жалоба пациента
         /// </summary>
-        public string Сomplaint { get; set; } = string.Empty;
+        public string? Сomplaint { get; set; } = string.Empty;
     }
 }

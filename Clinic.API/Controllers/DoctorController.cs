@@ -50,26 +50,24 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(DoctorResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Add(CreateDoctorRequest model, CancellationToken cancellationToken)
         {
-            //var result = await doctorService.AddAsync(model.Surname, model.Name, model.Patronymic, model.CategoriesType, model.DepartmentType, cancellationToken);
-            //return Ok(mapper.Map<DoctorResponse>(result));
-            return Ok();
+            var result = await doctorService.AddAsync(model.Surname, model.Name, model.Patronymic, model.CategoriesType, model.DepartmentType, cancellationToken);
+            return Ok(mapper.Map<DoctorResponse>(result));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(DoctorResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Edit(DoctorRequest request, CancellationToken cancellationToken)
         {
-            //var model = mapper.Map<DoctorModel>(request);
-            //var result = await doctorService.EditAsync(model, cancellationToken);
-            //return Ok(mapper.Map<DoctorResponse>(result));
-            return Ok();
+            var model = mapper.Map<DoctorModel>(request);
+            var result = await doctorService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<DoctorResponse>(result));
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            //await doctorService.DeleteAsync(id, cancellationToken);
+            await doctorService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }

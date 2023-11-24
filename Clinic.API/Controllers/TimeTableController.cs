@@ -53,29 +53,27 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Add(CreateTimeTableRequest model, CancellationToken cancellationToken)
         {
-            //var result = await timeTableService.AddAsync(model.Time, model.Office, model.Doctor, cancellationToken);
-            //return Ok(mapper.Map<TimeTableResponse>(result));
-            return Ok();
+            var result = await timeTableService.AddAsync(model.Time, model.Office, model.Doctor, cancellationToken);
+            return Ok(mapper.Map<TimeTableResponse>(result));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Edit(TimeTableRequest request, CancellationToken cancellationToken)
         {
-            //var model = mapper.Map<TimeTableModel>(request);
+            var model = mapper.Map<TimeTableModel>(request);
 
-            //model.Doctor = await doctorService.GetByIdAsync(request.Doctor, cancellationToken);
+            model.Doctor = await doctorService.GetByIdAsync(request.Doctor, cancellationToken);
 
-            //var result = await timeTableService.EditAsync(model, cancellationToken);
-            //return Ok(mapper.Map<TimeTableResponse>(result));
-            return Ok();
+            var result = await timeTableService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<TimeTableResponse>(result));
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            //await timeTableService.DeleteAsync(id, cancellationToken);
+            await timeTableService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }

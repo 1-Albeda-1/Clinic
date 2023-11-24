@@ -13,5 +13,20 @@ namespace Clinic.Services.Contracts.Interface
         /// Получить <see cref="TimeTableModel"/> по идентификатору
         /// </summary>
         Task<TimeTableModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Добавляет нового клиента
+        /// </summary>
+        Task<TimeTableModel> AddAsync(DateTimeOffset time, int office, Guid doctor, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Редактирует существующего клиента
+        /// </summary>
+        Task<TimeTableModel> EditAsync(TimeTableModel source, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Удаляет существующего клиента
+        /// </summary>
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

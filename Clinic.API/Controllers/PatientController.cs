@@ -56,32 +56,30 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(PatientResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Add(CreatePatientRequest model, CancellationToken cancellationToken)
         {
-            //var result = await patientService.AddAsync(model.Surname, model.Name, model.Patronymic, model.Phone,
-            //    model.Policy, model.Birthday, model.MedClinic, model.Diagnosis, cancellationToken);
-            //return Ok(mapper.Map<PatientResponse>(result));
-            return Ok();
+            var result = await patientService.AddAsync(model.Surname, model.Name, model.Patronymic, model.Phone,
+                model.Policy, model.Birthday, model.MedClinic, model.Diagnosis, cancellationToken);
+            return Ok(mapper.Map<PatientResponse>(result));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(PatientResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Edit(PatientRequest request, CancellationToken cancellationToken)
         {
-            //var model = mapper.Map<PatientModel>(request);
+            var model = mapper.Map<PatientModel>(request);
 
-            //model.Diagnosis = await diagnosisService.GetByIdAsync(request.Diagnosis, cancellationToken);
-            //model.MedClinic = request.MedClinic.HasValue ? await medClinicService.GetByIdAsync(request.MedClinic.Value, cancellationToken)
-            //    : null;
+            model.Diagnosis = await diagnosisService.GetByIdAsync(request.Diagnosis, cancellationToken);
+            model.MedClinic = request.MedClinic.HasValue ? await medClinicService.GetByIdAsync(request.MedClinic.Value, cancellationToken)
+                : null;
 
-            //var result = await patientService.EditAsync(model, cancellationToken);
-            //return Ok(mapper.Map<PatientResponse>(result));
-            return Ok();
+            var result = await patientService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<PatientResponse>(result));
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            //await patientService.DeleteAsync(id, cancellationToken);
+            await patientService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }

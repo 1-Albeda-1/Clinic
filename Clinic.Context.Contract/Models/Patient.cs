@@ -28,7 +28,7 @@
         /// <summary>
         /// Полис
         /// </summary>
-        public string Policy { get; set; } = string.Empty;
+        public long Policy { get; set; }
 
         /// <summary>
         /// Дата рождения

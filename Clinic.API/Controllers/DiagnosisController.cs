@@ -49,26 +49,24 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(DiagnosisResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Add(CreateDiagnosisRequest model, CancellationToken cancellationToken)
         {
-            //var result = await diagnosisService.AddAsync(model.Name, model.Medicament, cancellationToken);
-            //return Ok(mapper.Map<DiagnosisResponse>(result));
-            return Ok();
+            var result = await diagnosisService.AddAsync(model.Name, model.Medicament, cancellationToken);
+            return Ok(mapper.Map<DiagnosisResponse>(result));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(DiagnosisResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Edit(DiagnosisRequest request, CancellationToken cancellationToken)
         {
-            //var model = mapper.Map<DiagnosisModel>(request);
-            //var result = await diagnosisService.EditAsync(model, cancellationToken);
-            //return Ok(mapper.Map<DiagnosisResponse>(result));
-            return Ok();
+            var model = mapper.Map<DiagnosisModel>(request);
+            var result = await diagnosisService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<DiagnosisResponse>(result));
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            //await diagnosisService.DeleteAsync(id, cancellationToken);
+            await diagnosisService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }
