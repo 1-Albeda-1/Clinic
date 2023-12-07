@@ -17,7 +17,7 @@ namespace Clinic.Services.Contracts.Interface
         /// <summary>
         /// Добавляет новый кинотетар
         /// </summary>
-        Task<DiagnosisModel> AddAsync(string name, string medicament, CancellationToken cancellationToken);
+        Task<DiagnosisModel> AddAsync(DiagnosisModel model, CancellationToken cancellationToken);
 
         /// <summary>
         /// Редактирует существующий кинотеатр

@@ -21,6 +21,7 @@ namespace Clinic.API.Infrastructures
             service.RegistrationRepository();
             service.RegistrationService();
         }
+
         public static void AddMapper(this IServiceCollection service)
         {
             service.AddAutoMapper(typeof(APIMappers), typeof(ServiceProfile));

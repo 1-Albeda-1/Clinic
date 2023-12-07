@@ -49,7 +49,9 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(DiagnosisResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Add(CreateDiagnosisRequest model, CancellationToken cancellationToken)
         {
-            var result = await diagnosisService.AddAsync(model.Name, model.Medicament, cancellationToken);
+            var diagnosisModel = mapper.Map<DiagnosisModel>(model);
+
+            var result = await diagnosisService.AddAsync(diagnosisModel, cancellationToken);
             return Ok(mapper.Map<DiagnosisResponse>(result));
         }
 

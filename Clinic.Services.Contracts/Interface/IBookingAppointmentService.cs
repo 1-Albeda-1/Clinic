@@ -1,4 +1,5 @@
 ﻿using Clinic.Services.Contracts.Models;
+using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Contracts.Interface
 {
@@ -17,12 +18,12 @@ namespace Clinic.Services.Contracts.Interface
         /// <summary>
         /// Добавляет новый кинотетар
         /// </summary>
-        Task<BookingAppointmentModel> AddAsync(Guid patient, Guid timeTable, string? complaint, CancellationToken cancellationToken);
+        Task<BookingAppointmentModel> AddAsync(BookingAppointmentRequestModel model, CancellationToken cancellationToken);
 
         /// <summary>
         /// Редактирует существующий кинотеатр
         /// </summary>
-        Task<BookingAppointmentModel> EditAsync(BookingAppointmentModel source, CancellationToken cancellationToken);
+        Task<BookingAppointmentModel> EditAsync(BookingAppointmentRequestModel source, CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаляет существующий кинотетар

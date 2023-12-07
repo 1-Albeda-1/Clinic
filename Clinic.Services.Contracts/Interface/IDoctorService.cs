@@ -22,8 +22,7 @@ namespace Clinic.Services.Contracts.Interface
         /// <summary>
         /// Добавляет новый билет
         /// </summary>
-        Task<DoctorModel> AddAsync(string surname, string name, string patronymic, int categoriesType,
-            int departmentType, CancellationToken cancellationToken);
+        Task<DoctorModel> AddAsync(DoctorModel model, CancellationToken cancellationToken);
 
         /// <summary>
         /// Редактирует существующий билет

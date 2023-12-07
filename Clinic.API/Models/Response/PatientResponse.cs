@@ -38,16 +38,16 @@
         /// <summary>
         /// Дата рождения
         /// </summary>
-        public DateTime Birthday { get; set; }
+        public DateTimeOffset Birthday { get; set; }
 
         /// <summary>
         /// ID поликлиники
         /// </summary>
-        public Guid? MedClinic { get; set; }
+        public MedClinicResponse? MedClinic { get; set; }
 
         /// <summary>
         /// ID диагноза
         /// </summary>
-        public Guid? Diagnosis { get; set; }
+        public DiagnosisResponse? Diagnosis { get; set; }
     }
 }

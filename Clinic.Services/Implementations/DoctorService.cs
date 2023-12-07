@@ -26,19 +26,9 @@ namespace Clinic.Services.Implementations
             this.doctorWriteRepository = doctorWriteRepository;
             this.unitOfWork = unitOfWork;
         }
-        async Task<DoctorModel> IDoctorService.AddAsync(string surname, string name, string patronymic, int categoriesType,
-            int departmentType, CancellationToken cancellationToken)
+        async Task<DoctorModel> IDoctorService.AddAsync(DoctorModel model, CancellationToken cancellationToken)
         {
-            var item = new Doctor
-            {
-                Id = Guid.NewGuid(),
-                Surname = surname,
-                Name = name,
-                Patronymic = patronymic,
-                CategoriesType = (CategoriesTypes)categoriesType,
-                DepartmentType = (DepartmentTypes)departmentType
-            };
-
+            var item = mapper.Map<Doctor>(model);
             doctorWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<DoctorModel>(item);

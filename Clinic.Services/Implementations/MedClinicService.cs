@@ -25,15 +25,9 @@ namespace Clinic.Services.Implementations
             this.medClinicWriteRepository = medClinicWriteRepository;
             this.unitOfWork = unitOfWork;
         }
-        async Task<MedClinicModel> IMedClinicService.AddAsync(string address, string name, CancellationToken cancellationToken)
+        async Task<MedClinicModel> IMedClinicService.AddAsync(MedClinicModel model, CancellationToken cancellationToken)
         {
-            var item = new MedClinic
-            {
-                Id = Guid.NewGuid(),
-                Address = address,
-                Name = name,
-            };
-
+            var item = mapper.Map<MedClinic>(model);
             medClinicWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<MedClinicModel>(item);

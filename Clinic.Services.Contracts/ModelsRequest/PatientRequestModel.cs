@@ -1,7 +1,19 @@
-﻿namespace Clinic.API.Models.CreateRequest
+﻿using Clinic.Services.Contracts.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Clinic.Services.Contracts.ModelsRequest
 {
-    public class CreatePatientRequest
+    public class PatientRequestModel
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Фамилия
         /// </summary>

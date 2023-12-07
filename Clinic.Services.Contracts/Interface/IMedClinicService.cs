@@ -17,7 +17,7 @@ namespace Clinic.Services.Contracts.Interface
         /// <summary>
         /// Добавляет нового клиента
         /// </summary>
-        Task<MedClinicModel> AddAsync(string address, string name, CancellationToken cancellationToken);
+        Task<MedClinicModel> AddAsync(MedClinicModel model, CancellationToken cancellationToken);
 
         /// <summary>
         /// Редактирует существующего клиента

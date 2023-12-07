@@ -10,6 +10,7 @@ using Clinc.Services.Contracts.Exceptions;
 using Clinic.Services.Contracts.Exceptions;
 using System.IO;
 using System.Net.Sockets;
+using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Implementations
 {
@@ -29,22 +30,18 @@ namespace Clinic.Services.Implementations
             this.timeTableWriteRepository = timeTableWriteRepository;
             this.unitOfWork = unitOfWork;
         }
-        async Task<TimeTableModel> ITimeTableService.AddAsync(DateTimeOffset time, int office, Guid doctor, CancellationToken cancellationToken)
+        async Task<TimeTableModel> ITimeTableService.AddAsync(TimeTableRequestModel model, CancellationToken cancellationToken)
         {
-            var item = new TimeTable
-            {
-                Time = time,
-                Office = office,
-                DoctorId = doctor
-            };
+            var timeTable = mapper.Map<TimeTable>(model);
+            timeTable.Time = model.Time;
+            timeTable.Office = model.Office;
+            timeTable.Doctor = await doctorReadRepository.GetByIdAsync(timeTable.DoctorId, cancellationToken);
 
-            timeTableWriteRepository.Add(item);
+            timeTableWriteRepository.Add(timeTable);
             await unitOfWork.SaveChangesAsync(cancellationToken);
-            var timeTableModel = mapper.Map<TimeTableModel>(item);
 
-            var doctors = await doctorReadRepository.GetByIdAsync(item.DoctorId, cancellationToken);
-
-            timeTableModel.Doctor = mapper.Map<DoctorModel>(doctors);
+            var timeTableModel = mapper.Map<TimeTableModel>(timeTable);
+            timeTableModel.Doctor = mapper.Map<DoctorModel>(timeTable.Doctor);
 
             return timeTableModel;
         }
@@ -67,29 +64,25 @@ namespace Clinic.Services.Implementations
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
-        async Task<TimeTableModel> ITimeTableService.EditAsync(TimeTableModel source, CancellationToken cancellationToken)
+        async Task<TimeTableModel> ITimeTableService.EditAsync(TimeTableRequestModel model, CancellationToken cancellationToken)
         {
-            var targetTimeTable = await timeTableReadRepository.GetByIdAsync(source.Id, cancellationToken);
+            var timeTable = await timeTableReadRepository.GetByIdAsync(model.Id, cancellationToken);
 
-            if (targetTimeTable == null)
+            if (timeTable == null)
             {
-                throw new TimeTableEntityNotFoundException<TimeTable>(source.Id);
+                throw new TimeTableEntityNotFoundException<TimeTable>(model.Id);
             }
 
 
-            targetTimeTable.Time = source.Time;
-            targetTimeTable.Office = source.Office;
-            targetTimeTable.DoctorId = source.Doctor!.Id;
+            timeTable.Time = model.Time;
+            timeTable.Office = model.Office;
+            timeTable.Doctor = await doctorReadRepository.GetByIdAsync(timeTable.DoctorId, cancellationToken);
 
-            timeTableWriteRepository.Update(targetTimeTable);
-
+            timeTableWriteRepository.Update(timeTable);
             await unitOfWork.SaveChangesAsync(cancellationToken);
-            var timeTableModel = mapper.Map<TimeTableModel>(targetTimeTable);
 
-
-            var doctor = await doctorReadRepository.GetByIdAsync(targetTimeTable.DoctorId, cancellationToken);
-
-            timeTableModel.Doctor = mapper.Map<DoctorModel>(doctor);
+            var timeTableModel = mapper.Map<TimeTableModel>(timeTable);
+            timeTableModel.Doctor = mapper.Map<DoctorModel>(timeTable.Doctor);
 
 
             return timeTableModel;

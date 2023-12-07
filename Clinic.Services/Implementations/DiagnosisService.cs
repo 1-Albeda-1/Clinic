@@ -26,15 +26,9 @@ namespace Clinic.Services.Implementations
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
         }
-        async Task<DiagnosisModel> IDiagnosisService.AddAsync(string name, string medicament, CancellationToken cancellationToken)
+        async Task<DiagnosisModel> IDiagnosisService.AddAsync(DiagnosisModel model, CancellationToken cancellationToken)
         {
-            var item = new Diagnosis
-            {
-                Id = Guid.NewGuid(),
-                Name = name,
-                Medicament = medicament,
-            };
-
+            var item = mapper.Map<Diagnosis>(model);
             diagnosisWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<DiagnosisModel>(item);
