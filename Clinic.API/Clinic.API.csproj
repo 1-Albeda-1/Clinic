@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +23,11 @@
     <ProjectReference Include="..\Clinic.Context\Clinic.Context.csproj" />
     <ProjectReference Include="..\Clinic.Repositories\Clinic.Repositories.csproj" />
     <ProjectReference Include="..\Clinic.Services\Clinic.Services.csproj" />
+    <ProjectReference Include="..\Clinic.Shared\Clinic.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Validators\" />
   </ItemGroup>
 
 </Project>
