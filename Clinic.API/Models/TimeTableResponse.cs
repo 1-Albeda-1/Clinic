@@ -15,7 +15,7 @@ namespace Clinic.API.Models
         /// <summary>
         /// Время приема
         /// </summary>
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         /// <summary>
         /// Кабинет

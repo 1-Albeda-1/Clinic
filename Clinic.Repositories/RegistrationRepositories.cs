@@ -1,4 +1,5 @@
 ﻿using Clinic.General;
+using Clinic.Repositories.Anchors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Clinic.Repositories
@@ -7,7 +8,7 @@ namespace Clinic.Repositories
     {
         public static void RegistrationRepository(this IServiceCollection service)
         {
-            service.RegistrationOnInterface<IReadRepositoryAnchor>(ServiceLifetime.Scoped);
+            service.RegistrationOnInterface<IRepositoryAnchor>(ServiceLifetime.Scoped);
         }
     }
 }

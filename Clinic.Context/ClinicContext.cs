@@ -8,6 +8,16 @@ namespace Clinic.Context
 {
     public class ClinicContext : DbContext, IClinicContext, IRead, IWriter, IUnitOfWork
     {
+        /// <summary>
+        /// Контекст работы с БД
+        /// </summary>
+        /// <remarks>
+        /// 1) dotnet tool install --global dotnet-ef
+        /// 2) dotnet tool update --global dotnet-ef
+        /// 3) dotnet ef migrations add [name] --project Clinic.Context\Clinic.Context.csproj
+        /// 4) dotnet ef database update --project Clinic.Context\Clinic.Context.csproj
+        /// 5) dotnet ef database update [targetMigrationName] --Clinic.Context\Clinic.Context.csproj
+        /// </remarks>
         public DbSet<MedClinic> MedClinics { get; set; }
 
         public DbSet<Doctor> Doctors { get; set; }

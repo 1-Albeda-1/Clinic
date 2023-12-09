@@ -1,12 +1,13 @@
 ﻿using Clinic.Common.Interface;
 using Clinic.Common.Repositories;
 using Clinic.Context.Contracts.Models;
-using Clinic.Repositories.Contracts.Interface;
+using Clinic.Repositories.Anchors;
+using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.Repositories.Implementations
+namespace Clinic.Repositories.ReadRepositories
 {
-    public class BookingAppointmentReadRepository : IBookingAppointmentReadRepository, IReadRepositoryAnchor
+    public class BookingAppointmentReadRepository : IBookingAppointmentReadRepository, IRepositoryAnchor
     {
         private readonly IRead reader;
 

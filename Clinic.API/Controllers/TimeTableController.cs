@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
 using Clinic.API.Models.Response;
 using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Contracts.Models;
+using Clinic.Services.Contracts.ModelsRequest;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.API.Controllers
@@ -51,31 +53,27 @@ namespace Clinic.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Add(CreateTimeTableRequest model, CancellationToken cancellationToken)
+        public async Task<IActionResult> Add(CreateTimeTableRequest request, CancellationToken cancellationToken)
         {
-            //var result = await timeTableService.AddAsync(model.Time, model.Office, model.Doctor, cancellationToken);
-            //return Ok(mapper.Map<TimeTableResponse>(result));
-            return Ok();
+            var model = mapper.Map<TimeTableRequestModel>(request);
+            var result = await timeTableService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<TimeTableResponse>(result));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Edit(TimeTableRequest request, CancellationToken cancellationToken)
         {
-            //var model = mapper.Map<TimeTableModel>(request);
-
-            //model.Doctor = await doctorService.GetByIdAsync(request.Doctor, cancellationToken);
-
-            //var result = await timeTableService.EditAsync(model, cancellationToken);
-            //return Ok(mapper.Map<TimeTableResponse>(result));
-            return Ok();
+            var model = mapper.Map<TimeTableRequestModel>(request);
+            var result = await timeTableService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<TimeTableResponse>(result));
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            //await timeTableService.DeleteAsync(id, cancellationToken);
+            await timeTableService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }

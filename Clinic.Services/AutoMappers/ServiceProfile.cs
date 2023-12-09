@@ -19,10 +19,6 @@ namespace Clinic.Services.Automappers
                 .ConvertUsingEnumMapping(opt => opt.MapByName())
                 .ReverseMap();
 
-            CreateMap<BookingAppointment, BookingAppointmentModel>(MemberList.Destination)
-                .ForMember(x => x.Patient, opt => opt.Ignore())
-                .ForMember(x => x.TimeTable, opt => opt.Ignore());
-
             CreateMap<Diagnosis, DiagnosisModel>(MemberList.Destination);
             CreateMap<Doctor, DoctorModel>(MemberList.Destination);
             CreateMap<MedClinic, MedClinicModel>(MemberList.Destination);
@@ -33,6 +29,10 @@ namespace Clinic.Services.Automappers
 
             CreateMap<TimeTable, TimeTableModel>(MemberList.Destination)
                 .ForMember(x => x.Doctor, opt => opt.Ignore());
+
+            CreateMap<BookingAppointment, BookingAppointmentModel>(MemberList.Destination)
+               .ForMember(x => x.Patient, opt => opt.Ignore())
+               .ForMember(x => x.TimeTable, opt => opt.Ignore());
         }
     }
 }

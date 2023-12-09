@@ -1,9 +1,13 @@
-﻿namespace Clinic.API.Models.Response
+﻿using Clinic.Services.Contracts.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Clinic.Services.Contracts.ModelsRequest
 {
-    /// <summary>
-    /// Рассписание 
-    /// </summary>
-    public class TimeTableResponse
+    public class TimeTableRequestModel
     {
         /// <summary>
         /// Идентификатор
@@ -21,8 +25,8 @@
         public int Office { get; set; }
 
         /// <summary>
-        /// ID Врача
+        /// ID врача
         /// </summary>
-        public DoctorResponse? Doctor { get; set; }
+        public Guid Doctor { get; set; }
     }
 }

@@ -1,12 +1,13 @@
-﻿
-using Clinic.Context.Contracts.Models;
+﻿using Clinic.Services.Contracts.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Clinic.Services.Contracts.Models
+namespace Clinic.Services.Contracts.ModelsRequest
 {
-    /// <summary>
-    /// Модель записи на приём
-    /// </summary>
-    public class BookingAppointmentModel
+    public class BookingAppointmentRequestModel
     {
         /// <summary>
         /// Идентификатор
@@ -16,12 +17,12 @@ namespace Clinic.Services.Contracts.Models
         /// <summary>
         /// ID клиента
         /// </summary>
-        public PatientModel? Patient { get; set; }
+        public Guid Patient { get; set; }
 
         /// <summary>
         /// ID время приема пациента 
         /// </summary>
-        public TimeTableModel? TimeTable { get; set; }
+        public Guid TimeTable { get; set; }
 
         /// <summary>
         /// Жалоба пациента

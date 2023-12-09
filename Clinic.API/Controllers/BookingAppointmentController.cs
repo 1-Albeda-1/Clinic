@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
 using Clinic.API.Models.Response;
-using Clinic.Repositories.Contracts.Interface;
 using Clinic.Services.Contracts;
 using Clinic.Services.Contracts.Interface;
+using Clinic.Services.Contracts.ModelsRequest;
 using Clinic.Services.Contracts.Models;
 using Clinic.Services.Implementations;
 using Microsoft.AspNetCore.Mvc;
@@ -20,15 +21,13 @@ namespace Clinic.API.Controllers
     public class BookingAppointmentController : ControllerBase
     {
         private readonly IBookingAppointmentService bookingAppointmentService;
-        private readonly IPatientService patientService;
-        private readonly ITimeTableService timeTableService;
         private readonly IMapper mapper;
-        public BookingAppointmentController(IBookingAppointmentService bookingAppointmentService, IMapper mapper, ITimeTableService timeTableService, IPatientService patientService)
+
+        public BookingAppointmentController(IBookingAppointmentService bookingAppointmentService, IMapper mapper)
         {
             this.bookingAppointmentService = bookingAppointmentService;
             this.mapper = mapper;
-            this.timeTableService = timeTableService;
-            this.patientService = patientService;
+
         }
 
         [HttpGet]
@@ -36,7 +35,8 @@ namespace Clinic.API.Controllers
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await bookingAppointmentService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => mapper.Map<BookingAppointmentResponse>(x)));
+            var result2 = result.Select(x => mapper.Map<BookingAppointmentResponse>(x));
+            return Ok(result2);
         }
 
         [HttpGet("{id:guid}")]
@@ -54,32 +54,27 @@ namespace Clinic.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(BookingAppointmentResponse), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Add(CreateBookingAppointmentRequest model, CancellationToken cancellationToken)
+        public async Task<IActionResult> Add(CreateBookingAppointmentRequest request, CancellationToken cancellationToken)
         {
-            //var result = await bookingAppointmentService.AddAsync(model.TimeTable, model.Patient, model.Сomplaint, cancellationToken);
-            //return Ok(mapper.Map<BookingAppointmentResponse>(result));
-            return Ok();
+            var model = mapper.Map<BookingAppointmentRequestModel>(request);
+            var result = await bookingAppointmentService.AddAsync(model, cancellationToken);
+            return Ok(mapper.Map<BookingAppointmentResponse>(result));
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(BookingAppointmentResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Edit(BookingAppointmentRequest request, CancellationToken cancellationToken)
         {
-            //var model = mapper.Map<BookingAppointmentModel>(request);
-
-            //model.TimeTable = await timeTableService.GetByIdAsync(request.TimeTable, cancellationToken);
-            //model.Patient = await patientService.GetByIdAsync(request.Patient, cancellationToken);
-
-            //var result = await bookingAppointmentService.EditAsync(model, cancellationToken);
-            //return Ok(mapper.Map<BookingAppointmentResponse>(result));
-            return Ok();
+            var model = mapper.Map<BookingAppointmentRequestModel>(request);
+            var result = await bookingAppointmentService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<BookingAppointmentResponse>(result));
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            //await bookingAppointmentService.DeleteAsync(id, cancellationToken);
+            await bookingAppointmentService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
     }

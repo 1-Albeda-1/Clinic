@@ -1,4 +1,5 @@
 ﻿using Clinic.Services.Contracts.Models;
+using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Contracts.Interface
 {
@@ -13,5 +14,20 @@ namespace Clinic.Services.Contracts.Interface
         /// Получить <see cref="TimeTableModel"/> по идентификатору
         /// </summary>
         Task<TimeTableModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Добавляет нового клиента
+        /// </summary>
+        Task<TimeTableModel> AddAsync(TimeTableRequestModel model, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Редактирует существующего клиента
+        /// </summary>
+        Task<TimeTableModel> EditAsync(TimeTableRequestModel source, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Удаляет существующего клиента
+        /// </summary>
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

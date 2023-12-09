@@ -1,6 +1,6 @@
 ﻿using Clinic.Context.Contracts.Models;
 
-namespace Clinic.Repositories.Contracts.Interface
+namespace Clinic.Repositories.Contracts.ReadRepositoriesContracts
 {
     /// <summary>
     /// Репозиторий чтения <see cref="Doctor"/>
