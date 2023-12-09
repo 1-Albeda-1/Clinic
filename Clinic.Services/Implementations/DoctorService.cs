@@ -39,13 +39,13 @@ namespace Clinic.Services.Implementations
             var targetDoctor = await doctorReadRepository.GetByIdAsync(id, cancellationToken);
             if (targetDoctor == null)
             {
-                throw new TimeTableEntityNotFoundException<Doctor>(id);
+                throw new ClinicEntityNotFoundException<Doctor>(id);
             }
 
 
             if (targetDoctor.DeletedAt.HasValue)
             {
-                throw new TimeTableInvalidOperationException($"Врач с идентификатором {id} уже удален");
+                throw new ClinicInvalidOperationException($"Врач с идентификатором {id} уже удален");
             }
 
             doctorWriteRepository.Delete(targetDoctor);
@@ -57,7 +57,7 @@ namespace Clinic.Services.Implementations
             var targetDoctor = await doctorReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetDoctor == null)
             {
-                throw new TimeTableEntityNotFoundException<Doctor>(source.Id);
+                throw new ClinicEntityNotFoundException<Doctor>(source.Id);
             }
 
             targetDoctor.Surname = source.Surname;

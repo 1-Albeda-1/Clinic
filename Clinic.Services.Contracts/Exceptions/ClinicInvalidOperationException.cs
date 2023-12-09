@@ -2,13 +2,13 @@
 
 namespace Clinc.Services.Contracts.Exceptions
 {
-    public class TimeTableInvalidOperationException : TimeTableException
+    public class ClinicInvalidOperationException : ClinicException
     {
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="TimeTableInvalidOperationException"/>
+        /// Инициализирует новый экземпляр <see cref="ClinicInvalidOperationException"/>
         /// с указанием сообщения об ошибке
         /// </summary>
-        public TimeTableInvalidOperationException(string message)
+        public ClinicInvalidOperationException(string message)
             : base(message)
         {
 

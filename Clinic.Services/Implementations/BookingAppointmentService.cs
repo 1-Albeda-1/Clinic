@@ -56,12 +56,12 @@ namespace Clinic.Services.Implementations
 
             if (targetBookingAppointment == null)
             {
-                throw new TimeTableEntityNotFoundException<BookingAppointment>(id);
+                throw new ClinicEntityNotFoundException<BookingAppointment>(id);
             }
 
             if (targetBookingAppointment.DeletedAt.HasValue)
             {
-                throw new TimeTableInvalidOperationException($"Запись на прием с идентификатором {id} уже удалена");
+                throw new ClinicInvalidOperationException($"Запись на прием с идентификатором {id} уже удалена");
             }
 
             bookingAppointmentWriteRepository.Delete(targetBookingAppointment);
@@ -74,7 +74,7 @@ namespace Clinic.Services.Implementations
 
             if (bookingAppointment == null)
             {
-                throw new TimeTableEntityNotFoundException<BookingAppointment>(model.Id);
+                throw new ClinicEntityNotFoundException<BookingAppointment>(model.Id);
             }
 
             bookingAppointment.Patient = await patientReadRepository.GetByIdAsync(bookingAppointment.PatientId, cancellationToken);
