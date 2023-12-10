@@ -26,5 +26,8 @@ namespace Clinic.Repositories.ReadRepositories
             => reader.Read<BookingAppointment>()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
+
+        Task<bool> IBookingAppointmentReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<BookingAppointment>().AnyAsync(x => x.Id == id && !x.DeletedAt.HasValue, cancellationToken);
     }
 }

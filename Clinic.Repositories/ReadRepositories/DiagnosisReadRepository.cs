@@ -31,5 +31,8 @@ namespace Clinic.Repositories.ReadRepositories
             => reader.Read<Diagnosis>()
                 .ByIds(ids)
                 .ToDictionaryAsync(x => x.Id, cancellationToken);
+
+        Task<bool> IDiagnosisReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<Diagnosis>().AnyAsync(x => x.Id == id && !x.DeletedAt.HasValue, cancellationToken);
     }
 }

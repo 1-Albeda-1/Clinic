@@ -31,5 +31,8 @@ namespace Clinic.Repositories.ReadRepositories
             => reader.Read<TimeTable>()
                 .ByIds(ids)
                 .ToDictionaryAsync(x => x.Id, cancellationToken);
+
+        Task<bool> ITimeTableReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<TimeTable>().AnyAsync(x => x.Id == id && !x.DeletedAt.HasValue, cancellationToken);
     }
 }

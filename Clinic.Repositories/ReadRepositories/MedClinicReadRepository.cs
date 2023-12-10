@@ -4,6 +4,7 @@ using Clinic.Context.Contracts.Models;
 using Clinic.Repositories.Anchors;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Clinic.Repositories.ReadRepositories
 {
@@ -30,5 +31,8 @@ namespace Clinic.Repositories.ReadRepositories
             => reader.Read<MedClinic>()
                 .ByIds(ids)
                 .ToDictionaryAsync(x => x.Id, cancellationToken);
+
+        Task<bool> IMedClinicReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<MedClinic>().AnyAsync(x => x.Id == id && !x.DeletedAt.HasValue, cancellationToken);
     }
 }

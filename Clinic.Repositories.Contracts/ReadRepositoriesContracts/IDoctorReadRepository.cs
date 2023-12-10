@@ -21,5 +21,10 @@ namespace Clinic.Repositories.Contracts.ReadRepositoriesContracts
         /// Получить <see cref="Doctor"/> по идентификаторам
         /// </summary>
         Task<Dictionary<Guid, Doctor>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Проверить есть ли <see cref="Doctor"/> в коллеции
+        /// </summary>
+        Task<bool> IsNotNullAsync(Guid id, CancellationToken cancellationToken);
     }
 }
