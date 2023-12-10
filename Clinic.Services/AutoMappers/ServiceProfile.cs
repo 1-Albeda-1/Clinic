@@ -4,6 +4,7 @@ using Clinic.Context.Contracts.Enums;
 using Clinic.Context.Contracts.Models;
 using Clinic.Services.Contracts.Models;
 using Clinic.Services.Contracts.Enums;
+using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Automappers
 {
@@ -33,6 +34,34 @@ namespace Clinic.Services.Automappers
             CreateMap<BookingAppointment, BookingAppointmentModel>(MemberList.Destination)
                .ForMember(x => x.Patient, opt => opt.Ignore())
                .ForMember(x => x.TimeTable, opt => opt.Ignore());
+
+
+            CreateMap<PatientRequestModel, Patient>(MemberList.Destination)
+                .ForMember(x => x.MedClinic, opt => opt.Ignore())
+                .ForMember(x => x.Diagnosis, opt => opt.Ignore())
+                .ForMember(x => x.CreatedAt, opt => opt.Ignore())
+                .ForMember(x => x.DeletedAt, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.UpdatedAt, opt => opt.Ignore())
+                .ForMember(x => x.UpdatedBy, opt => opt.Ignore());
+
+            CreateMap<TimeTableRequestModel, TimeTable>(MemberList.Destination)
+                .ForMember(x => x.Doctor, opt => opt.Ignore())
+                .ForMember(x => x.CreatedAt, opt => opt.Ignore())
+                .ForMember(x => x.DeletedAt, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.UpdatedAt, opt => opt.Ignore())
+                .ForMember(x => x.UpdatedBy, opt => opt.Ignore());
+
+            CreateMap<BookingAppointmentRequestModel, BookingAppointment>(MemberList.Destination)
+               .ForMember(x => x.Patient, opt => opt.Ignore())
+               .ForMember(x => x.TimeTable, opt => opt.Ignore())
+               .ForMember(x => x.CreatedAt, opt => opt.Ignore())
+               .ForMember(x => x.DeletedAt, opt => opt.Ignore())
+               .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+               .ForMember(x => x.UpdatedAt, opt => opt.Ignore())
+               .ForMember(x => x.UpdatedBy, opt => opt.Ignore());
+
         }
     }
 }
