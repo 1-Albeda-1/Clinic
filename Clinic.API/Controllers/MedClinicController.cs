@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
-using Clinic.API.Models.Response;
+using Clinic.API.Models;
 using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿using Clinic.Context.Contracts.Models;
+﻿using Clinic.Services.Contracts.Models;
 
 namespace Clinic.API.Models
 {
@@ -25,6 +25,6 @@ namespace Clinic.API.Models
         /// <summary>
         /// ID Врача
         /// </summary>
-        public DoctorResponse? Doctor { get; set; }
+        public DoctorModel? Doctor { get; set; }
     }
 }

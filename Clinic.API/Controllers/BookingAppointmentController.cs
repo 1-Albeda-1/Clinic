@@ -2,7 +2,7 @@
 using Azure.Core;
 using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
-using Clinic.API.Models.Response;
+using Clinic.API.Models;
 using Clinic.Services.Contracts;
 using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Contracts.ModelsRequest;

@@ -3,7 +3,7 @@ using AutoMapper.Extensions.EnumMapping;
 using Clinic.API.Enums;
 using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
-using Clinic.API.Models.Response;
+using Clinic.API.Models;
 using Clinic.Services.Contracts.Enums;
 using Clinic.Services.Contracts.Models;
 
