@@ -15,7 +15,7 @@ namespace Clinic.API.Extensions
         public IDateTimeProvider DateTimeProvider { get; }
 
         /// <inheritdoc/>
-        public string UserName { get; } = "TimeTable203.Api";
+        public string UserName { get; } = "Clinic.API";
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="DbWriterContext"/>

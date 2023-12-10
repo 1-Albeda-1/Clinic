@@ -23,21 +23,26 @@ namespace Clinic.API.AutoMappers
                  .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<CreateDoctorRequest, DoctorModel>(MemberList.Destination)
                  .ForMember(x => x.Id, opt => opt.Ignore());
-            CreateMap<CreatePatientRequest, PatientModel>(MemberList.Destination)
-                 .ForMember(x => x.Id, opt => opt.Ignore());
-            CreateMap<CreateTimeTableRequest, TimeTableModel>(MemberList.Destination)
-                 .ForMember(x => x.Id, opt => opt.Ignore());
-
-
 
             CreateMap<MedClinicRequest, MedClinicModel>(MemberList.Destination);
             CreateMap<DiagnosisRequest, DiagnosisModel>(MemberList.Destination);
             CreateMap<DoctorRequest, DoctorModel>(MemberList.Destination);
             CreateMap<PatientRequest, PatientModel>(MemberList.Destination)
                 .ForMember(x => x.MedClinic, opt => opt.Ignore())
-                .ForMember(x => x.Diagnosis, opt => opt.Ignore()); 
+                .ForMember(x => x.Diagnosis, opt => opt.Ignore());
+
+            CreateMap<PatientRequest, PatientRequestModel>(MemberList.Destination);
+            CreateMap<CreatePatientRequest, PatientRequestModel>(MemberList.Destination)
+               .ForMember(x => x.Id, opt => opt.Ignore());
+
             CreateMap<TimeTableRequest, TimeTableModel>(MemberList.Destination)
                 .ForMember(x => x.Doctor, opt => opt.Ignore());
+
+            CreateMap<TimeTableRequest, TimeTableRequestModel>(MemberList.Destination);
+            CreateMap<CreateTimeTableRequest, TimeTableRequestModel>(MemberList.Destination)
+                .ForMember(x => x.Id, opt => opt.Ignore());
+
+
             CreateMap<BookingAppointmentRequest, BookingAppointmentModel>(MemberList.Destination)
                 .ForMember(x => x.Patient, opt => opt.Ignore())
                 .ForMember(x => x.TimeTable, opt => opt.Ignore());
@@ -52,11 +57,9 @@ namespace Clinic.API.AutoMappers
             CreateMap<DoctorModel, DoctorResponse>(MemberList.Destination);
             CreateMap<DiagnosisModel, DiagnosisResponse>(MemberList.Destination);
             CreateMap<BookingAppointmentModel, BookingAppointmentResponse>(MemberList.Destination);
-            CreateMap<DoctorModel, DoctorResponse>(MemberList.Destination)
-                .ForMember(x => x.Name, opt => opt.MapFrom(src => $"{src.Surname} {src.Name} {src.Patronymic}"));
+            CreateMap<DoctorModel, DoctorResponse>(MemberList.Destination);
 
-            CreateMap<PatientModel, PatientResponse>(MemberList.Destination)
-                .ForMember(x => x.Name, opt => opt.MapFrom(src => $"{src.Surname} {src.Name} {src.Patronymic}"));
+            CreateMap<PatientModel, PatientResponse>(MemberList.Destination);
 
         }
     }
