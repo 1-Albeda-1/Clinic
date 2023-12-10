@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Clinic.API.Models.Request;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
+using Clinic.Repositories.ReadRepositories;
 
 namespace Clinic.API.Validators.TimeTable
 {
@@ -29,11 +30,7 @@ namespace Clinic.API.Validators.TimeTable
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Врач не должен быть пустым или null")
-                .MustAsync(async (id, CancellationToken) =>
-                {
-                    var doctor = await doctorReadRepository.GetByIdAsync(id, CancellationToken);
-                    return doctor != null;
-                })
+                .MustAsync(async (x, cancellationToken) => await doctorReadRepository.IsNotNullAsync(x, cancellationToken))
                 .WithMessage("Такого врача не существует!");
         }
     }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Clinic.API.Models.Request;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
+using Clinic.Repositories.ReadRepositories;
 
 namespace Clinic.API.Validators.Patient
 {
@@ -50,22 +51,14 @@ namespace Clinic.API.Validators.Patient
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Поликлиника не должна быть пустым или null")
-                .MustAsync(async (id, CancellationToken) =>
-                {
-                    var medClinic = await medClinicReadRepository.GetByIdAsync(id!.Value, CancellationToken);
-                    return medClinic != null;
-                })
+                .MustAsync(async (x, cancellationToken) => await medClinicReadRepository.IsNotNullAsync(x!.Value, cancellationToken))
                 .WithMessage("Такой поликлиники не существует!");
 
             RuleFor(x => x.Diagnosis)
                .NotNull()
                .NotEmpty()
                .WithMessage("Диагноз не должен быть пустым или null")
-               .MustAsync(async (id, CancellationToken) =>
-               {
-                   var diagnosis = await diagnosisReadRepository.GetByIdAsync(id, CancellationToken);
-                   return diagnosis != null;
-               })
+               .MustAsync(async (x, cancellationToken) => await diagnosisReadRepository.IsNotNullAsync(x, cancellationToken))
                .WithMessage("Такого диагноза не существует!");
         }
     }

@@ -25,11 +25,7 @@ namespace Clinic.API.Validators.BookingAppointment
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Рассписание не должно быть пустым или null")
-                .MustAsync(async (id, CancellationToken) =>
-                {
-                    var timeTable = await timeTableReadRepository.GetByIdAsync(id, CancellationToken);
-                    return timeTable != null;
-                })
+                .MustAsync(async (x, cancellationToken) => await timeTableReadRepository.IsNotNullAsync(x, cancellationToken))
                 .WithMessage("Такого рассписания не существует!");
 
             RuleFor(x => x.Patient)
