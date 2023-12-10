@@ -5,6 +5,7 @@ using Clinic.API.Models;
 using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
+using Clinic.API.Models.Exceptions;
 
 namespace Clinic.API.Controllers
 {
@@ -32,21 +33,26 @@ namespace Clinic.API.Controllers
             return Ok(result.Select(x => mapper.Map<MedClinicResponse>(x)));
         }
 
+        /// <summary>
+        /// Получить поликлинику по Id
+        /// </summary>
         [HttpGet("{id:guid}")]
         [ProducesResponseType(typeof(MedClinicResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await medClinicService.GetByIdAsync(id, cancellationToken);
-
-            if (item == null)
-            {
-                return NotFound("Поликлиники с таким Id нет!");
-            }
             return Ok(mapper.Map<MedClinicResponse>(item));
         }
 
+        /// <summary>
+        /// Добавить поликлинику
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(MedClinicResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiValidationExceptionDetail), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Add(CreateMedClinicRequest model, CancellationToken cancellationToken)
         {
             var medClinicModel = mapper.Map<MedClinicModel>(model);
@@ -54,8 +60,14 @@ namespace Clinic.API.Controllers
             return Ok(mapper.Map<MedClinicResponse>(result));
         }
 
+        /// <summary>
+        /// Изменить поликлинику по Id
+        /// </summary>
         [HttpPut]
         [ProducesResponseType(typeof(MedClinicResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Edit(MedClinicRequest request, CancellationToken cancellationToken)
         {
             var model = mapper.Map<MedClinicModel>(request);
@@ -63,8 +75,13 @@ namespace Clinic.API.Controllers
             return Ok(mapper.Map<MedClinicResponse>(result));
         }
 
+        /// <summary>
+        /// Удалить поликлинику по Id
+        /// </summary>
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status417ExpectationFailed)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
             await medClinicService.DeleteAsync(id, cancellationToken);

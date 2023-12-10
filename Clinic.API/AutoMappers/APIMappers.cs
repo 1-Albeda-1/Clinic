@@ -6,6 +6,7 @@ using Clinic.API.Models.Request;
 using Clinic.API.Models;
 using Clinic.Services.Contracts.Enums;
 using Clinic.Services.Contracts.Models;
+using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.API.AutoMappers
 {
@@ -16,16 +17,16 @@ namespace Clinic.API.AutoMappers
             CreateMap<CategoriesTypesModel, CategoriesTypesResponse>().ConvertUsingEnumMapping(opt => opt.MapByName()).ReverseMap();
             CreateMap<DepartmentTypesModel, DepartmentTypesResponse>().ConvertUsingEnumMapping(opt => opt.MapByName()).ReverseMap();
 
-            CreateMap<MedClinicRequest, MedClinicModel>(MemberList.Destination)
-                .ForMember(x => x.Id, opt => Guid.NewGuid());
-            CreateMap<DiagnosisRequest, DiagnosisModel>(MemberList.Destination)
-                .ForMember(x => x.Id, opt => Guid.NewGuid());
-            CreateMap<DoctorRequest, DoctorModel>(MemberList.Destination)
-                .ForMember(x => x.Id, opt => Guid.NewGuid());
-            CreateMap<PatientRequest, PatientModel>(MemberList.Destination)
-                .ForMember(x => x.Id, opt => Guid.NewGuid());
-            CreateMap<TimeTableRequest, TimeTableModel>(MemberList.Destination)
-                .ForMember(x => x.Id, opt => Guid.NewGuid());
+            CreateMap<CreateMedClinicRequest, MedClinicModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<CreateDiagnosisRequest, DiagnosisModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<CreateDoctorRequest, DoctorModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<CreatePatientRequest, PatientModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<CreateTimeTableRequest, TimeTableModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
 
 
 
@@ -41,8 +42,8 @@ namespace Clinic.API.AutoMappers
                 .ForMember(x => x.Patient, opt => opt.Ignore())
                 .ForMember(x => x.TimeTable, opt => opt.Ignore());
 
-
-            CreateMap<CreateBookingAppointmentRequest, BookingAppointmentModel>(MemberList.Destination)
+            CreateMap<BookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination);
+            CreateMap<CreateBookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination)
                 .ForMember(x => x.Id, opt => Guid.NewGuid());
 
 
