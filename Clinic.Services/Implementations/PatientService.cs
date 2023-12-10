@@ -66,12 +66,12 @@ namespace Clinic.Services.Implementations
 
             if (targetPatient == null)
             {
-                throw new TimeTableEntityNotFoundException<Patient>(id);
+                throw new ClinicEntityNotFoundException<Patient>(id);
             }
 
             if (targetPatient.DeletedAt.HasValue)
             {
-                throw new TimeTableInvalidOperationException($"Пациент с идентификатором {id} уже удален");
+                throw new ClinicInvalidOperationException($"Пациент с идентификатором {id} уже удален");
             }
 
             patientWriteRepository.Delete(targetPatient);
@@ -84,7 +84,7 @@ namespace Clinic.Services.Implementations
 
             if (patient == null)
             {
-                throw new TimeTableEntityNotFoundException<Patient>(model.Id);
+                throw new ClinicEntityNotFoundException<Patient>(model.Id);
             }
 
             patient.Surname = model.Surname;

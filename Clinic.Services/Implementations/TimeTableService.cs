@@ -52,12 +52,12 @@ namespace Clinic.Services.Implementations
 
             if (targetTimeTable == null)
             {
-                throw new TimeTableEntityNotFoundException<TimeTable>(id);
+                throw new ClinicEntityNotFoundException<TimeTable>(id);
             }
 
             if (targetTimeTable.DeletedAt.HasValue)
             {
-                throw new TimeTableInvalidOperationException($"Рассписание с идентификатором {id} уже удалено");
+                throw new ClinicInvalidOperationException($"Рассписание с идентификатором {id} уже удалено");
             }
 
             timeTableWriteRepository.Delete(targetTimeTable);
@@ -70,7 +70,7 @@ namespace Clinic.Services.Implementations
 
             if (timeTable == null)
             {
-                throw new TimeTableEntityNotFoundException<TimeTable>(model.Id);
+                throw new ClinicEntityNotFoundException<TimeTable>(model.Id);
             }
 
 

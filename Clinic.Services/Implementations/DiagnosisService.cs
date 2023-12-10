@@ -40,12 +40,12 @@ namespace Clinic.Services.Implementations
 
             if (targetDiagnosis == null)
             {
-                throw new TimeTableEntityNotFoundException<Diagnosis>(id);
+                throw new ClinicEntityNotFoundException<Diagnosis>(id);
             }
 
             if (targetDiagnosis.DeletedAt.HasValue)
             {
-                throw new TimeTableInvalidOperationException($"Диагноз с идентификатором {id} уже удален");
+                throw new ClinicInvalidOperationException($"Диагноз с идентификатором {id} уже удален");
             }
 
             diagnosisWriteRepository.Delete(targetDiagnosis);
@@ -58,7 +58,7 @@ namespace Clinic.Services.Implementations
 
             if (targetDiagnosis == null)
             {
-                throw new TimeTableEntityNotFoundException<Diagnosis>(source.Id);
+                throw new ClinicEntityNotFoundException<Diagnosis>(source.Id);
             }
 
             targetDiagnosis.Name = source.Name;
