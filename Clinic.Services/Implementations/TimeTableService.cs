@@ -32,18 +32,13 @@ namespace Clinic.Services.Implementations
         }
         async Task<TimeTableModel> ITimeTableService.AddAsync(TimeTableRequestModel model, CancellationToken cancellationToken)
         {
-            var timeTable = mapper.Map<TimeTable>(model);
-            timeTable.Time = model.Time;
-            timeTable.Office = model.Office;
-            timeTable.Doctor = await doctorReadRepository.GetByIdAsync(timeTable.DoctorId, cancellationToken);
+            model.Id = Guid.NewGuid();
 
+            var timeTable = mapper.Map<TimeTable>(model);
             timeTableWriteRepository.Add(timeTable);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            var timeTableModel = mapper.Map<TimeTableModel>(timeTable);
-            timeTableModel.Doctor = mapper.Map<DoctorModel>(timeTable.Doctor);
-
-            return timeTableModel;
+            return await GetTimeTableModelOnMapping(timeTable, cancellationToken);
         }
 
         async Task ITimeTableService.DeleteAsync(Guid id, CancellationToken cancellationToken)
@@ -73,19 +68,11 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<TimeTable>(model.Id);
             }
 
-
-            timeTable.Time = model.Time;
-            timeTable.Office = model.Office;
-            timeTable.Doctor = await doctorReadRepository.GetByIdAsync(timeTable.DoctorId, cancellationToken);
-
+            timeTable = mapper.Map<TimeTable>(model);
             timeTableWriteRepository.Update(timeTable);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            var timeTableModel = mapper.Map<TimeTableModel>(timeTable);
-            timeTableModel.Doctor = mapper.Map<DoctorModel>(timeTable.Doctor);
-
-
-            return timeTableModel;
+            return await GetTimeTableModelOnMapping(timeTable, cancellationToken);
         }
         async Task<IEnumerable<TimeTableModel>> ITimeTableService.GetAllAsync(CancellationToken cancellationToken)
         {
@@ -119,15 +106,18 @@ namespace Clinic.Services.Implementations
 
             if (item == null)
             {
-                return null;
+                throw new ClinicEntityNotFoundException<TimeTable>(id);
             }
 
-            var doctor = await doctorReadRepository.GetByIdAsync(item.DoctorId, cancellationToken);
-            var timeTableModel = mapper.Map<TimeTableModel>(item);
+            return await GetTimeTableModelOnMapping(item, cancellationToken);
+        }
 
-            timeTableModel.Doctor = mapper.Map<DoctorModel>(doctor);
+        async private Task<TimeTableModel> GetTimeTableModelOnMapping(TimeTable timeTable, CancellationToken cancellationToken)
+        {
+            var ticketModel = mapper.Map<TimeTableModel>(timeTable);
+            ticketModel.Doctor = mapper.Map<DoctorModel>(await doctorReadRepository.GetByIdAsync(timeTable.DoctorId, cancellationToken));
 
-            return timeTableModel;
+            return ticketModel;
         }
     }
 }

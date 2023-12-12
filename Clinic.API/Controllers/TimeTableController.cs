@@ -8,6 +8,7 @@ using Clinic.Services.Contracts.Models;
 using Clinic.Services.Contracts.ModelsRequest;
 using Microsoft.AspNetCore.Mvc;
 using Clinic.API.Models.Exceptions;
+using Clinic.API.Infrastructures.Validator;
 
 namespace Clinic.API.Controllers
 {
@@ -22,11 +23,13 @@ namespace Clinic.API.Controllers
         private readonly ITimeTableService timeTableService;
         private readonly IDoctorService doctorService;
         private readonly IMapper mapper;
-        public TimeTableController(ITimeTableService timeTableService, IDoctorService doctorService, IMapper mapper)
+        private readonly IApiValidatorService validatorService;
+        public TimeTableController(ITimeTableService timeTableService, IDoctorService doctorService, IMapper mapper, IApiValidatorService validatorService)
         {
             this.timeTableService = timeTableService;
             this.doctorService = doctorService;
             this.mapper = mapper;
+            this.validatorService = validatorService;
         }
 
         [HttpGet]
@@ -60,6 +63,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Add(CreateTimeTableRequest request, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             var model = mapper.Map<TimeTableRequestModel>(request);
             var result = await timeTableService.EditAsync(model, cancellationToken);
             return Ok(mapper.Map<TimeTableResponse>(result));
@@ -75,6 +80,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Edit(TimeTableRequest request, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             var model = mapper.Map<TimeTableRequestModel>(request);
             var result = await timeTableService.EditAsync(model, cancellationToken);
             return Ok(mapper.Map<TimeTableResponse>(result));

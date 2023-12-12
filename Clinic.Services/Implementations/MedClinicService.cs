@@ -27,9 +27,12 @@ namespace Clinic.Services.Implementations
         }
         async Task<MedClinicModel> IMedClinicService.AddAsync(MedClinicModel model, CancellationToken cancellationToken)
         {
+            model.Id = Guid.NewGuid();
+
             var item = mapper.Map<MedClinic>(model);
             medClinicWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+
             return mapper.Map<MedClinicModel>(item);
         }
 
@@ -79,7 +82,7 @@ namespace Clinic.Services.Implementations
 
             if (item == null)
             {
-                return null;
+                throw new ClinicEntityNotFoundException<MedClinic>(id);
             }
             return mapper.Map<MedClinicModel>(item);
         }

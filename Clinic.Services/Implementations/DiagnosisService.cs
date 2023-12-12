@@ -28,9 +28,12 @@ namespace Clinic.Services.Implementations
         }
         async Task<DiagnosisModel> IDiagnosisService.AddAsync(DiagnosisModel model, CancellationToken cancellationToken)
         {
+            model.Id = Guid.NewGuid();
+
             var item = mapper.Map<Diagnosis>(model);
             diagnosisWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+
             return mapper.Map<DiagnosisModel>(item);
         }
 
@@ -61,8 +64,7 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<Diagnosis>(source.Id);
             }
 
-            targetDiagnosis.Name = source.Name;
-            targetDiagnosis.Medicament = source.Medicament;
+            targetDiagnosis = mapper.Map<Diagnosis>(source);
 
             diagnosisWriteRepository.Update(targetDiagnosis);
 
@@ -81,7 +83,7 @@ namespace Clinic.Services.Implementations
 
             if (item == null)
             {
-                return null;
+                throw new ClinicEntityNotFoundException<Diagnosis>(id);
             }
             return mapper.Map<DiagnosisModel>(item);
         }

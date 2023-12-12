@@ -9,6 +9,7 @@ using Clinic.Services.Contracts.Models;
 using Clinic.Services.Contracts.ModelsRequest;
 using Microsoft.AspNetCore.Mvc;
 using Clinic.API.Models.Exceptions;
+using Clinic.API.Infrastructures.Validator;
 
 namespace Clinic.API.Controllers
 {
@@ -24,12 +25,14 @@ namespace Clinic.API.Controllers
         private readonly IMedClinicService medClinicService;
         private readonly IDiagnosisService diagnosisService;
         private readonly IMapper mapper;
-        public PatientController(IPatientService patientService, IMapper mapper, IMedClinicService medClinicService, IDiagnosisService diagnosisService)
+        private readonly IApiValidatorService validatorService;
+        public PatientController(IPatientService patientService, IMapper mapper, IMedClinicService medClinicService, IDiagnosisService diagnosisService, IApiValidatorService validatorService)
         {
             this.patientService = patientService;
             this.mapper = mapper;
             this.diagnosisService = diagnosisService;
             this.medClinicService = medClinicService;
+            this.validatorService = validatorService;
         }
 
         [HttpGet]
@@ -63,6 +66,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Add(CreatePatientRequest request, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             var model = mapper.Map<PatientRequestModel>(request);
             var result = await patientService.EditAsync(model, cancellationToken);
             return Ok(mapper.Map<PatientResponse>(result));
@@ -79,6 +84,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Edit(PatientRequest request, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             var model = mapper.Map<PatientRequestModel>(request);
             var result = await patientService.EditAsync(model, cancellationToken);
             return Ok(mapper.Map<PatientResponse>(result));

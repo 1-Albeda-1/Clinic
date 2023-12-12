@@ -11,6 +11,7 @@ using Clinic.Services.Contracts.Exceptions;
 using System.IO;
 using System.Net.Sockets;
 using Clinic.Services.Contracts.ModelsRequest;
+using System.Xml;
 
 namespace Clinic.Services.Implementations
 {
@@ -35,19 +36,14 @@ namespace Clinic.Services.Implementations
         }
         async Task<BookingAppointmentModel> IBookingAppointmentService.AddAsync(BookingAppointmentRequestModel model, CancellationToken cancellationToken)
         {
-            var bookingAppointment = mapper.Map<BookingAppointment>(model);
-            bookingAppointment.Сomplaint = model.Сomplaint;
-            bookingAppointment.Patient = await patientReadRepository.GetByIdAsync(bookingAppointment.PatientId, cancellationToken);
-            bookingAppointment.TimeTable = await timeTableReadRepository.GetByIdAsync(bookingAppointment.TimeTableId, cancellationToken);
+            model.Id = Guid.NewGuid();
 
-            bookingAppointmentWriteRepository.Add(bookingAppointment);
+            var bookingAppointment = mapper.Map<BookingAppointment>(model);
+            bookingAppointmentWriteRepository.Update(bookingAppointment);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            var bookingAppointmentModel = mapper.Map<BookingAppointmentModel>(bookingAppointment);
-            bookingAppointmentModel.Patient = mapper.Map<PatientModel>(bookingAppointment.Patient);
-            bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(bookingAppointment.TimeTable);
 
-            return bookingAppointmentModel;
+            return await GetBookingAppointmentModelOnMapping(bookingAppointment, cancellationToken);
         }
 
         async Task IBookingAppointmentService.DeleteAsync(Guid id, CancellationToken cancellationToken)
@@ -77,22 +73,12 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<BookingAppointment>(model.Id);
             }
 
-            bookingAppointment.Patient = await patientReadRepository.GetByIdAsync(bookingAppointment.PatientId, cancellationToken);
-            bookingAppointment.TimeTable = await timeTableReadRepository.GetByIdAsync(bookingAppointment.TimeTableId, cancellationToken);
-            bookingAppointment.Сomplaint = model.Сomplaint;
-
+            bookingAppointment = mapper.Map<BookingAppointment>(model);
             bookingAppointmentWriteRepository.Update(bookingAppointment);
-
             await unitOfWork.SaveChangesAsync(cancellationToken);
-            var bookingAppointmentModel = mapper.Map<BookingAppointmentModel>(bookingAppointment);
 
-            var patient = await patientReadRepository.GetByIdAsync(bookingAppointment.PatientId, cancellationToken);
-            var timeTable = await timeTableReadRepository.GetByIdAsync(bookingAppointment.TimeTableId, cancellationToken);
 
-            bookingAppointmentModel.Patient = mapper.Map<PatientModel>(patient);
-            bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(timeTable);
-
-            return bookingAppointmentModel;
+            return await GetBookingAppointmentModelOnMapping(bookingAppointment, cancellationToken);
         }
 
         async Task<IEnumerable<BookingAppointmentModel>> IBookingAppointmentService.GetAllAsync(CancellationToken cancellationToken)
@@ -133,15 +119,16 @@ namespace Clinic.Services.Implementations
 
             if (item == null)
             {
-                return null;
+                throw new ClinicEntityNotFoundException<BookingAppointment>(id);
             }
 
-            var timeTable = await timeTableReadRepository.GetByIdAsync(item.TimeTableId, cancellationToken);
-            var patient = await patientReadRepository.GetByIdAsync(item.PatientId, cancellationToken);
-            var bookingAppointmentModel = mapper.Map<BookingAppointmentModel>(item);
-
-            bookingAppointmentModel.Patient = mapper.Map<PatientModel>(patient);
-            bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(timeTable);
+            return await GetBookingAppointmentModelOnMapping(item, cancellationToken);
+        }
+        async private Task<BookingAppointmentModel> GetBookingAppointmentModelOnMapping(BookingAppointment bookingAppointment, CancellationToken cancellationToken)
+        {
+            var bookingAppointmentModel = mapper.Map<BookingAppointmentModel>(bookingAppointment);
+            bookingAppointmentModel.Patient = mapper.Map<PatientModel>(await patientReadRepository.GetByIdAsync(bookingAppointment.PatientId, cancellationToken));
+            bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(await timeTableReadRepository.GetByIdAsync(bookingAppointment.TimeTableId, cancellationToken));
 
             return bookingAppointmentModel;
         }

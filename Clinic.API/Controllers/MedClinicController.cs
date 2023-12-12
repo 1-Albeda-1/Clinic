@@ -6,6 +6,8 @@ using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 using Clinic.API.Models.Exceptions;
+using Clinic.API.Infrastructures.Validator;
+using Azure.Core;
 
 namespace Clinic.API.Controllers
 {
@@ -19,10 +21,12 @@ namespace Clinic.API.Controllers
     {
         private readonly IMedClinicService medClinicService;
         private readonly IMapper mapper;
-        public MedClinicController(IMedClinicService medClinicService, IMapper mapper)
+        private readonly IApiValidatorService validatorService;
+        public MedClinicController(IMedClinicService medClinicService, IMapper mapper, IApiValidatorService validatorService)
         {
             this.medClinicService = medClinicService;
             this.mapper = mapper;
+            this.validatorService = validatorService;
         }
 
         [HttpGet]
@@ -55,6 +59,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Add(CreateMedClinicRequest model, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(model, cancellationToken);
+
             var medClinicModel = mapper.Map<MedClinicModel>(model);
             var result = await medClinicService.AddAsync(medClinicModel, cancellationToken);
             return Ok(mapper.Map<MedClinicResponse>(result));
@@ -70,6 +76,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Edit(MedClinicRequest request, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             var model = mapper.Map<MedClinicModel>(request);
             var result = await medClinicService.EditAsync(model, cancellationToken);
             return Ok(mapper.Map<MedClinicResponse>(result));

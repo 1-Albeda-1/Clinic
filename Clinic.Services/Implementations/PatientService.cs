@@ -35,29 +35,13 @@ namespace Clinic.Services.Implementations
         }
         async Task<PatientModel> IPatientService.AddAsync(PatientRequestModel model, CancellationToken cancellationToken)
         {
-            var patient = mapper.Map<Patient>(model);
-            patient.Surname = model.Surname;
-            patient.Name = model.Name;
-            patient.Patronymic = model.Patronymic;
-            patient.Phone = model.Phone;
-            patient.Policy = model.Policy;
-            patient.Birthday = model.Birthday;
-            patient.Diagnosis = await diagnosisReadRepository.GetByIdAsync(patient.DiagnosisId, cancellationToken);
-            patient.MedClinic = patient.MedClinicId.HasValue ?
-                await medClinicReadRepository.GetByIdAsync(patient.MedClinicId.Value, cancellationToken)
-                : null;
+            model.Id = Guid.NewGuid();
 
+            var patient = mapper.Map<Patient>(model);
             patientWriteRepository.Add(patient);
             await unitOfWork.SaveChangesAsync(cancellationToken);
-            var patientModel = mapper.Map<PatientModel>(patient);
 
-            
-            patientModel.Diagnosis = mapper.Map<DiagnosisModel>(patient.Diagnosis);
-            patientModel.MedClinic = patient.MedClinicId.HasValue ?
-                mapper.Map<MedClinicModel>(await medClinicReadRepository.GetByIdAsync(patient.MedClinicId.Value, cancellationToken))
-                : null;
-
-            return patientModel;
+            return await GetPatientModelOnMapping(patient, cancellationToken);
         }
 
         async Task IPatientService.DeleteAsync(Guid id, CancellationToken cancellationToken)
@@ -87,27 +71,11 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<Patient>(model.Id);
             }
 
-            patient.Surname = model.Surname;
-            patient.Name = model.Name;
-            patient.Patronymic = model.Patronymic;
-            patient.Phone = model.Phone;
-            patient.Policy = model.Policy;
-            patient.Birthday = model.Birthday;      
-            patient.Diagnosis = await diagnosisReadRepository.GetByIdAsync(patient.DiagnosisId, cancellationToken);
-            patient.MedClinicId = model.MedClinic;
-            patient.MedClinic = model.MedClinic.HasValue ?
-                await medClinicReadRepository.GetByIdAsync(model.MedClinic.Value, cancellationToken)
-                : null;           
-
+            patient = mapper.Map<Patient>(model);
             patientWriteRepository.Update(patient);
-
             await unitOfWork.SaveChangesAsync(cancellationToken);
-            var patientModel = mapper.Map<PatientModel>(patient);
 
-            patientModel.Diagnosis = mapper.Map<DiagnosisModel>(patient.Diagnosis);
-            patientModel.MedClinic = mapper.Map<MedClinicModel>(patient.MedClinic);
-
-            return patientModel;
+            return await GetPatientModelOnMapping(patient, cancellationToken);
         }
         async Task<IEnumerable<PatientModel>> IPatientService.GetAllAsync(CancellationToken cancellationToken)
         {
@@ -150,16 +118,20 @@ namespace Clinic.Services.Implementations
 
             if (item == null)
             {
-                return null;
+                throw new ClinicEntityNotFoundException<Patient>(id);
             }
 
-            var diagnosis = await diagnosisReadRepository.GetByIdAsync(item.DiagnosisId, cancellationToken);
-            var patientModel = mapper.Map<PatientModel>(item);
+            return await GetPatientModelOnMapping(item, cancellationToken);
+        }
 
-            patientModel.Diagnosis = mapper.Map<DiagnosisModel>(diagnosis);
-            patientModel.MedClinic = item.MedClinicId.HasValue ?
-                            mapper.Map<MedClinicModel>(await medClinicReadRepository.GetByIdAsync(item.MedClinicId.Value, cancellationToken))
-                            : null;
+        async private Task<PatientModel> GetPatientModelOnMapping(Patient patient, CancellationToken cancellationToken)
+        {
+            var patientModel = mapper.Map<PatientModel>(patient);
+
+            patientModel.MedClinic = mapper.Map<MedClinicModel>(patient.MedClinicId.HasValue
+                ? await medClinicReadRepository.GetByIdAsync(patient.MedClinicId.Value, cancellationToken)
+                : null);
+            patientModel.Diagnosis = mapper.Map<DiagnosisModel>(await diagnosisReadRepository.GetByIdAsync(patient.DiagnosisId, cancellationToken));
 
             return patientModel;
         }

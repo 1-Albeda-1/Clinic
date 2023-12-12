@@ -10,6 +10,7 @@ using Clinic.Services.Contracts.Models;
 using Clinic.Services.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Clinic.API.Models.Exceptions;
+using Clinic.API.Infrastructures.Validator;
 
 namespace Clinic.API.Controllers
 {
@@ -23,12 +24,13 @@ namespace Clinic.API.Controllers
     {
         private readonly IBookingAppointmentService bookingAppointmentService;
         private readonly IMapper mapper;
+        private readonly IApiValidatorService validatorService;
 
-        public BookingAppointmentController(IBookingAppointmentService bookingAppointmentService, IMapper mapper)
+        public BookingAppointmentController(IBookingAppointmentService bookingAppointmentService, IMapper mapper, IApiValidatorService validatorService)
         {
             this.bookingAppointmentService = bookingAppointmentService;
             this.mapper = mapper;
-
+            this.validatorService = validatorService;
         }
 
         [HttpGet]
@@ -62,6 +64,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Add(CreateBookingAppointmentRequest request, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             var model = mapper.Map<BookingAppointmentRequestModel>(request);
             var result = await bookingAppointmentService.AddAsync(model, cancellationToken);
             return Ok(mapper.Map<BookingAppointmentResponse>(result));
@@ -77,6 +81,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Edit(BookingAppointmentRequest request, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             var model = mapper.Map<BookingAppointmentRequestModel>(request);
             var result = await bookingAppointmentService.EditAsync(model, cancellationToken);
             return Ok(mapper.Map<BookingAppointmentResponse>(result));
@@ -91,6 +97,8 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status417ExpectationFailed)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
             await bookingAppointmentService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
