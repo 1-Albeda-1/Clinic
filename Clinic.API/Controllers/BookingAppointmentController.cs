@@ -97,8 +97,6 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status417ExpectationFailed)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            await validatorService.ValidateAsync(request, cancellationToken);
-
             await bookingAppointmentService.DeleteAsync(id, cancellationToken);
             return Ok();
         }
