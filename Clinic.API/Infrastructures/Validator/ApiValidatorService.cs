@@ -37,8 +37,8 @@ namespace Clinic.API.Infrastructures.Validator
             Register<CreateTimeTableRequestValidator>(doctorReadRepository);
             Register<TimeTableRequestValidator>(doctorReadRepository);
 
-            Register<CreateBookingAppointmentRequestValidator>(patientReadRepository, timeTableReadRepository);
-            Register<BookingAppointmentRequestValidator>(patientReadRepository, timeTableReadRepository);
+            Register<CreateBookingAppointmentRequestValidator>(timeTableReadRepository, patientReadRepository);
+            Register<BookingAppointmentRequestValidator>(timeTableReadRepository, patientReadRepository);
         }
 
         ///<summary>

@@ -1,7 +1,7 @@
 ﻿using Clinic.Common;
 using Clinic.Common.Interface;
 
-namespace Clinic.API.Extensions
+namespace Clinic.API.Infrastructures
 {
     public class WriterContext : IWriterContext
     {

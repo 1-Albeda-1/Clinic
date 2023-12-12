@@ -69,7 +69,7 @@ namespace Clinic.API.Controllers
             await validatorService.ValidateAsync(request, cancellationToken);
 
             var model = mapper.Map<PatientRequestModel>(request);
-            var result = await patientService.EditAsync(model, cancellationToken);
+            var result = await patientService.AddAsync(model, cancellationToken);
             return Ok(mapper.Map<PatientResponse>(result));
         }
 

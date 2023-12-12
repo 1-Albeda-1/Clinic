@@ -66,7 +66,7 @@ namespace Clinic.API.Controllers
             await validatorService.ValidateAsync(request, cancellationToken);
 
             var model = mapper.Map<TimeTableRequestModel>(request);
-            var result = await timeTableService.EditAsync(model, cancellationToken);
+            var result = await timeTableService.AddAsync(model, cancellationToken);
             return Ok(mapper.Map<TimeTableResponse>(result));
         }
 

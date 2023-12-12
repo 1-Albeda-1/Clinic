@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Clinic.API.Extensions;
 using Clinic.Common.Interface;
 using Clinic.Common;
 using Clinic.Context;
@@ -8,6 +7,7 @@ using Clinic.Services;
 using Clinic.Services.Automappers;
 using Microsoft.OpenApi.Models;
 using Clinic.API.AutoMappers;
+using Clinic.API.Infrastructures.Validator;
 
 namespace Clinic.API.Infrastructures
 {
@@ -20,6 +20,7 @@ namespace Clinic.API.Infrastructures
             service.RegistrationContext();
             service.RegistrationRepository();
             service.RegistrationService();
+            service.AddTransient<IApiValidatorService, ApiValidatorService>();
         }
 
         public static void AddMapper(this IServiceCollection service)
