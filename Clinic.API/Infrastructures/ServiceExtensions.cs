@@ -37,7 +37,7 @@ namespace Clinic.API.Infrastructures
                 c.SwaggerDoc("Doctor", new OpenApiInfo { Title = "Сущность врачи", Version = "v1" });
                 c.SwaggerDoc("MedClinic", new OpenApiInfo { Title = "Сущность поликлиники", Version = "v1" });
                 c.SwaggerDoc("Patient", new OpenApiInfo { Title = "Сущность пациенты", Version = "v1" });
-                c.SwaggerDoc("TimeTable", new OpenApiInfo { Title = "Сущность рассписание", Version = "v1" });
+                c.SwaggerDoc("TimeTable", new OpenApiInfo { Title = "Сущность расписание", Version = "v1" });
             });
         }
         public static void GetSwaggerDocumentUI(this WebApplication app)
@@ -50,7 +50,7 @@ namespace Clinic.API.Infrastructures
                 x.SwaggerEndpoint("Doctor/swagger.json", "Врачи");
                 x.SwaggerEndpoint("MedClinic/swagger.json", "Поликлиники");
                 x.SwaggerEndpoint("Patient/swagger.json", "Пациенты");
-                x.SwaggerEndpoint("TimeTable/swagger.json", "Рассписание");
+                x.SwaggerEndpoint("TimeTable/swagger.json", "Расписание");
             });
         }
     }
