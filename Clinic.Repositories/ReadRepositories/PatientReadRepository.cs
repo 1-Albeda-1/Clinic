@@ -18,6 +18,7 @@ namespace Clinic.Repositories.ReadRepositories
 
         Task<IReadOnlyCollection<Patient>> IPatientReadRepository.GetAllAsync(CancellationToken cancellationToken)
              => reader.Read<Patient>()
+                .NotDeletedAt()
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Surname)
                 .ThenBy(x => x.Patronymic)

@@ -40,7 +40,7 @@ namespace Clinic.API.Models
         /// <summary>
         /// Дата рождения
         /// </summary>
-        public DateTime Birthday { get; set; }
+        public DateTimeOffset Birthday { get; set; }
 
         /// <summary>
         /// ID поликлиники

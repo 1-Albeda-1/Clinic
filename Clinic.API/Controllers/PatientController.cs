@@ -40,8 +40,7 @@ namespace Clinic.API.Controllers
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await patientService.GetAllAsync(cancellationToken);
-            var result2 = result.Select(x => mapper.Map<PatientResponse>(x));
-            return Ok(result2);
+            return Ok(mapper.Map<IEnumerable<PatientResponse>>(result));
         }
 
         /// <summary>
