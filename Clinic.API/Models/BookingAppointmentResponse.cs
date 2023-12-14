@@ -1,4 +1,4 @@
-﻿using Clinic.Context.Contracts.Models;
+﻿using Clinic.Services.Contracts.Models;
 
 namespace Clinic.API.Models
 {
@@ -15,12 +15,12 @@ namespace Clinic.API.Models
         /// <summary>
         /// ID клиента
         /// </summary>
-        public PatientResponse? Patient { get; set; }
+        public PatientModel? Patient { get; set; }
 
         /// <summary>
         /// ID время приема пациента 
         /// </summary>
-        public TimeTableResponse? TimeTable { get; set; }
+        public TimeTableModel? TimeTable { get; set; }
 
         /// <summary>
         /// Жалоба пациента

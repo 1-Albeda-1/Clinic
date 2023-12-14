@@ -27,9 +27,12 @@ namespace Clinic.Services.Implementations
         }
         async Task<MedClinicModel> IMedClinicService.AddAsync(MedClinicModel model, CancellationToken cancellationToken)
         {
+            model.Id = Guid.NewGuid();
+
             var item = mapper.Map<MedClinic>(model);
             medClinicWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+
             return mapper.Map<MedClinicModel>(item);
         }
 
@@ -38,13 +41,13 @@ namespace Clinic.Services.Implementations
             var targetMedClinic = await medClinicReadRepository.GetByIdAsync(id, cancellationToken);
             if (targetMedClinic == null)
             {
-                throw new TimeTableEntityNotFoundException<MedClinic>(id);
+                throw new ClinicEntityNotFoundException<MedClinic>(id);
             }
 
 
             if (targetMedClinic.DeletedAt.HasValue)
             {
-                throw new TimeTableInvalidOperationException($"Поликлиника с идентификатором {id} уже удалена");
+                throw new ClinicInvalidOperationException($"Поликлиника с идентификатором {id} уже удалена");
             }
 
             medClinicWriteRepository.Delete(targetMedClinic);
@@ -56,7 +59,7 @@ namespace Clinic.Services.Implementations
             var targetMedClinic = await medClinicReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetMedClinic == null)
             {
-                throw new TimeTableEntityNotFoundException<MedClinic>(source.Id);
+                throw new ClinicEntityNotFoundException<MedClinic>(source.Id);
             }
 
             targetMedClinic.Name = source.Name;
@@ -79,7 +82,7 @@ namespace Clinic.Services.Implementations
 
             if (item == null)
             {
-                return null;
+                throw new ClinicEntityNotFoundException<MedClinic>(id);
             }
             return mapper.Map<MedClinicModel>(item);
         }

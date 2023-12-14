@@ -1,4 +1,4 @@
-﻿using Clinic.Context.Contracts.Models;
+﻿using Clinic.Services.Contracts.Models;
 
 namespace Clinic.API.Models
 {
@@ -40,16 +40,16 @@ namespace Clinic.API.Models
         /// <summary>
         /// Дата рождения
         /// </summary>
-        public DateTime Birthday { get; set; }
+        public DateTimeOffset Birthday { get; set; }
 
         /// <summary>
         /// ID поликлиники
         /// </summary>
-        public MedClinicResponse? MedClinic { get; set; }
+        public MedClinicModel? MedClinic { get; set; }
 
         /// <summary>
         /// ID диагноза
         /// </summary>
-        public DiagnosisResponse? Diagnosis { get; set; }
+        public DiagnosisModel? Diagnosis { get; set; }
     }
 }

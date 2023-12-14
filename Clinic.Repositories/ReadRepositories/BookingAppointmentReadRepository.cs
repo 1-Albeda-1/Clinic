@@ -4,6 +4,7 @@ using Clinic.Context.Contracts.Models;
 using Clinic.Repositories.Anchors;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Sockets;
 
 namespace Clinic.Repositories.ReadRepositories
 {
@@ -26,9 +27,7 @@ namespace Clinic.Repositories.ReadRepositories
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 
-        //Task<Dictionary<Guid, BookingAppointment>> IBookingAppointmentReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-        //    => reader.Read<BookingAppointment>()
-        //        .ByIds(ids)
-        //        .ToDictionaryAsync(x => x.Id, cancellationToken);
+        Task<bool> IBookingAppointmentReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<BookingAppointment>().AnyAsync(x => x.Id == id && !x.DeletedAt.HasValue, cancellationToken);
     }
 }

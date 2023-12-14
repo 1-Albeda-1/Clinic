@@ -1,7 +1,4 @@
-﻿using Clinic.Context.Contracts.Enums;
-using Clinic.Context.Contracts.Models;
-
-namespace Clinic.Services.Contracts.Models
+﻿namespace Clinic.Services.Contracts.Models
 {
     /// <summary>
     /// Модель рассписания

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Clinic.API.Extensions;
 using Clinic.Common.Interface;
 using Clinic.Common;
 using Clinic.Context;
@@ -8,6 +7,7 @@ using Clinic.Services;
 using Clinic.Services.Automappers;
 using Microsoft.OpenApi.Models;
 using Clinic.API.AutoMappers;
+using Clinic.API.Infrastructures.Validator;
 
 namespace Clinic.API.Infrastructures
 {
@@ -20,6 +20,7 @@ namespace Clinic.API.Infrastructures
             service.RegistrationContext();
             service.RegistrationRepository();
             service.RegistrationService();
+            service.AddTransient<IApiValidatorService, ApiValidatorService>();
         }
 
         public static void AddMapper(this IServiceCollection service)
@@ -36,7 +37,7 @@ namespace Clinic.API.Infrastructures
                 c.SwaggerDoc("Doctor", new OpenApiInfo { Title = "Сущность врачи", Version = "v1" });
                 c.SwaggerDoc("MedClinic", new OpenApiInfo { Title = "Сущность поликлиники", Version = "v1" });
                 c.SwaggerDoc("Patient", new OpenApiInfo { Title = "Сущность пациенты", Version = "v1" });
-                c.SwaggerDoc("TimeTable", new OpenApiInfo { Title = "Сущность рассписание", Version = "v1" });
+                c.SwaggerDoc("TimeTable", new OpenApiInfo { Title = "Сущность расписание", Version = "v1" });
             });
         }
         public static void GetSwaggerDocumentUI(this WebApplication app)
@@ -49,7 +50,7 @@ namespace Clinic.API.Infrastructures
                 x.SwaggerEndpoint("Doctor/swagger.json", "Врачи");
                 x.SwaggerEndpoint("MedClinic/swagger.json", "Поликлиники");
                 x.SwaggerEndpoint("Patient/swagger.json", "Пациенты");
-                x.SwaggerEndpoint("TimeTable/swagger.json", "Рассписание");
+                x.SwaggerEndpoint("TimeTable/swagger.json", "Расписание");
             });
         }
     }

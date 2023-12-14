@@ -28,9 +28,12 @@ namespace Clinic.Services.Implementations
         }
         async Task<DoctorModel> IDoctorService.AddAsync(DoctorModel model, CancellationToken cancellationToken)
         {
+            model.Id = Guid.NewGuid();
+
             var item = mapper.Map<Doctor>(model);
             doctorWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+
             return mapper.Map<DoctorModel>(item);
         }
 
@@ -39,13 +42,13 @@ namespace Clinic.Services.Implementations
             var targetDoctor = await doctorReadRepository.GetByIdAsync(id, cancellationToken);
             if (targetDoctor == null)
             {
-                throw new TimeTableEntityNotFoundException<Doctor>(id);
+                throw new ClinicEntityNotFoundException<Doctor>(id);
             }
 
 
             if (targetDoctor.DeletedAt.HasValue)
             {
-                throw new TimeTableInvalidOperationException($"Врач с идентификатором {id} уже удален");
+                throw new ClinicInvalidOperationException($"Врач с идентификатором {id} уже удален");
             }
 
             doctorWriteRepository.Delete(targetDoctor);
@@ -57,14 +60,11 @@ namespace Clinic.Services.Implementations
             var targetDoctor = await doctorReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetDoctor == null)
             {
-                throw new TimeTableEntityNotFoundException<Doctor>(source.Id);
+                throw new ClinicEntityNotFoundException<Doctor>(source.Id);
             }
 
-            targetDoctor.Surname = source.Surname;
-            targetDoctor.Name = source.Name;
-            targetDoctor.Patronymic = source.Patronymic;
-            targetDoctor.CategoriesType = (CategoriesTypes)source.CategoriesType;
-            targetDoctor.DepartmentType = (DepartmentTypes)source.DepartmentType;
+            targetDoctor = mapper.Map<Doctor>(source);
+
             doctorWriteRepository.Update(targetDoctor);
 
             await unitOfWork.SaveChangesAsync(cancellationToken);
@@ -82,7 +82,7 @@ namespace Clinic.Services.Implementations
 
             if (item == null)
             {
-                return null;
+                throw new ClinicEntityNotFoundException<Doctor>(id);
             }
             return mapper.Map<DoctorModel>(item);
         }

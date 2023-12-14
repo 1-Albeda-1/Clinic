@@ -17,5 +17,10 @@ namespace Clinic.Repositories.Contracts.ReadRepositoriesContracts
         /// Получить <see cref="BookingAppointment"/> по идентификатору
         /// </summary>
         Task<BookingAppointment?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Проверить есть ли <see cref="BookingAppointment"/> в коллеции
+        /// </summary>
+        Task<bool> IsNotNullAsync(Guid id, CancellationToken cancellationToken);
     }
 }

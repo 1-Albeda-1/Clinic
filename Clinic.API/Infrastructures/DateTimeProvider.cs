@@ -1,6 +1,6 @@
 ﻿using Clinic.Common;
 
-namespace Clinic.API.Extensions
+namespace Clinic.API.Infrastructures
 {
     public class DateTimeProvider : IDateTimeProvider
     {

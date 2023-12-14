@@ -1,6 +1,4 @@
-﻿using Clinic.Context.Contracts.Enums;
-
-namespace Clinic.Services.Contracts.Models
+﻿namespace Clinic.Services.Contracts.Models
 {
     /// <summary>
     /// Модель диагноза

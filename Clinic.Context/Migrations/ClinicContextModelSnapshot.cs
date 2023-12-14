@@ -247,10 +247,9 @@ namespace Clinic.Context.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
 
-                    b.Property<string>("Policy")
-                        .IsRequired()
+                    b.Property<long>("Policy")
                         .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Surname")
                         .IsRequired()
