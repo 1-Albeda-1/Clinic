@@ -1,32 +1,28 @@
-﻿using Clinic.Common.Interface;
-using Clinic.Common.Repositories;
-using Clinic.Context.Contracts.Models;
-using Clinic.Repositories.Anchors;
+﻿using Clinic.Context.Tests;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
-using Clinic.Repositories.Tests;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection.PortableExecutable;
+using Clinic.Repositories.ReadRepositories;
+using FluentAssertions;
 using Xunit;
 
-namespace Clinic.Repositories.ReadRepositories
+namespace Clinic.Repositories.Tests.Tests
 {
-    public class PatientReadRepositoryTests : IPatientReadRepository,  IRepositoryAnchor
+    public class PatientReadRepositoryTests : ClinicContextInMemory
     {
-        private readonly IPersonReadRepository personReadRepository;
+        private readonly IPatientReadRepository patientReadRepository;
 
-        public PersonReadRepositoryTests()
+        public PatientReadRepositoryTests()
         {
-            personReadRepository = new PersonReadRepository(Reader);
+            patientReadRepository = new PatientReadRepository(Reader);
         }
 
         /// <summary>
-        /// Возвращает пустой список персон
+        /// Возвращает пустой список пациентов
         /// </summary>
         [Fact]
-        public async Task GetAllPersonEmpty()
+        public async Task GetAllPatientEmpty()
         {
             // Act
-            var result = await personReadRepository.GetAllAsync(CancellationToken);
+            var result = await patientReadRepository.GetAllAsync(CancellationToken);
 
             // Assert
             result.Should()
@@ -35,19 +31,19 @@ namespace Clinic.Repositories.ReadRepositories
         }
 
         /// <summary>
-        /// Возвращает список персон
+        /// Возвращает список пациентов
         /// </summary>
         [Fact]
-        public async Task GetAllPersonsValue()
+        public async Task GetAllPatientsValue()
         {
             //Arrange
-            var target = TestDataGenerator.Person();
-            await Context.Persons.AddRangeAsync(target,
-                TestDataGenerator.Person(x => x.DeletedAt = DateTimeOffset.UtcNow));
+            var target = TestDataGenerator.Patient();
+            await Context.Patients.AddRangeAsync(target,
+                TestDataGenerator.Patient(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await Context.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await personReadRepository.GetAllAsync(CancellationToken);
+            var result = await patientReadRepository.GetAllAsync(CancellationToken);
 
             // Assert
             result.Should()
@@ -57,34 +53,34 @@ namespace Clinic.Repositories.ReadRepositories
         }
 
         /// <summary>
-        /// Получение персоны по идентификатору возвращает null
+        /// Получение пациента по идентификатору возвращает null
         /// </summary>
         [Fact]
-        public async Task GetByIdPersonNull()
+        public async Task GetByIdPatientNull()
         {
             //Arrange
             var id = Guid.NewGuid();
 
             // Act
-            var result = await personReadRepository.GetByIdAsync(id, CancellationToken);
+            var result = await patientReadRepository.GetByIdAsync(id, CancellationToken);
 
             // Assert
             result.Should().BeNull();
         }
 
         /// <summary>
-        /// Получение документа по идентификатору возвращает данные
+        /// Получение пациента по идентификатору возвращает данные
         /// </summary>
         [Fact]
-        public async Task GetByIdPersonValue()
+        public async Task GetByIdPatientValue()
         {
             //Arrange
-            var target = TestDataGenerator.Person();
-            await Context.Persons.AddAsync(target);
+            var target = TestDataGenerator.Patient();
+            await Context.Patients.AddAsync(target);
             await Context.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await personReadRepository.GetByIdAsync(target.Id, CancellationToken);
+            var result = await patientReadRepository.GetByIdAsync(target.Id, CancellationToken);
 
             // Assert
             result.Should()
@@ -93,10 +89,10 @@ namespace Clinic.Repositories.ReadRepositories
         }
 
         /// <summary>
-        /// Получение списка персон по идентификаторам возвращает пустую коллекцию
+        /// Получение списка пациентов по идентификаторам возвращает пустую коллекцию
         /// </summary>
         [Fact]
-        public async Task GetByIdsSPersonEmpty()
+        public async Task GetByIdsSPatientEmpty()
         {
             //Arrange
             var id1 = Guid.NewGuid();
@@ -104,7 +100,7 @@ namespace Clinic.Repositories.ReadRepositories
             var id3 = Guid.NewGuid();
 
             // Act
-            var result = await personReadRepository.GetByIdsAsync(new[] { id1, id2, id3 }, CancellationToken);
+            var result = await patientReadRepository.GetByIdsAsync(new[] { id1, id2, id3 }, CancellationToken);
 
             // Assert
             result.Should()
@@ -113,21 +109,21 @@ namespace Clinic.Repositories.ReadRepositories
         }
 
         /// <summary>
-        /// Получение списка персон по идентификаторам возвращает данные
+        /// Получение списка пациентов по идентификаторам возвращает данные
         /// </summary>
         [Fact]
-        public async Task GetByIdsPersonsValue()
+        public async Task GetByIdsPatientsValue()
         {
             //Arrange
-            var target1 = TestDataGenerator.Person();
-            var target2 = TestDataGenerator.Person(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGenerator.Person();
-            var target4 = TestDataGenerator.Person();
-            await Context.Persons.AddRangeAsync(target1, target2, target3, target4);
+            var target1 = TestDataGenerator.Patient();
+            var target2 = TestDataGenerator.Patient(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = TestDataGenerator.Patient();
+            var target4 = TestDataGenerator.Patient();
+            await Context.Patients.AddRangeAsync(target1, target2, target3, target4);
             await Context.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await personReadRepository.GetByIdsAsync(new[] { target1.Id, target2.Id, target4.Id }, CancellationToken);
+            var result = await patientReadRepository.GetByIdsAsync(new[] { target1.Id, target2.Id, target4.Id }, CancellationToken);
 
             // Assert
             result.Should()

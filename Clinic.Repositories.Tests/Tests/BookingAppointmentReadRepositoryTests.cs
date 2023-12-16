@@ -1,10 +1,8 @@
-﻿using FluentAssertions;
-using Clinic.Context.Tests;
-using Clinic.Repositories.Contracts;
-using Clinic.Repositories.ReadRepositories;
-using Xunit;
-using System.Reflection.PortableExecutable;
+﻿using Clinic.Context.Tests;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
+using Clinic.Repositories.ReadRepositories;
+using FluentAssertions;
+using Xunit;
 
 namespace Clinic.Repositories.Tests.Tests
 {
@@ -21,7 +19,7 @@ namespace Clinic.Repositories.Tests.Tests
         /// Возвращает пустой список записей
         /// </summary>
         [Fact]
-        public async Task GetAllBookingAppointmentEmpty()
+        public async Task GetAllBookingAppointmentsEmpty()
         {
 
             // Act
@@ -37,7 +35,7 @@ namespace Clinic.Repositories.Tests.Tests
         /// Возвращает список записей
         /// </summary>
         [Fact]
-        public async Task GetAllBookingAppointmentValue()
+        public async Task GetAllBookingAppointmentsValue()
         {
             //Arrange
             var target = TestDataGenerator.BookingAppointment();
@@ -95,7 +93,7 @@ namespace Clinic.Repositories.Tests.Tests
         /// Получение списка записей по идентификаторам возвращает пустую коллекцию
         /// </summary>
         [Fact]
-        public async Task GetByIdBookingAppointmentEmpty()
+        public async Task GetByIdsBookingAppointmentsEmpty()
         {
             //Arrange
             var id1 = Guid.NewGuid();
@@ -115,7 +113,7 @@ namespace Clinic.Repositories.Tests.Tests
         /// Получение списка записей по идентификаторам возвращает данные
         /// </summary>
         [Fact]
-        public async Task GetByIdBookingAppointmentsValue()
+        public async Task GetByIdsBookingAppointmentsValue()
         {
             //Arrange
             var target1 = TestDataGenerator.BookingAppointment();
