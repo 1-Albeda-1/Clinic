@@ -22,4 +22,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Clinic.Common\Clinic.Common.csproj" />
+    <ProjectReference Include="..\Clinic.Context.Contract\Clinic.Context.Contracts.csproj" />
+    <ProjectReference Include="..\Clinic.Context.Tests\Clinic.Context.Tests.csproj" />
+    <ProjectReference Include="..\Clinic.Services.Contracts\Clinic.Services.Contracts.csproj" />
+    <ProjectReference Include="..\Clinic.Services\Clinic.Services.csproj" />
+  </ItemGroup>
+
 </Project>
