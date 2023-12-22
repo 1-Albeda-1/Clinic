@@ -132,5 +132,57 @@ namespace Clinic.Repositories.Tests.Tests
                 .And.ContainKey(target1.Id)
                 .And.ContainKey(target4.Id);
         }
+
+        /// <summary>
+        /// Поиск поликлиники в коллекции по идентификатору (true)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnTrue()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.MedClinic();
+            await Context.MedClinics.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await medClinicReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Поиск поликлиники в коллекции по идентификатору (false)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = Guid.NewGuid();
+
+            // Act
+            var result = await medClinicReadRepository.IsNotNullAsync(target1, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Поиск удаленной поликлиники в коллекции по идентификатору
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullDeletedEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.MedClinic(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            await Context.MedClinics.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await medClinicReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace Clinic.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Возвращает пустой список рассписаний
+        /// Возвращает пустой список расписаний
         /// </summary>
         [Fact]
         public async Task GetAllTimeTableEmpty()
@@ -31,7 +31,7 @@ namespace Clinic.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Возвращает список рассписаний
+        /// Возвращает список расписаний
         /// </summary>
         [Fact]
         public async Task GetAllTimeTablesValue()
@@ -53,7 +53,7 @@ namespace Clinic.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Получение рассписания по идентификатору возвращает null
+        /// Получение расписания по идентификатору возвращает null
         /// </summary>
         [Fact]
         public async Task GetByIdTimeTableNull()
@@ -69,7 +69,7 @@ namespace Clinic.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Получение рассписания по идентификатору возвращает данные
+        /// Получение расписания по идентификатору возвращает данные
         /// </summary>
         [Fact]
         public async Task GetByIdTimeTableValue()
@@ -89,7 +89,7 @@ namespace Clinic.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Получение списка рассписаний по идентификаторам возвращает пустую коллекцию
+        /// Получение списка расписаний по идентификаторам возвращает пустую коллекцию
         /// </summary>
         [Fact]
         public async Task GetByIdsSTimeTableEmpty()
@@ -109,7 +109,7 @@ namespace Clinic.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Получение списка рассписаний по идентификаторам возвращает данные
+        /// Получение списка расписаний по идентификаторам возвращает данные
         /// </summary>
         [Fact]
         public async Task GetByIdsTimeTablesValue()
@@ -131,6 +131,58 @@ namespace Clinic.Repositories.Tests.Tests
                 .And.HaveCount(2)
                 .And.ContainKey(target1.Id)
                 .And.ContainKey(target4.Id);
+        }
+
+        /// <summary>
+        /// Поиск расписания в коллекции по идентификатору (true)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnTrue()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.TimeTable();
+            await Context.TimeTables.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await timeTableReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Поиск расписания в коллекции по идентификатору (false)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = Guid.NewGuid();
+
+            // Act
+            var result = await timeTableReadRepository.IsNotNullAsync(target1, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Поиск удаленного расписания в коллекции по идентификатору
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullDeletedEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.TimeTable(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            await Context.TimeTables.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await timeTableReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
         }
     }
 }

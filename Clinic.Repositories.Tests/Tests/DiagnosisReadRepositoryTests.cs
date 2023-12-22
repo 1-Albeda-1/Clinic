@@ -89,7 +89,7 @@ namespace Clinic.Repositories.Tests.Tests
         }
 
         /// <summary>
-        /// Получение списка диагноза по идентификаторам возвращает пустую коллекцию
+        /// Получение списка диагнозов по идентификаторам возвращает пустую коллекцию
         /// </summary>
         [Fact]
         public async Task GetByIdsSDiagnosisesEmpty()
@@ -131,6 +131,58 @@ namespace Clinic.Repositories.Tests.Tests
                 .And.HaveCount(2)
                 .And.ContainKey(target1.Id)
                 .And.ContainKey(target4.Id);
+        }
+
+        /// <summary>
+        /// Поиск диагноза в коллекции по идентификатору (true)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnTrue()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.Diagnosis();
+            await Context.Diagnosises.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await diagnosisReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Поиск диагноза в коллекции по идентификатору (false)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = Guid.NewGuid();
+
+            // Act
+            var result = await diagnosisReadRepository.IsNotNullAsync(target1, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Поиск удаленного диагноза в коллекции по идентификатору
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullDeletedEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.Diagnosis(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            await Context.Diagnosises.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await diagnosisReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
         }
     }
 }

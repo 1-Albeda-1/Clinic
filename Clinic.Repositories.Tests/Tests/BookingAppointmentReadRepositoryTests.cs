@@ -133,5 +133,57 @@ namespace Clinic.Repositories.Tests.Tests
                 .And.ContainKey(target1.Id)
                 .And.ContainKey(target4.Id);
         }
+
+        /// <summary>
+        /// Поиск записи в коллекции по идентификатору (true)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnTrue()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.BookingAppointment();
+            await Context.BookingAppointments.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await bookingAppointmentReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Поиск записи в коллекции по идентификатору (false)
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = Guid.NewGuid();
+
+            // Act
+            var result = await bookingAppointmentReadRepository.IsNotNullAsync(target1, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Поиск удаленной записи в коллекции по идентификатору
+        /// </summary>
+        [Fact]
+        public async Task IsNotNullDeletedEntityReturnFalse()
+        {
+            //Arrange
+            var target1 = TestDataGenerator.BookingAppointment(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            await Context.BookingAppointments.AddAsync(target1);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await bookingAppointmentReadRepository.IsNotNullAsync(target1.Id, CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
+        }
     }
 }
