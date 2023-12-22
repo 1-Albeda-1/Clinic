@@ -50,10 +50,11 @@ namespace Clinic.Services.Tests.Tests
             var id = Guid.NewGuid();
 
             // Act
-            var result = await bookingAppointmentService.GetByIdAsync(id, CancellationToken);
+            Func<Task> act = () => bookingAppointmentService.GetByIdAsync(id, CancellationToken);
 
             // Assert
-            result.Should().BeNull();
+            await act.Should().ThrowAsync<ClinicEntityNotFoundException<BookingAppointment>>()
+                .WithMessage($"*{id}*");
         }
 
         /// <summary>

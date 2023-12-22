@@ -48,10 +48,11 @@ namespace Clinic.Services.Tests.Tests
             var id = Guid.NewGuid();
 
             // Act
-            var result = await diagnosisService.GetByIdAsync(id, CancellationToken);
+            Func<Task> act = () => diagnosisService.GetByIdAsync(id, CancellationToken);
 
             // Assert
-            result.Should().BeNull();
+            await act.Should().ThrowAsync<ClinicEntityNotFoundException<Diagnosis>>()
+                .WithMessage($"*{id}*");
         }
 
         /// <summary>

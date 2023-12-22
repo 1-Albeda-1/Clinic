@@ -11,6 +11,7 @@ using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Implementations;
 using Xunit;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
+using Clinic.Services.Contracts;
 
 namespace Clinic.Services.Tests.Tests
 {
@@ -47,10 +48,11 @@ namespace Clinic.Services.Tests.Tests
             var id = Guid.NewGuid();
 
             // Act
-            var result = await timeTableService.GetByIdAsync(id, CancellationToken);
+            Func<Task> act = () => timeTableService.GetByIdAsync(id, CancellationToken);
 
             // Assert
-            result.Should().BeNull();
+            await act.Should().ThrowAsync<ClinicEntityNotFoundException<TimeTable>>()
+                .WithMessage($"*{id}*");
         }
 
         /// <summary>

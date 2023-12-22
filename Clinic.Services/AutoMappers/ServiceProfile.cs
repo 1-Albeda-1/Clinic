@@ -48,7 +48,7 @@ namespace Clinic.Services.Automappers
                 .ForMember(x => x.UpdatedBy, opt => opt.Ignore());
 
             CreateMap<TimeTableRequestModel, TimeTable>(MemberList.Destination)
-                .ForMember(x => x.DoctorId, opt => opt.MapFrom(y=>y.Doctor))
+                .ForMember(x => x.DoctorId, opt => opt.MapFrom(y => y.Doctor))
                 .ForMember(x => x.Doctor, opt => opt.Ignore())
                 .ForMember(x => x.CreatedAt, opt => opt.Ignore())
                 .ForMember(x => x.DeletedAt, opt => opt.Ignore())
