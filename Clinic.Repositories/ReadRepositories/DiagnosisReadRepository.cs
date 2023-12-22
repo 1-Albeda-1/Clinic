@@ -29,7 +29,9 @@ namespace Clinic.Repositories.ReadRepositories
 
         Task<Dictionary<Guid, Diagnosis>> IDiagnosisReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
             => reader.Read<Diagnosis>()
+                .NotDeletedAt()
                 .ByIds(ids)
+                .OrderBy(x => x.Name)
                 .ToDictionaryAsync(x => x.Id, cancellationToken);
 
         Task<bool> IDiagnosisReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)

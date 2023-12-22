@@ -19,6 +19,7 @@ namespace Clinic.Repositories.ReadRepositories
 
         Task<IReadOnlyCollection<MedClinic>> IMedClinicReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<MedClinic>()
+                .NotDeletedAt()
                 .OrderBy(x => x.Name)
                 .ToReadOnlyCollectionAsync(cancellationToken);
 
@@ -29,7 +30,9 @@ namespace Clinic.Repositories.ReadRepositories
 
         Task<Dictionary<Guid, MedClinic>> IMedClinicReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
             => reader.Read<MedClinic>()
+                .NotDeletedAt()
                 .ByIds(ids)
+                .OrderBy(x => x.Name)
                 .ToDictionaryAsync(x => x.Id, cancellationToken);
 
         Task<bool> IMedClinicReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)
