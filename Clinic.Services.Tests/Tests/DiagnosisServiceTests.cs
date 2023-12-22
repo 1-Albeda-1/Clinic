@@ -1,68 +1,54 @@
-﻿using Clinic.Context.Tests;
-using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
-using Clinic.Repositories.ReadRepositories;
+﻿using AutoMapper;
 using FluentAssertions;
+using Clinic.Common.Interface;
+using Clinic.Context.Contracts.Models;
+using Clinic.Context.Tests;
+using Clinic.Repositories.ReadRepositories;
+using Clinic.Repositories.WriteRepositories;
+using Clinic.Services.Automappers;
+using Clinic.Services.Contracts.Exceptions;
+using Clinic.Services.Contracts.Interface;
+using Clinic.Services.Implementations;
 using Xunit;
+using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 
 namespace Clinic.Services.Tests.Tests
 {
+    /// <summary>
+    /// Тесты для <see cref="IDiagnosisService"/>
+    /// </summary>
     public class DiagnosisServiceTests : ClinicContextInMemory
     {
-        private readonly IDiagnosisReadRepository diagnosisReadRepository;
+        private readonly IDiagnosisService diagnosisService;
 
+
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="DiagnosisServiceTests"/>
+        /// </summary>
         public DiagnosisServiceTests()
         {
-            diagnosisReadRepository = new DiagnosisReadRepository(Reader);
-        }
-
-        /// <summary>
-        /// Возвращает пустой список диагнозов
-        /// </summary>
-        [Fact]
-        public async Task GetAllPersonEmpty()
-        {
-            // Act
-            var result = await diagnosisReadRepository.GetAllAsync(CancellationToken);
-
-            // Assert
-            result.Should()
-                .NotBeNull()
-                .And.BeEmpty();
-        }
-
-        /// <summary>
-        /// Возвращает список диагнозов
-        /// </summary>
-        [Fact]
-        public async Task GetAllDiagnosisesValue()
-        {
-            //Arrange
-            var target = TestDataGenerator.Diagnosis();
-            await Context.Diagnosises.AddRangeAsync(target,
-                TestDataGenerator.Diagnosis(x => x.DeletedAt = DateTimeOffset.UtcNow));
-            await Context.SaveChangesAsync(CancellationToken);
-
-            // Act
-            var result = await diagnosisReadRepository.GetAllAsync(CancellationToken);
-
-            // Assert
-            result.Should()
-                .NotBeNull()
-                .And.HaveCount(1)
-                .And.ContainSingle(x => x.Id == target.Id);
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new ServiceProfile());
+            });
+            diagnosisService = new DiagnosisService(
+                new DiagnosisReadRepository(Reader),
+                new DiagnosisWriteRepository(WriterContext),
+                UnitOfWork,
+                config.CreateMapper());
         }
 
         /// <summary>
         /// Получение диагноза по идентификатору возвращает null
         /// </summary>
         [Fact]
-        public async Task GetByIdDiagnosisNull()
+        public async Task GetByIdShouldReturnNull()
         {
             //Arrange
             var id = Guid.NewGuid();
 
             // Act
-            var result = await diagnosisReadRepository.GetByIdAsync(id, CancellationToken);
+            var result = await diagnosisService.GetByIdAsync(id, CancellationToken);
 
             // Assert
             result.Should().BeNull();
@@ -72,7 +58,7 @@ namespace Clinic.Services.Tests.Tests
         /// Получение диагноза по идентификатору возвращает данные
         /// </summary>
         [Fact]
-        public async Task GetByIdDiagnosisValue()
+        public async Task GetByIdShouldReturnValue()
         {
             //Arrange
             var target = TestDataGenerator.Diagnosis();
@@ -80,57 +66,19 @@ namespace Clinic.Services.Tests.Tests
             await Context.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await diagnosisReadRepository.GetByIdAsync(target.Id, CancellationToken);
+            var result = await diagnosisService.GetByIdAsync(target.Id, CancellationToken);
 
             // Assert
             result.Should()
                 .NotBeNull()
-                .And.BeEquivalentTo(target);
+                .And.BeEquivalentTo(new
+                {
+                    target.Id,
+                    target.Name,
+                    target.Medicament,
+                });
         }
 
-        /// <summary>
-        /// Получение списка диагноза по идентификаторам возвращает пустую коллекцию
-        /// </summary>
-        [Fact]
-        public async Task GetByIdsSDiagnosisesEmpty()
-        {
-            //Arrange
-            var id1 = Guid.NewGuid();
-            var id2 = Guid.NewGuid();
-            var id3 = Guid.NewGuid();
-
-            // Act
-            var result = await diagnosisReadRepository.GetByIdsAsync(new[] { id1, id2, id3 }, CancellationToken);
-
-            // Assert
-            result.Should()
-                .NotBeNull()
-                .And.BeEmpty();
-        }
-
-        /// <summary>
-        /// Получение списка диагнозов по идентификаторам возвращает данные
-        /// </summary>
-        [Fact]
-        public async Task GetByIdsDiagnosisesValue()
-        {
-            //Arrange
-            var target1 = TestDataGenerator.Diagnosis();
-            var target2 = TestDataGenerator.Diagnosis(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGenerator.Diagnosis();
-            var target4 = TestDataGenerator.Diagnosis();
-            await Context.Diagnosises.AddRangeAsync(target1, target2, target3, target4);
-            await Context.SaveChangesAsync(CancellationToken);
-
-            // Act
-            var result = await diagnosisReadRepository.GetByIdsAsync(new[] { target1.Id, target2.Id, target4.Id }, CancellationToken);
-
-            // Assert
-            result.Should()
-                .NotBeNull()
-                .And.HaveCount(2)
-                .And.ContainKey(target1.Id)
-                .And.ContainKey(target4.Id);
-        }
+       
     }
 }

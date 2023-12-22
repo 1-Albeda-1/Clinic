@@ -22,9 +22,10 @@ namespace Clinic.Services.Implementations
         private readonly IMedClinicReadRepository medClinicReadRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        public PatientService(IPatientReadRepository patientReadRepository, IMapper mapper, 
-            IDiagnosisReadRepository diagnosisReadRepository, IMedClinicReadRepository medClinicReadRepository, 
-            IPatientWriteRepository patientWriteRepository, IUnitOfWork unitOfWork)
+        public PatientService(IPatientReadRepository patientReadRepository, IPatientWriteRepository patientWriteRepository,
+            IUnitOfWork unitOfWork, IDiagnosisReadRepository diagnosisReadRepository, 
+            IMedClinicReadRepository medClinicReadRepository, 
+            IMapper mapper)
         {
             this.patientReadRepository = patientReadRepository;
             this.mapper = mapper;

@@ -23,9 +23,9 @@ namespace Clinic.Services.Implementations
         private readonly ITimeTableReadRepository timeTableReadRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        public BookingAppointmentService(IBookingAppointmentReadRepository bookingAppointmentReadRepository, IMapper mapper, 
-            IPatientReadRepository patientReadRepository, ITimeTableReadRepository timeTableReadRepository, 
-            IBookingAppointmentWriteRepository bookingAppointmentWriteRepository, IUnitOfWork unitOfWork)
+        public BookingAppointmentService(IBookingAppointmentReadRepository bookingAppointmentReadRepository, IBookingAppointmentWriteRepository bookingAppointmentWriteRepository, 
+            IPatientReadRepository patientReadRepository, ITimeTableReadRepository timeTableReadRepository,
+            IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.bookingAppointmentReadRepository = bookingAppointmentReadRepository;
             this.mapper = mapper;
