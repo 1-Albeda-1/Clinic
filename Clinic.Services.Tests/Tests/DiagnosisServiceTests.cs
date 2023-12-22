@@ -11,6 +11,7 @@ using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Implementations;
 using Xunit;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
+using Clinic.Services.Contracts.Models;
 
 namespace Clinic.Services.Tests.Tests
 {
@@ -20,7 +21,8 @@ namespace Clinic.Services.Tests.Tests
     public class DiagnosisServiceTests : ClinicContextInMemory
     {
         private readonly IDiagnosisService diagnosisService;
-
+        private readonly IDiagnosisReadRepository diagnosisReadRepository;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="DiagnosisServiceTests"/>
@@ -31,11 +33,23 @@ namespace Clinic.Services.Tests.Tests
             {
                 cfg.AddProfile(new ServiceProfile());
             });
+
+            mapper = config.CreateMapper();
+            diagnosisReadRepository = new DiagnosisReadRepository(Reader);
             diagnosisService = new DiagnosisService(
-                new DiagnosisReadRepository(Reader),
+                diagnosisReadRepository,
                 new DiagnosisWriteRepository(WriterContext),
                 UnitOfWork,
-                config.CreateMapper());
+                mapper);
+        }
+
+        /// <summary>
+        /// Тест маппера
+        /// </summary>
+        [Fact]
+        public void TestMapper()
+        {
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
         /// <summary>
@@ -80,6 +94,163 @@ namespace Clinic.Services.Tests.Tests
                 });
         }
 
-       
+        /// <summary>
+        /// Получение <see cref="IEnumerable{Diagnosis}"/> по идентификаторам возвращает пустую коллекцию
+        /// </summary>
+        [Fact]
+        public async Task GetAllShouldReturnEmpty()
+        {
+            // Act
+            var result = await diagnosisService.GetAllAsync(CancellationToken);
+
+            // Assert
+            result.Should()
+                .NotBeNull()
+                .And.BeEmpty();
+        }
+
+        /// <summary>
+        /// Получение <see cref="IEnumerable{Diagnosis}"/> по идентификаторам возвращает данные
+        /// </summary>
+        [Fact]
+        public async Task GetAllShouldReturnValues()
+        {
+            //Arrange
+            var target = TestDataGenerator.Diagnosis();
+
+            await Context.Diagnosises.AddRangeAsync(target,
+                TestDataGenerator.Diagnosis(x => x.DeletedAt = DateTimeOffset.UtcNow));
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await diagnosisService.GetAllAsync(CancellationToken);
+
+            // Assert
+            result.Should()
+                .NotBeNull()
+                .And.HaveCount(1)
+                .And.ContainSingle(x => x.Id == target.Id);
+        }
+
+        /// <summary>
+        /// Удаление несуществуюущего <see cref="Diagnosis"/>
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldNotFoundException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+
+            // Act
+            Func<Task> result = () => diagnosisService.DeleteAsync(id, CancellationToken);
+
+            // Assert
+            await result.Should().ThrowAsync<ClinicEntityNotFoundException<Diagnosis>>()
+                .WithMessage($"*{id}*");
+        }
+
+        /// <summary>
+        /// Удаление удаленного <see cref="Diagnosis"/>
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldInvalidException()
+        {
+            //Arrange
+            var model = TestDataGenerator.Diagnosis(x => x.DeletedAt = DateTime.UtcNow);
+            await Context.Diagnosises.AddAsync(model);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            Func<Task> result = () => diagnosisService.DeleteAsync(model.Id, CancellationToken);
+
+            // Assert
+            await result.Should().ThrowAsync<ClinicInvalidOperationException>()
+                .WithMessage($"*{model.Id}*");
+        }
+
+        /// <summary>
+        /// Удаление <see cref="Diagnosis"/>
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldWork()
+        {
+            //Arrange
+            var model = TestDataGenerator.Diagnosis();
+            await Context.Diagnosises.AddAsync(model);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            //Act
+            Func<Task> act = () => diagnosisService.DeleteAsync(model.Id, CancellationToken);
+
+            // Assert
+            await act.Should().NotThrowAsync();
+            var entity = Context.Diagnosises.Single(x => x.Id == model.Id);
+            entity.Should().NotBeNull();
+            entity.DeletedAt.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Добавление <see cref="Diagnosis"/>
+        /// </summary>
+        [Fact]
+        public async Task AddShouldWork()
+        {
+            //Arrange
+            var model = mapper.Map<DiagnosisModel>(TestDataGenerator.Diagnosis());
+
+            //Act
+            Func<Task> act = () => diagnosisService.AddAsync(model, CancellationToken);
+
+            // Assert
+            await act.Should().NotThrowAsync();
+            var entity = Context.Diagnosises.Single(x => x.Id == model.Id);
+            entity.Should().NotBeNull();
+            entity.DeletedAt.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Изменение несуществующего <see cref="Diagnosis"/>
+        /// </summary>
+        [Fact]
+        public async Task EditShouldNotFoundException()
+        {
+            //Arrange
+            var model = mapper.Map<DiagnosisModel>(TestDataGenerator.Diagnosis());
+
+            //Act
+            Func<Task> act = () => diagnosisService.EditAsync(model, CancellationToken);
+
+            // Assert
+            await act.Should().ThrowAsync<ClinicEntityNotFoundException<Diagnosis>>()
+                .WithMessage($"*{model.Id}*");
+        }
+
+        /// <summary>
+        /// Изменение <see cref="Diagnosis"/>
+        /// </summary>
+        [Fact]
+        public async Task EditShouldWork()
+        {
+            //Arrange
+            var model = mapper.Map<DiagnosisModel>(TestDataGenerator.Diagnosis());
+            var person = TestDataGenerator.Diagnosis(x => x.Id = model.Id);
+            await Context.Diagnosises.AddAsync(person);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            //Act
+            Func<Task> act = () => diagnosisService.EditAsync(model, CancellationToken);
+
+            // Assert
+            await act.Should().NotThrowAsync();
+            var entity = Context.Diagnosises.Single(x => x.Id == person.Id);
+            entity.Should().NotBeNull()
+                .And
+                .BeEquivalentTo(new
+                {
+                    model.Id,
+                    model.Name,
+                    model.Medicament
+                });
+        }
     }
 }

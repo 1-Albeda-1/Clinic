@@ -68,7 +68,7 @@ namespace Clinic.API.Tests.ValidatorTests.Patient
                 Name = $"FirstName{Guid.NewGuid():N}",
                 Patronymic = $"Patronymic{Guid.NewGuid():N}",
                 Phone = $"Phone{Guid.NewGuid():N}",
-                Policy = Random.Shared.Next(0, 9),
+                Policy = 1111111111111111,
                 Birthday = DateTimeOffset.UtcNow,
                 MedClinic = medclinic.Id,
                 Diagnosis = diagnosis.Id
