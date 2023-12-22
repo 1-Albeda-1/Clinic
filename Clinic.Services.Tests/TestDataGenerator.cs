@@ -1,12 +1,14 @@
 ﻿using Clinic.Context.Contracts.Enums;
 using Clinic.Context.Contracts.Models;
-using System.Xml.Linq;
+using Clinic.Services.Contracts.Models;
+using Clinic.Services.Contracts.Enums;
+using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Tests
 {
-    static internal class TestDataGenerator
+    public static class TestDataGenerator
     {
-        static internal BookingAppointment BookingAppointment(Action<BookingAppointment>? action = null)
+        public static BookingAppointment BookingAppointment(Action<BookingAppointment>? action = null)
         {
             var item = new BookingAppointment
             {
@@ -23,7 +25,7 @@ namespace Clinic.Services.Tests
         }
 
 
-        static internal Diagnosis Diagnosis(Action<Diagnosis>? action = null)
+        public static Diagnosis Diagnosis(Action<Diagnosis>? action = null)
         {
             var item = new Diagnosis
             {
@@ -39,7 +41,7 @@ namespace Clinic.Services.Tests
             action?.Invoke(item);
             return item;
         }
-        static internal Doctor Doctor(Action<Doctor>? action = null)
+        public static Doctor Doctor(Action<Doctor>? action = null)
         {
             var item = new Doctor
             {
@@ -59,7 +61,7 @@ namespace Clinic.Services.Tests
             return item;
         }
 
-        static internal MedClinic MedClinic(Action<MedClinic>? action = null)
+        public static MedClinic MedClinic(Action<MedClinic>? action = null)
         {
             var item = new MedClinic
             {
@@ -76,7 +78,7 @@ namespace Clinic.Services.Tests
             return item;
         }
 
-        static internal Patient Patient(Action<Patient>? action = null)
+        public static Patient Patient(Action<Patient>? action = null)
         {
             var item = new Patient
             {
@@ -97,7 +99,7 @@ namespace Clinic.Services.Tests
             return item;
         }
 
-        static internal TimeTable TimeTable(Action<TimeTable>? action = null)
+        public static TimeTable TimeTable(Action<TimeTable>? action = null)
         {
             var item = new TimeTable
             {

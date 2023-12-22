@@ -1,6 +1,6 @@
 ﻿using Clinic.Services.Contracts.Exceptions;
 
-namespace Clinc.Services.Contracts.Exceptions
+namespace Clinic.Services.Contracts.Exceptions
 {
     public class ClinicInvalidOperationException : ClinicException
     {

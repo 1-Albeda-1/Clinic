@@ -11,7 +11,8 @@ using Clinic.Services.Contracts.Interface;
 using Clinic.Services.Implementations;
 using Xunit;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
-
+using System;
+using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Tests.Tests
 {
@@ -21,6 +22,7 @@ namespace Clinic.Services.Tests.Tests
     public class BookingAppointmentServiceTests : ClinicContextInMemory
     {
         private readonly IBookingAppointmentService bookingAppointmentService;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="BookingAppointmentServiceTests"/>
@@ -31,13 +33,25 @@ namespace Clinic.Services.Tests.Tests
             {
                 cfg.AddProfile(new ServiceProfile());
             });
+
+            mapper = config.CreateMapper();
+
             bookingAppointmentService = new BookingAppointmentService(
                 new BookingAppointmentReadRepository(Reader),
                 new BookingAppointmentWriteRepository(WriterContext),
                 new PatientReadRepository(Reader),
                 new TimeTableReadRepository(Reader),
                 UnitOfWork,
-                config.CreateMapper());
+                mapper);
+        }
+
+        /// <summary>
+        /// Тест маппера
+        /// </summary>
+        [Fact]
+        public void TestMapper()
+        {
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
         /// <summary>
@@ -78,6 +92,194 @@ namespace Clinic.Services.Tests.Tests
                 {
                     target.Id,
                     target.Сomplaint
+                });
+        }
+
+        /// <summary>
+        /// Получение <see cref="IEnumerable{BookingAppointment}"/> по идентификаторам возвращает пустйю коллекцию
+        /// </summary>
+        [Fact]
+        public async Task GetAllShouldReturnEmpty()
+        {
+            // Act
+            var result = await bookingAppointmentService.GetAllAsync(CancellationToken);
+
+            // Assert
+            result.Should()
+                .NotBeNull()
+                .And.BeEmpty();
+        }
+
+        /// <summary>
+        /// Получение <see cref="IEnumerable{BookingAppointment}"/> по идентификаторам возвращает данные
+        /// </summary>
+        [Fact]
+        public async Task GetAllShouldReturnValues()
+        {
+            //Arrange
+            var target = TestDataGenerator.BookingAppointment();
+
+            await Context.BookingAppointments.AddRangeAsync(target,
+                TestDataGenerator.BookingAppointment(x => x.DeletedAt = DateTimeOffset.UtcNow));
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await bookingAppointmentService.GetAllAsync(CancellationToken);
+
+            // Assert
+            result.Should()
+                .NotBeNull()
+                .And.HaveCount(0);
+        }
+
+        /// <summary>
+        /// Удаление несуществуюущего <see cref="BookingAppointment"/>
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldNotFoundException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+
+            // Act
+            Func<Task> result = () => bookingAppointmentService.DeleteAsync(id, CancellationToken);
+
+            // Assert
+            await result.Should().ThrowAsync<ClinicEntityNotFoundException<BookingAppointment>>()
+                .WithMessage($"*{id}*");
+        }
+
+        /// <summary>
+        /// Удаление удаленного <see cref="BookingAppointment"/>
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldInvalidException()
+        {
+            //Arrange
+            var model = TestDataGenerator.BookingAppointment(x => x.DeletedAt = DateTime.UtcNow);
+            await Context.BookingAppointments.AddAsync(model);
+            await Context.SaveChangesAsync(CancellationToken);
+
+            // Act
+            Func<Task> result = () => bookingAppointmentService.DeleteAsync(model.Id, CancellationToken);
+
+            // Assert
+            await result.Should().ThrowAsync<ClinicInvalidOperationException>()
+                .WithMessage($"*{model.Id}*");
+        }
+
+        /// <summary>
+        /// Удаление <see cref="BookingAppointment"/>
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldWork()
+        {
+            //Arrange
+            var model = TestDataGenerator.BookingAppointment();
+            await Context.BookingAppointments.AddAsync(model);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            //Act
+            Func<Task> act = () => bookingAppointmentService.DeleteAsync(model.Id, CancellationToken);
+
+            // Assert
+            await act.Should().NotThrowAsync();
+            var entity = Context.BookingAppointments.Single(x => x.Id == model.Id);
+            entity.Should().NotBeNull();
+            entity.DeletedAt.Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Добавление <see cref="BookingAppointment"/>
+        /// </summary>
+        [Fact]
+        public async Task AddShouldWork()
+        {
+            //Arrange
+            var patient = TestDataGenerator.Patient();
+            var timetable = TestDataGenerator.TimeTable();
+
+            await Context.Patients.AddAsync(patient);
+            await Context.TimeTables.AddAsync(timetable);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            var model = mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment());
+            model.Patient = patient.Id;
+            model.TimeTable = timetable.Id;
+
+            //Act
+            Func<Task> act = () => bookingAppointmentService.AddAsync(model, CancellationToken);
+
+            // Assert
+            await act.Should().NotThrowAsync();
+            var entity = Context.BookingAppointments.Single(x => x.Id == model.Id);
+            entity.Should().NotBeNull();
+            entity.DeletedAt.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Изменение несуществующего <see cref="BookingAppointment"/>
+        /// </summary>
+        [Fact]
+        public async Task EditShouldNotFoundException()
+        {
+            //Arrange
+            var patient = TestDataGenerator.Patient();
+            var timetable = TestDataGenerator.TimeTable();
+
+            await Context.Patients.AddAsync(patient);
+            await Context.TimeTables.AddAsync(timetable);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            var model = mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment());
+            model.Patient = patient.Id;
+            model.TimeTable = timetable.Id;
+
+            //Act
+            Func<Task> act = () => bookingAppointmentService.EditAsync(model, CancellationToken);
+
+            // Assert
+            await act.Should().ThrowAsync<ClinicEntityNotFoundException<BookingAppointment>>()
+                .WithMessage($"*{model.Id}*");
+        }
+
+        /// <summary>
+        /// Изменение <see cref="BookingAppointment"/>
+        /// </summary>
+        [Fact]
+        public async Task EditShouldWork()
+        {
+            //Arrange
+            var patient = TestDataGenerator.Patient();
+            var timetable = TestDataGenerator.TimeTable();
+
+            await Context.Patients.AddAsync(patient);
+            await Context.TimeTables.AddAsync(timetable);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            var bookingAppointment = TestDataGenerator.BookingAppointment();
+            bookingAppointment.PatientId = patient.Id;
+            bookingAppointment.TimeTableId = timetable.Id;
+
+            var model = mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment());
+            model.Patient = patient.Id;
+            model.TimeTable = timetable.Id;
+
+            await Context.BookingAppointments.AddAsync(bookingAppointment);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            //Act
+            Func<Task> act = () => bookingAppointmentService.EditAsync(model, CancellationToken);
+
+            // Assert
+            await act.Should().NotThrowAsync();
+            var entity = Context.BookingAppointments.Single(x => x.Id == bookingAppointment.Id);
+            entity.Should().NotBeNull()
+                .And
+                .BeEquivalentTo(new
+                {
+                    model.Id,
+                    model.Сomplaint
                 });
         }
     }

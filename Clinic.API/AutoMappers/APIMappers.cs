@@ -21,7 +21,7 @@ namespace Clinic.API.AutoMappers
                  .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<CreateDiagnosisRequest, DiagnosisModel>(MemberList.Destination)
                  .ForMember(x => x.Id, opt => opt.Ignore());
-            CreateMap<CreateDoctorRequest, DoctorModel>(MemberList.Destination)
+            CreateMap<CreateDiagnosisRequest, DoctorModel>(MemberList.Destination)
                  .ForMember(x => x.Id, opt => opt.Ignore());
 
             CreateMap<MedClinicRequest, MedClinicModel>(MemberList.Destination);

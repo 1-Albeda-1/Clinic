@@ -45,7 +45,7 @@ namespace Clinic.Services.Automappers
                 .ForMember(x => x.DeletedAt, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.UpdatedAt, opt => opt.Ignore())
-                .ForMember(x => x.UpdatedBy, opt => opt.Ignore());
+                .ForMember(x => x.UpdatedBy, opt => opt.Ignore()).ReverseMap();
 
             CreateMap<TimeTableRequestModel, TimeTable>(MemberList.Destination)
                 .ForMember(x => x.DoctorId, opt => opt.MapFrom(y => y.Doctor))
@@ -54,7 +54,7 @@ namespace Clinic.Services.Automappers
                 .ForMember(x => x.DeletedAt, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.UpdatedAt, opt => opt.Ignore())
-                .ForMember(x => x.UpdatedBy, opt => opt.Ignore());
+                .ForMember(x => x.UpdatedBy, opt => opt.Ignore()).ReverseMap();
 
             CreateMap<BookingAppointmentRequestModel, BookingAppointment>(MemberList.Destination)
                 .ForMember(x => x.PatientId, opt => opt.MapFrom(y => y.Patient))
@@ -65,7 +65,7 @@ namespace Clinic.Services.Automappers
                .ForMember(x => x.DeletedAt, opt => opt.Ignore())
                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                .ForMember(x => x.UpdatedAt, opt => opt.Ignore())
-               .ForMember(x => x.UpdatedBy, opt => opt.Ignore());
+               .ForMember(x => x.UpdatedBy, opt => opt.Ignore()).ReverseMap();
 
         }
     }

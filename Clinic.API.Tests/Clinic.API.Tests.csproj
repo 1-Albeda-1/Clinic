@@ -22,6 +22,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clinic.API\Clinic.API.csproj" />
+    <ProjectReference Include="..\Clinic.Context.Tests\Clinic.Context.Tests.csproj" />
+    <ProjectReference Include="..\Clinic.Repositories.Tests\Clinic.Repositories.Tests.csproj" />
+    <ProjectReference Include="..\Clinic.Services.Tests\Clinic.Services.Tests.csproj" />
   </ItemGroup>
 
 </Project>
