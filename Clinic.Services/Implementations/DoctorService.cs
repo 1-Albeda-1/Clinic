@@ -18,8 +18,8 @@ namespace Clinic.Services.Implementations
         private readonly IDoctorWriteRepository doctorWriteRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        public DoctorService(IDoctorReadRepository doctorReadRepository, IMapper mapper, 
-            IDoctorWriteRepository doctorWriteRepository, IUnitOfWork unitOfWork)
+        public DoctorService(IDoctorReadRepository doctorReadRepository, 
+        IDoctorWriteRepository doctorWriteRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.doctorReadRepository = doctorReadRepository;
             this.mapper = mapper;

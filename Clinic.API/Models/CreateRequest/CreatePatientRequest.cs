@@ -35,11 +35,11 @@
         /// <summary>
         /// ID поликлиники
         /// </summary>
-        public Guid? MedClinic { get; set; }
+        public Guid? MedClinicId { get; set; }
 
         /// <summary>
         /// ID диагноза
         /// </summary>
-        public Guid Diagnosis { get; set; }
+        public Guid DiagnosisId { get; set; }
     }
 }

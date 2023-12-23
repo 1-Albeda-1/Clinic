@@ -31,7 +31,11 @@ namespace Clinic.Repositories.ReadRepositories
 
         Task<Dictionary<Guid, Patient>> IPatientReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
             => reader.Read<Patient>()
+                .NotDeletedAt()
                 .ByIds(ids)
+                .OrderBy(x => x.Name)
+                .ThenBy(x => x.Surname)
+                .ThenBy(x => x.Patronymic)
                 .ToDictionaryAsync(x => x.Id, cancellationToken);
 
         Task<bool> IPatientReadRepository.IsNotNullAsync(Guid id, CancellationToken cancellationToken)

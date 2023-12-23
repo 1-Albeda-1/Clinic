@@ -58,7 +58,7 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(ApiValidationExceptionDetail), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Add(CreateDoctorRequest model, CancellationToken cancellationToken)
+        public async Task<IActionResult> Add(CreateDiagnosisRequest model, CancellationToken cancellationToken)
         {
             await validatorService.ValidateAsync(model, cancellationToken);
 

@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="FluentAssertions" Version="6.0.0" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="xunit" Version="2.5.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.1">
@@ -22,6 +22,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clinic.API\Clinic.API.csproj" />
+    <ProjectReference Include="..\Clinic.Context.Tests\Clinic.Context.Tests.csproj" />
+    <ProjectReference Include="..\Clinic.Repositories.Tests\Clinic.Repositories.Tests.csproj" />
+    <ProjectReference Include="..\Clinic.Services.Tests\Clinic.Services.Tests.csproj" />
   </ItemGroup>
 
 </Project>

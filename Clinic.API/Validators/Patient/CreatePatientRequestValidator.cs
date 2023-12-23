@@ -43,14 +43,14 @@ namespace Clinic.API.Validators.Patient
                .NotEmpty()
                .WithMessage("Дата рождения не должна быть пустой или null");
 
-            RuleFor(x => x.MedClinic)
+            RuleFor(x => x.MedClinicId)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Поликлиника не должна быть пустым или null")
                 .MustAsync(async (x, cancellationToken) => await medClinicReadRepository.IsNotNullAsync(x!.Value, cancellationToken))
                 .WithMessage("Такой поликлиники не существует!");
 
-            RuleFor(x => x.Diagnosis)
+            RuleFor(x => x.DiagnosisId)
                .NotNull()
                .NotEmpty()
                .WithMessage("Диагноз не должен быть пустым или null")

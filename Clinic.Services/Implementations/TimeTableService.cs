@@ -21,8 +21,12 @@ namespace Clinic.Services.Implementations
         private readonly IDoctorReadRepository doctorReadRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        public TimeTableService(ITimeTableReadRepository timeTableReadRepository, IMapper mapper, 
-            IDoctorReadRepository doctorReadRepository, ITimeTableWriteRepository timeTableWriteRepository, IUnitOfWork unitOfWork)
+
+        public TimeTableService(ITimeTableReadRepository timeTableReadRepository, 
+        ITimeTableWriteRepository timeTableWriteRepository, 
+        IUnitOfWork unitOfWork, 
+        IDoctorReadRepository doctorReadRepository,
+        IMapper mapper)
         {
             this.timeTableReadRepository = timeTableReadRepository;
             this.mapper = mapper;
@@ -52,7 +56,7 @@ namespace Clinic.Services.Implementations
 
             if (targetTimeTable.DeletedAt.HasValue)
             {
-                throw new ClinicInvalidOperationException($"Рассписание с идентификатором {id} уже удалено");
+                throw new ClinicInvalidOperationException($"Расписание с идентификатором {id} уже удалено");
             }
 
             timeTableWriteRepository.Delete(targetTimeTable);

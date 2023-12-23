@@ -21,7 +21,7 @@ namespace Clinic.API.AutoMappers
                  .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<CreateDiagnosisRequest, DiagnosisModel>(MemberList.Destination)
                  .ForMember(x => x.Id, opt => opt.Ignore());
-            CreateMap<CreateDoctorRequest, DoctorModel>(MemberList.Destination)
+            CreateMap<CreateDiagnosisRequest, DoctorModel>(MemberList.Destination)
                  .ForMember(x => x.Id, opt => opt.Ignore());
 
             CreateMap<MedClinicRequest, MedClinicModel>(MemberList.Destination);
@@ -32,15 +32,13 @@ namespace Clinic.API.AutoMappers
                 .ForMember(x => x.Diagnosis, opt => opt.Ignore());
 
             CreateMap<PatientRequest, PatientRequestModel>(MemberList.Destination);
-            CreateMap<CreatePatientRequest, PatientRequestModel>(MemberList.Destination)
-               .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<CreatePatientRequest, PatientRequestModel>(MemberList.Destination);
 
             CreateMap<TimeTableRequest, TimeTableModel>(MemberList.Destination)
                 .ForMember(x => x.Doctor, opt => opt.Ignore());
 
             CreateMap<TimeTableRequest, TimeTableRequestModel>(MemberList.Destination);
-            CreateMap<CreateTimeTableRequest, TimeTableRequestModel>(MemberList.Destination)
-                .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<CreateTimeTableRequest, TimeTableRequestModel>(MemberList.Destination);
 
 
             CreateMap<BookingAppointmentRequest, BookingAppointmentModel>(MemberList.Destination)
@@ -48,8 +46,7 @@ namespace Clinic.API.AutoMappers
                 .ForMember(x => x.TimeTable, opt => opt.Ignore());
 
             CreateMap<BookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination);
-            CreateMap<CreateBookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination)
-                .ForMember(x => x.Id, opt => Guid.NewGuid());
+            CreateMap<CreateBookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination);
 
 
             CreateMap<TimeTableModel, TimeTableResponse>(MemberList.Destination);

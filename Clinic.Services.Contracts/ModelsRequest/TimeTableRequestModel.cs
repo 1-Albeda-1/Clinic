@@ -27,6 +27,6 @@ namespace Clinic.Services.Contracts.ModelsRequest
         /// <summary>
         /// ID врача
         /// </summary>
-        public Guid Doctor { get; set; }
+        public Guid DoctorId { get; set; }
     }
 }

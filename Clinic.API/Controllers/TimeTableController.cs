@@ -42,7 +42,7 @@ namespace Clinic.API.Controllers
         }
 
         /// <summary>
-        /// Получить рассписание по Id
+        /// Получить расписание по Id
         /// </summary>
         [HttpGet("{id:guid}")]
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
@@ -54,7 +54,7 @@ namespace Clinic.API.Controllers
         }
 
         /// <summary>
-        /// Добавить рассписание
+        /// Добавить расписание
         /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
@@ -71,7 +71,7 @@ namespace Clinic.API.Controllers
         }
 
         /// <summary>
-        /// Изменить рассписание по Id
+        /// Изменить расписание по Id
         /// </summary>
         [HttpPut]
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
@@ -88,7 +88,7 @@ namespace Clinic.API.Controllers
         }
 
         /// <summary>
-        /// Удалить рассписание по Id
+        /// Удалить расписание по Id
         /// </summary>
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

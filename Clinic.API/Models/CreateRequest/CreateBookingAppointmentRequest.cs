@@ -5,12 +5,12 @@
         /// <summary>
         /// ID клиента
         /// </summary>
-        public Guid Patient { get; set; }
+        public Guid PatientId { get; set; }
 
         /// <summary>
         /// ID время приема пациента 
         /// </summary>
-        public Guid TimeTable { get; set; }
+        public Guid TimeTableId { get; set; }
 
         /// <summary>
         /// Жалоба пациента
