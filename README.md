@@ -102,4 +102,56 @@ classDiagram
     }
 ```
 
-## SQL скрипты по добавлению начальных данных:
+SQL скрипты по добавлению начальных данных:
+---
+```
+--Диагнозы:
+INSERT INTO [dbo].[Diagnosis] ([Id], [Name], [Medicament], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy], [DeletedAt]) 
+VALUES 
+(N'e4709f75-38ad-4871-ac9b-4481d911e97d', 
+N'Заложенность носа', 
+N'Спрей Отривин', 
+N'22.12.2023 10:54:23 +00:00', 
+N'Clinic.API', 
+N'22.12.2023 10:54:23 +00:00', 
+N'Clinic.API', 
+NULL)
+INSERT INTO [dbo].[Diagnosis] ([Id], [Name], [Medicament], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy], [DeletedAt]) 
+VALUES 
+(N'95bd4bc5-f126-49ee-8f41-7d825d8fdc8e', 
+N'Повышенное давление', 
+N'Гипоксен', 
+N'22.12.2023 10:55:22 +00:00', 
+N'Clinic.API', 
+N'22.12.2023 10:55:22 +00:00', 
+N'Clinic.API', 
+NULL)
+
+
+--Врачи:
+INSERT INTO [dbo].[Doctors] ([Id], [Surname], [Name], [Patronymic], [CategoriesType], [DepartmentType], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy], [DeletedAt]) 
+VALUES 
+(N'2ff553c7-132f-4dc5-b692-d77f020c88ae', 
+N'Смирнова', 
+N'Кристина', 
+N'Алексеевна', 
+2, 
+3, 
+N'10.12.2023 17:56:57 +00:00', 
+N'Clinic.API', 
+N'10.12.2023 17:56:57 +00:00', 
+N'Clinic.API', NULL)
+INSERT INTO [dbo].[Doctors] ([Id], [Surname], [Name], [Patronymic], [CategoriesType], [DepartmentType], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy], [DeletedAt]) 
+VALUES 
+(N'3ff553c7-132f-4dc5-b692-d77f020c88ae', 
+N'Алейников', 
+N'Кирилл', 
+N'Сергеевич', 
+3, 
+5, 
+N'12.12.2023 19:07:30 +00:00', 
+N'Clinic.API', 
+N'12.12.2023 19:07:30 +00:00', 
+N'Clinic.API', 
+NULL)
+```
