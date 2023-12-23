@@ -1,11 +1,4 @@
-﻿using Clinic.Services.Contracts.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Clinic.Services.Contracts.ModelsRequest
+﻿namespace Clinic.Services.Contracts.ModelsRequest
 {
     public class PatientRequestModel
     {
@@ -47,11 +40,11 @@ namespace Clinic.Services.Contracts.ModelsRequest
         /// <summary>
         /// ID поликлиники
         /// </summary>
-        public Guid? MedClinic { get; set; }
+        public Guid? MedClinicId { get; set; }
 
         /// <summary>
         /// ID диагноза
         /// </summary>
-        public Guid Diagnosis { get; set; }
+        public Guid DiagnosisId { get; set; }
     }
 }

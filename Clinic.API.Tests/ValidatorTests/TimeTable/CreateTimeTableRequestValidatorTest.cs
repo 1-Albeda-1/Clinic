@@ -33,7 +33,7 @@ namespace Clinic.API.Tests.ValidatorTests.TimeTable
             {
                 Time = DateTimeOffset.Now,
                 Office = 0,
-                Doctor = Guid.NewGuid()
+                DoctorId = Guid.NewGuid()
             };
 
             // Act
@@ -59,7 +59,7 @@ namespace Clinic.API.Tests.ValidatorTests.TimeTable
             {
                 Time = DateTimeOffset.UtcNow,
                 Office = Random.Shared.Next(0, 1000),
-                Doctor = doctor.Id
+                DoctorId = doctor.Id
             };
 
             // Act

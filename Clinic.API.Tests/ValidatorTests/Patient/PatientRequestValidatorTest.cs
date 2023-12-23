@@ -37,8 +37,8 @@ namespace Clinic.API.Tests.ValidatorTests.Patient
                 Phone = "a",
                 Policy = 0,
                 Birthday = DateTimeOffset.Now,
-                MedClinic = Guid.NewGuid(),
-                Diagnosis = Guid.NewGuid()
+                MedClinicId = Guid.NewGuid(),
+                DiagnosisId = Guid.NewGuid()
             };
 
             // Act
@@ -71,8 +71,8 @@ namespace Clinic.API.Tests.ValidatorTests.Patient
                 Phone = $"Phone{Guid.NewGuid():N}",
                 Policy = Random.Shared.Next(0, 9),
                 Birthday = DateTimeOffset.UtcNow,
-                MedClinic = medclinic.Id,
-                Diagnosis = diagnosis.Id
+                MedClinicId = medclinic.Id,
+                DiagnosisId = diagnosis.Id
             };
 
             // Act

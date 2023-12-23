@@ -206,8 +206,8 @@ namespace Clinic.Services.Tests.Tests
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             var model = mapper.Map<PatientRequestModel>(TestDataGenerator.Patient());
-            model.MedClinic = medclinic.Id;
-            model.Diagnosis = diagnosis.Id;
+            model.MedClinicId = medclinic.Id;
+            model.DiagnosisId = diagnosis.Id;
 
             //Act
             Func<Task> act = () => patientService.AddAsync(model, CancellationToken);
@@ -234,8 +234,8 @@ namespace Clinic.Services.Tests.Tests
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             var model = mapper.Map<PatientRequestModel>(TestDataGenerator.Patient());
-            model.MedClinic = medclinic.Id;
-            model.Diagnosis = diagnosis.Id;
+            model.MedClinicId = medclinic.Id;
+            model.DiagnosisId = diagnosis.Id;
 
             //Act
             Func<Task> act = () => patientService.EditAsync(model, CancellationToken);

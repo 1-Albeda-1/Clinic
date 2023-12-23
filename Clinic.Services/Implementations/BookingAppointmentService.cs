@@ -39,7 +39,7 @@ namespace Clinic.Services.Implementations
             model.Id = Guid.NewGuid();
 
             var bookingAppointment = mapper.Map<BookingAppointment>(model);
-            bookingAppointmentWriteRepository.Update(bookingAppointment);
+            bookingAppointmentWriteRepository.Add(bookingAppointment);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
 

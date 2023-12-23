@@ -29,8 +29,8 @@ namespace Clinic.API.Tests.ValidatorTests.BookingAppointment
             //Arrange
             var model = new CreateBookingAppointmentRequest
             {             
-                Patient = Guid.NewGuid(),
-                TimeTable = Guid.NewGuid(),
+                PatientId = Guid.NewGuid(),
+                TimeTableId = Guid.NewGuid(),
                 Сomplaint = "a",
             };
 
@@ -57,8 +57,8 @@ namespace Clinic.API.Tests.ValidatorTests.BookingAppointment
 
             var model = new CreateBookingAppointmentRequest
             {
-                Patient = patient.Id,
-                TimeTable = timetable.Id,
+                PatientId = patient.Id,
+                TimeTableId = timetable.Id,
                 Сomplaint = $"Сomplaint{Guid.NewGuid():N}",
             };
 

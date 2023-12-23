@@ -21,7 +21,7 @@ namespace Clinic.API.Validators.TimeTable
                 .NotEmpty()
                 .WithMessage("Кабинет не должен быть пустой или null");
 
-            RuleFor(x => x.Doctor)
+            RuleFor(x => x.DoctorId)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Врач не должен быть пустым или null")

@@ -204,8 +204,9 @@ namespace Clinic.Services.Tests.Tests
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             var model = mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment());
-            model.Patient = patient.Id;
-            model.TimeTable = timetable.Id;
+            model.PatientId = patient.Id;
+            model.TimeTableId = timetable.Id;
+
 
             //Act
             Func<Task> act = () => bookingAppointmentService.AddAsync(model, CancellationToken);
@@ -232,8 +233,8 @@ namespace Clinic.Services.Tests.Tests
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             var model = mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment());
-            model.Patient = patient.Id;
-            model.TimeTable = timetable.Id;
+            model.PatientId = patient.Id;
+            model.TimeTableId = timetable.Id;
 
             //Act
             Func<Task> act = () => bookingAppointmentService.EditAsync(model, CancellationToken);
@@ -261,9 +262,7 @@ namespace Clinic.Services.Tests.Tests
             bookingAppointment.PatientId = patient.Id;
             bookingAppointment.TimeTableId = timetable.Id;
 
-            var model = mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment());
-            model.Patient = patient.Id;
-            model.TimeTable = timetable.Id;
+            var model = mapper.Map<BookingAppointmentRequestModel>(bookingAppointment);
 
             await Context.BookingAppointments.AddAsync(bookingAppointment);
             await UnitOfWork.SaveChangesAsync(CancellationToken);

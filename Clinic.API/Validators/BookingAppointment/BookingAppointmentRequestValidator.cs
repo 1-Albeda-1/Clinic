@@ -21,14 +21,14 @@ namespace Clinic.API.Validators.BookingAppointment
                 .NotEmpty()
                 .WithMessage("Жалоба не должна быть пустой или null");
 
-            RuleFor(x => x.TimeTable)
+            RuleFor(x => x.TimeTableId)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Рассписание не должно быть пустым или null")
                 .MustAsync(async (x, cancellationToken) => await timeTableReadRepository.IsNotNullAsync(x, cancellationToken))
                 .WithMessage("Такого рассписания не существует!");
 
-            RuleFor(x => x.Patient)
+            RuleFor(x => x.PatientId)
                .NotNull()
                .NotEmpty()
                .WithMessage("Пациент не должен быть пустым или null")

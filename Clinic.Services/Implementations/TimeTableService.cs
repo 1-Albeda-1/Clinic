@@ -21,9 +21,12 @@ namespace Clinic.Services.Implementations
         private readonly IDoctorReadRepository doctorReadRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+
         public TimeTableService(ITimeTableReadRepository timeTableReadRepository, 
         ITimeTableWriteRepository timeTableWriteRepository, 
-        IUnitOfWork unitOfWork, IDoctorReadRepository doctorReadRepository, IMapper mapper)
+        IUnitOfWork unitOfWork, 
+        IDoctorReadRepository doctorReadRepository,
+        IMapper mapper)
         {
             this.timeTableReadRepository = timeTableReadRepository;
             this.mapper = mapper;

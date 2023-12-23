@@ -199,7 +199,7 @@ namespace Clinic.Services.Tests.Tests
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             var model = mapper.Map<TimeTableRequestModel>(TestDataGenerator.TimeTable());
-            model.Doctor = doctor.Id;
+            model.DoctorId = doctor.Id;
 
             //Act
             Func<Task> act = () => timeTableService.AddAsync(model, CancellationToken);
@@ -224,7 +224,7 @@ namespace Clinic.Services.Tests.Tests
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             var model = mapper.Map<TimeTableRequestModel>(TestDataGenerator.TimeTable());
-            model.Doctor = doctor.Id;
+            model.DoctorId = doctor.Id;
 
             //Act
             Func<Task> act = () => timeTableService.EditAsync(model, CancellationToken);
