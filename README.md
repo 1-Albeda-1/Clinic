@@ -124,7 +124,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 INSERT INTO [dbo].[BookingAppointments]
     ([Id],
     [PatientId],
@@ -144,7 +144,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 
 INSERT INTO [dbo].[Diagnosis]
     ([Id],
@@ -163,7 +163,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 INSERT INTO [dbo].[Diagnosis]
     ([Id],
     [Name],
@@ -181,7 +181,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 
 INSERT INTO [dbo].[Doctors]
     ([Id],
@@ -206,7 +206,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 INSERT INTO [dbo].[Doctors]
     ([Id],
     [Surname],
@@ -230,7 +230,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 
 INSERT INTO [dbo].[MedClinics]
     ([Id],
@@ -249,7 +249,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 INSERT INTO [dbo].[MedClinics]
     ([Id],
     [Address],
@@ -267,7 +267,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 
 INSERT INTO [dbo].[Patients]
     ([Id],
@@ -298,7 +298,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 INSERT INTO [dbo].[Patients]
     ([Id],
     [Surname],
@@ -328,7 +328,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 
 INSERT INTO [dbo].[TimeTables]
     ([Id],
@@ -349,7 +349,7 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 INSERT INTO [dbo].[TimeTables]
     ([Id],
     [Time],
@@ -369,6 +369,6 @@ VALUES
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
-    NULL)
+    ,NULL)
 
 ```
