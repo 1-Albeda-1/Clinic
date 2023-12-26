@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(x =>
 {
     x.Filters.Add<ClinicExceptionFilter>();
-});
+})
+    .AddControllersAsServices();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -36,3 +37,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

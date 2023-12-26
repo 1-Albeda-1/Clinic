@@ -24,7 +24,6 @@ namespace Clinic.Services.Tests
             return item;
         }
 
-
         public static Diagnosis Diagnosis(Action<Diagnosis>? action = null)
         {
             var item = new Diagnosis
