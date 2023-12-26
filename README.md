@@ -105,7 +105,6 @@ classDiagram
 SQL скрипты по добавлению начальных данных:
 ---
 ```
---Записи
 INSERT INTO [dbo].[BookingAppointments]
     ([Id],
     [PatientId],
@@ -117,10 +116,10 @@ INSERT INTO [dbo].[BookingAppointments]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('5a37c538-d5f8-4cbc-ac6b-20895cf5ca25',
-    '9a44ea91-5cce-4a55-b104-b08b0c7518c8',
-    '7fd87856-8785-4c20-8329-4ba03bc70c7c',
-    'Болезнь',
+    ('c9492e20-0820-4cda-9f59-a259af1bf6c2',
+    '81040bd2-15d0-4769-ae75-1ccd4b8e1709',
+    '56f26594-6b70-4fef-b27c-e269917d73ce',
+    'Сухость в носу и температура',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
@@ -137,19 +136,16 @@ INSERT INTO [dbo].[BookingAppointments]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('5a37c538-d5f8-4cbc-ac6b-20895cf5ca25',
-    '9a44ea91-5cce-4a55-b104-b08b0c7518c8',
-    '7fd87856-8785-4c20-8329-4ba03bc70c7c',
-    'Болезнь',
+    ('633667fb-5c1d-44e0-adba-65c6a5cc3410',
+    '0edf1040-c981-4d6d-8146-4244bbb92170',
+    'bf0ed196-6fc6-4d6c-9dd0-7e5a681e9c1c',
+    'Кружится голова',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
     NULL)
 
-
-
---Диагнозы
 INSERT INTO [dbo].[Diagnosis]
     ([Id],
     [Name],
@@ -160,7 +156,7 @@ INSERT INTO [dbo].[Diagnosis]
     [UpdatedBy],
     [DeletedAt]) 
 VALUES 
-    ('e4709f75-38ad-4871-ac9b-4481d911e97d', 
+    ('a6242442-d676-4b55-a043-4dddf9a6bfd2', 
     'Заложенность носа', 
     'Спрей Отривин', 
     ,GETDATE() 
@@ -178,7 +174,7 @@ INSERT INTO [dbo].[Diagnosis]
     [UpdatedBy],
     [DeletedAt]) 
 VALUES 
-    ('95bd4bc5-f126-49ee-8f41-7d825d8fdc8e', 
+    ('f767f8bf-2510-4296-a685-990cca7ef1eb', 
     'Повышенное давление', 
     'Гипоксен', 
     ,GETDATE() 
@@ -187,8 +183,6 @@ VALUES
     ,'Insert' 
     NULL)
 
-
---Врачи:
 INSERT INTO [dbo].[Doctors]
     ([Id],
     [Surname],
@@ -202,7 +196,7 @@ INSERT INTO [dbo].[Doctors]
     [UpdatedBy],
     [DeletedAt]) 
 VALUES 
-    ('2ff553c7-132f-4dc5-b692-d77f020c88ae', 
+    ('3323cbc0-af2d-4110-ba31-636bca8cc00e', 
     'Смирнова', 
     'Кристина', 
     'Алексеевна', 
@@ -226,7 +220,7 @@ INSERT INTO [dbo].[Doctors]
     [UpdatedBy],
     [DeletedAt]) 
 VALUES 
-    ('3ff553c7-132f-4dc5-b692-d77f020c88ae', 
+    ('fbd4800c-ad54-4af6-9dbb-624e0d8c9a22', 
     'Алейников', 
     'Кирилл', 
     'Сергеевич', 
@@ -238,8 +232,6 @@ VALUES
     ,'Insert' 
     NULL)
 
-
---Поликлиники:
 INSERT INTO [dbo].[MedClinics]
     ([Id],
     [Address],
@@ -250,8 +242,9 @@ INSERT INTO [dbo].[MedClinics]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('bf052888-b32f-4047-87c2-2d37f94aec99',
-    'Подъездной пер., 2, Санкт-Петербург, 190013', N'СПб ГБУЗ Городская поликлиника №28',
+    ('da76529a-9ed5-40da-aa72-2bde68cdf50e',
+    'Подъездной пер., 2, Санкт-Петербург, 190013',
+    'СПб ГБУЗ Городская поликлиника №28',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
@@ -267,15 +260,15 @@ INSERT INTO [dbo].[MedClinics]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('bf052888-b32f-4047-87c2-2d37f94aec99',
-    'Подъездной пер., 2, Санкт-Петербург, 190013', N'СПб ГБУЗ Городская поликлиника №28',
+    ('f7344f8e-7a3b-4e9c-bab3-20247ad34d8d',
+    'ул. Сикейроса, 10, Санкт-Петербург, 194354',
+    'СПб ГБУЗ Городская поликлиника №104',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
     NULL)
 
---Пациенты:
 INSERT INTO [dbo].[Patients]
     ([Id],
     [Surname],
@@ -292,15 +285,15 @@ INSERT INTO [dbo].[Patients]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('9a44ea91-5cce-4a55-b104-b08b0c7518c8',
+    ('81040bd2-15d0-4769-ae75-1ccd4b8e1709',
     'Лукьянченко',
     'Елена',
     'Игоревна',
     '89317852439',
     8263549182734543,
     '08.06.2004 4:20:00 +00:00',
-    'bf052888-b32f-4047-87c2-2d37f94aec99',
-    '2201e1db-4588-4c95-ba2f-9f1e228ca0fb',
+    'da76529a-9ed5-40da-aa72-2bde68cdf50e',
+    'a6242442-d676-4b55-a043-4dddf9a6bfd2',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
@@ -322,24 +315,21 @@ INSERT INTO [dbo].[Patients]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('9a44ea91-5cce-4a55-b104-b08b0c7518c8',
-    'Лукьянченко',
-    'Елена',
-    'Игоревна',
-    '89317852439',
-    8263549182734543,
-    '08.06.2004 4:20:00 +00:00',
-    'bf052888-b32f-4047-87c2-2d37f94aec99',
-    '2201e1db-4588-4c95-ba2f-9f1e228ca0fb',
+    ('0edf1040-c981-4d6d-8146-4244bbb92170',
+    'Бугорцев',
+    'Виктор',
+    'Алмазович',
+    '89319852215',
+    9342189032476829,
+    '28.02.1999 14:13:00 +00:00',
+    'f7344f8e-7a3b-4e9c-bab3-20247ad34d8d',
+    'f767f8bf-2510-4296-a685-990cca7ef1eb',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
     ,'Insert' 
     NULL)
 
-
-
---Рассписание
 INSERT INTO [dbo].[TimeTables]
     ([Id],
     [Time],
@@ -351,10 +341,10 @@ INSERT INTO [dbo].[TimeTables]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('7fd87856-8785-4c20-8329-4ba03bc70c7c',
-    '23.12.2023 10:09:24 +00:00',
-    110,
-    '2ff553c7-132f-4dc5-b692-d77f020c88ae',
+    ('56f26594-6b70-4fef-b27c-e269917d73ce',
+    '12.01.2024 13:15:00 +00:00',
+    414,
+    '3323cbc0-af2d-4110-ba31-636bca8cc00e',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
@@ -371,10 +361,10 @@ INSERT INTO [dbo].[TimeTables]
     [UpdatedBy],
     [DeletedAt])
 VALUES
-    ('7fd87856-8785-4c20-8329-4ba03bc70c7c',
-    '23.12.2023 10:09:24 +00:00',
+    ('bf0ed196-6fc6-4d6c-9dd0-7e5a681e9c1c',
+    '30.12.2023 10:00:00 +00:00',
     110,
-    '2ff553c7-132f-4dc5-b692-d77f020c88ae',
+    'fbd4800c-ad54-4af6-9dbb-624e0d8c9a22',
     ,GETDATE() 
     ,'Insert' 
     ,GETDATE() 
