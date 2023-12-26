@@ -1,4 +1,4 @@
-# Смирнова Кристина Алексеевна ИП-20-3
+## Смирнова Кристина Алексеевна ИП-20-3
 ## Тема: Автоматизация записи на приём к врачу в поликлинику
 ## Пример бизнес сценария:
 ![image](https://github.com/1-Albeda-1/Clinic/assets/106802110/d30d7d2d-c8c3-48e5-884d-5689dcaca4c2)
@@ -102,8 +102,8 @@ classDiagram
     }
 ```
 
-SQL скрипты по добавлению начальных данных:
----
+## SQL скрипты по добавлению начальных данных:
+
 ```
 --Диагнозы:
 INSERT INTO [dbo].[Diagnosis] ([Id], [Name], [Medicament], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy], [DeletedAt]) 
