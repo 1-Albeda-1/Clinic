@@ -102,8 +102,8 @@ classDiagram
     }
 ```
 
-## SQL скрипты по добавлению начальных данных:
-
+SQL скрипты по добавлению начальных данных:
+---
 ```
 --Записи
 INSERT INTO [dbo].[BookingAppointments]
