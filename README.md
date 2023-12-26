@@ -281,7 +281,7 @@ VALUES
     ,N'Алмазович'
     ,N'89319852215'
     ,9342189032476829
-    ,N'28.02.1999 2:13:00 +00:00'
+    ,N'01.10.1999 2:10:00 +00:00'
     ,'f7344f8e-7a3b-4e9c-bab3-20247ad34d8d'
     ,'f767f8bf-2510-4296-a685-990cca7ef1eb'
     ,GETDATE() 
@@ -302,7 +302,7 @@ INSERT INTO [dbo].[TimeTables]
     [DeletedAt])
 VALUES
     ('56f26594-6b70-4fef-b27c-e269917d73ce'
-    ,N'12.01.2024 13:15:00 +00:00'
+    ,N'01.11.2024 13:15:00 +00:00'
     ,414
     ,'3323cbc0-af2d-4110-ba31-636bca8cc00e'
     ,GETDATE() 
@@ -322,7 +322,7 @@ INSERT INTO [dbo].[TimeTables]
     [DeletedAt])
 VALUES
     ('bf0ed196-6fc6-4d6c-9dd0-7e5a681e9c1c'
-    ,N'30.12.2023 10:00:00 +00:00'
+    ,N'12.30.2023 10:00:00 +00:00'
     ,110
     ,'fbd4800c-ad54-4af6-9dbb-624e0d8c9a22'
     ,GETDATE() 
