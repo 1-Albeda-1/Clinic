@@ -55,11 +55,6 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<BookingAppointment>(id);
             }
 
-            if (targetBookingAppointment.DeletedAt.HasValue)
-            {
-                throw new ClinicInvalidOperationException($"Запись на прием с идентификатором {id} уже удалена");
-            }
-
             bookingAppointmentWriteRepository.Delete(targetBookingAppointment);
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }

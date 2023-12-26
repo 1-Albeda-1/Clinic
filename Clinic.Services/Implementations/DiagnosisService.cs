@@ -46,11 +46,6 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<Diagnosis>(id);
             }
 
-            if (targetDiagnosis.DeletedAt.HasValue)
-            {
-                throw new ClinicInvalidOperationException($"Диагноз с идентификатором {id} уже удален");
-            }
-
             diagnosisWriteRepository.Delete(targetDiagnosis);
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }

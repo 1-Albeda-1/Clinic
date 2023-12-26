@@ -54,11 +54,6 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<TimeTable>(id);
             }
 
-            if (targetTimeTable.DeletedAt.HasValue)
-            {
-                throw new ClinicInvalidOperationException($"Расписание с идентификатором {id} уже удалено");
-            }
-
             timeTableWriteRepository.Delete(targetTimeTable);
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }

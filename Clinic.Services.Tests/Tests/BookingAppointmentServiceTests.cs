@@ -164,7 +164,7 @@ namespace Clinic.Services.Tests.Tests
             Func<Task> result = () => bookingAppointmentService.DeleteAsync(model.Id, CancellationToken);
 
             // Assert
-            await result.Should().ThrowAsync<ClinicInvalidOperationException>()
+            await result.Should().ThrowAsync<ClinicEntityNotFoundException<BookingAppointment>>()
                 .WithMessage($"*{model.Id}*");
         }
 
