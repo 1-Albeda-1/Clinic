@@ -105,46 +105,6 @@ classDiagram
 SQL скрипты по добавлению начальных данных:
 ---
 ```
-INSERT INTO [dbo].[BookingAppointments]
-    ([Id],
-    [PatientId],
-    [TimeTableId],
-    [Сomplaint],
-    [CreatedAt],
-    [CreatedBy],
-    [UpdatedAt],
-    [UpdatedBy],
-    [DeletedAt])
-VALUES
-    ('c9492e20-0820-4cda-9f59-a259af1bf6c2'
-    ,'81040bd2-15d0-4769-ae75-1ccd4b8e1709'
-    ,'56f26594-6b70-4fef-b27c-e269917d73ce'
-    ,N'Сухость в носу и температура'
-    ,GETDATE() 
-    ,'Insert' 
-    ,GETDATE() 
-    ,'Insert' 
-    ,NULL)
-INSERT INTO [dbo].[BookingAppointments]
-    ([Id],
-    [PatientId],
-    [TimeTableId],
-    [Сomplaint],
-    [CreatedAt],
-    [CreatedBy],
-    [UpdatedAt],
-    [UpdatedBy],
-    [DeletedAt])
-VALUES
-    ('633667fb-5c1d-44e0-adba-65c6a5cc3410'
-    ,'0edf1040-c981-4d6d-8146-4244bbb92170'
-    ,'bf0ed196-6fc6-4d6c-9dd0-7e5a681e9c1c'
-    ,N'Кружится голова'
-    ,GETDATE() 
-    ,'Insert' 
-    ,GETDATE() 
-    ,'Insert' 
-    ,NULL)
 
 INSERT INTO [dbo].[Diagnosis]
     ([Id],
@@ -321,7 +281,7 @@ VALUES
     ,N'Алмазович'
     ,N'89319852215'
     ,9342189032476829
-    ,N'28.02.1999 14:13:00 +00:00'
+    ,N'28.02.1999 2:13:00 +00:00'
     ,'f7344f8e-7a3b-4e9c-bab3-20247ad34d8d'
     ,'f767f8bf-2510-4296-a685-990cca7ef1eb'
     ,GETDATE() 
@@ -371,4 +331,44 @@ VALUES
     ,'Insert' 
     ,NULL)
 
+INSERT INTO [dbo].[BookingAppointments]
+    ([Id],
+    [PatientId],
+    [TimeTableId],
+    [Сomplaint],
+    [CreatedAt],
+    [CreatedBy],
+    [UpdatedAt],
+    [UpdatedBy],
+    [DeletedAt])
+VALUES
+    ('c9492e20-0820-4cda-9f59-a259af1bf6c2'
+    ,'81040bd2-15d0-4769-ae75-1ccd4b8e1709'
+    ,'56f26594-6b70-4fef-b27c-e269917d73ce'
+    ,N'Сухость в носу и температура'
+    ,GETDATE() 
+    ,'Insert' 
+    ,GETDATE() 
+    ,'Insert' 
+    ,NULL)
+INSERT INTO [dbo].[BookingAppointments]
+    ([Id],
+    [PatientId],
+    [TimeTableId],
+    [Сomplaint],
+    [CreatedAt],
+    [CreatedBy],
+    [UpdatedAt],
+    [UpdatedBy],
+    [DeletedAt])
+VALUES
+    ('633667fb-5c1d-44e0-adba-65c6a5cc3410'
+    ,'0edf1040-c981-4d6d-8146-4244bbb92170'
+    ,'bf0ed196-6fc6-4d6c-9dd0-7e5a681e9c1c'
+    ,N'Кружится голова'
+    ,GETDATE() 
+    ,'Insert' 
+    ,GETDATE() 
+    ,'Insert' 
+    ,NULL)
 ```
