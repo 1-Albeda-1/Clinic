@@ -8,8 +8,14 @@ using System.Threading;
 
 namespace Clinic.Repositories.ReadRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="ITimeTableReadRepository"/>
+    /// </summary>
     public class TimeTableReadRepository : ITimeTableReadRepository, IRepositoryAnchor
     {
+        /// <summary>
+        /// Reader для связи с бд
+        /// </summary>
         private readonly IRead reader;
 
         public TimeTableReadRepository(IRead reader)

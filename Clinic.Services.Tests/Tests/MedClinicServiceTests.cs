@@ -12,6 +12,7 @@ using Clinic.Services.Implementations;
 using Xunit;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Clinic.Services.Contracts.Models;
+using Clinic.Tests.Extensions;
 
 namespace Clinic.Services.Tests.Tests
 {

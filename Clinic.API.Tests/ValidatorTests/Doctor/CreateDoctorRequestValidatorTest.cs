@@ -8,7 +8,7 @@ using Clinic.Services.Contracts.Enums;
 using Clinic.Services.Tests;
 using FluentValidation.TestHelper;
 using Xunit;
-
+using Clinic.Tests.Extensions;
 
 namespace Clinic.API.Tests.ValidatorTests.Doctor
 {

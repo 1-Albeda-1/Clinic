@@ -1,4 +1,4 @@
-﻿namespace Clinic.Shared
+﻿namespace Clinic.General
 {
     /// <summary>
     /// Модель инвалидации запросов

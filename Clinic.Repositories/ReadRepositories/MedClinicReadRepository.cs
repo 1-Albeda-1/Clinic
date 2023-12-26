@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace Clinic.Repositories.ReadRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="IMedClinicReadRepository"/>
+    /// </summary>
     public class MedClinicReadRepository : IMedClinicReadRepository, IRepositoryAnchor
     {
+        /// <summary>
+        /// Reader для связи с бд
+        /// </summary>
         private readonly IRead reader;
 
         public MedClinicReadRepository(IRead reader)

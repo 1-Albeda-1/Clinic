@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clinic.Context.Contract\Clinic.Context.Contracts.csproj" />
-    <ProjectReference Include="..\Clinic.Shared\Clinic.Shared.csproj" />
+    <ProjectReference Include="..\Clinic.General\Clinic.General.csproj" />
   </ItemGroup>
 
 </Project>

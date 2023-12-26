@@ -10,6 +10,9 @@ using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.API.AutoMappers
 {
+    /// <summary>
+    /// Маппер
+    /// </summary>
     public class APIMappers : Profile
     {
         public APIMappers()

@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace Clinic.Repositories
 {
+    /// <summary>
+    /// Абстрактный класс работы с БД, реализующий <see cref="IRepositoryWriter"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class BaseWriteRepository<T> : IRepositoryWriter<T> where T : class, IEntity
     {
         /// <inheritdoc cref="IWriterContext"/>

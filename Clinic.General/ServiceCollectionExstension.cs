@@ -4,8 +4,14 @@ using System.Reflection;
 
 namespace Clinic.General
 {
+    /// <summary>
+    /// Расширения для <see cref="IServiceCollection"/>
+    /// </summary>
     public static class ServiceCollectionExstension
     {
+        /// <summary>
+        /// Регистрация с помощью маркерных интерфейсов
+        /// </summary>
         public static void RegistrationOnInterface<TInterface>(this IServiceCollection serviceDescriptors,
             ServiceLifetime lifetime)
         {

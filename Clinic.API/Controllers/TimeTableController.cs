@@ -32,6 +32,9 @@ namespace Clinic.API.Controllers
             this.validatorService = validatorService;
         }
 
+        /// <summary>
+        /// Получить список расписаний
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<TimeTableResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -73,7 +76,7 @@ namespace Clinic.API.Controllers
         /// <summary>
         /// Изменить расписание по Id
         /// </summary>
-        [HttpPut]
+        [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(TimeTableResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status400BadRequest)]

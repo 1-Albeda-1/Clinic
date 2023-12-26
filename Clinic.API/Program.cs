@@ -19,7 +19,6 @@ builder.Services.AddDbContextFactory<ClinicContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
 
 builder.Services.AddDependences();
-builder.Services.AddMapper();
 builder.Services.GetSwaggerDocument();
 
 var app = builder.Build();

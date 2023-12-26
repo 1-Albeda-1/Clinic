@@ -14,6 +14,7 @@ using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="IPatientService"/>
     public class PatientService : IPatientService, IServiceAnchor
     {
         private readonly IPatientReadRepository patientReadRepository;

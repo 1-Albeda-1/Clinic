@@ -1,10 +1,7 @@
 ﻿using Clinic.Context.Contracts.Enums;
 using Clinic.Context.Contracts.Models;
-using Clinic.Services.Contracts.Models;
-using Clinic.Services.Contracts.Enums;
-using Clinic.Services.Contracts.ModelsRequest;
 
-namespace Clinic.Services.Tests
+namespace Clinic.Tests.Extensions
 {
     public static class TestDataGenerator
     {
@@ -14,11 +11,8 @@ namespace Clinic.Services.Tests
             {
                 Id = Guid.NewGuid(),
                 Сomplaint = $"Сomplaint{Guid.NewGuid():N}",
-                CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = $"CreatedBy{Guid.NewGuid():N}",
-                UpdatedAt = DateTimeOffset.UtcNow,
-                UpdatedBy = $"UpdatedBy{Guid.NewGuid():N}",
             };
+            item.BaseAuditSetParamtrs();
 
             action?.Invoke(item);
             return item;
@@ -31,11 +25,8 @@ namespace Clinic.Services.Tests
                 Id = Guid.NewGuid(),
                 Name = $"Name{Guid.NewGuid():N}",
                 Medicament = $"Medicament{Guid.NewGuid():N}",
-                CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = $"CreatedBy{Guid.NewGuid():N}",
-                UpdatedAt = DateTimeOffset.UtcNow,
-                UpdatedBy = $"UpdatedBy{Guid.NewGuid():N}",
             };
+            item.BaseAuditSetParamtrs();
 
             action?.Invoke(item);
             return item;
@@ -50,11 +41,8 @@ namespace Clinic.Services.Tests
                 Patronymic = $"Patronymic{Guid.NewGuid():N}",
                 CategoriesType = CategoriesTypes.None,
                 DepartmentType = DepartmentTypes.None,
-                CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = $"CreatedBy{Guid.NewGuid():N}",
-                UpdatedAt = DateTimeOffset.UtcNow,
-                UpdatedBy = $"UpdatedBy{Guid.NewGuid():N}",
             };
+            item.BaseAuditSetParamtrs();
 
             action?.Invoke(item);
             return item;
@@ -67,11 +55,8 @@ namespace Clinic.Services.Tests
                 Id = Guid.NewGuid(),
                 Address = $"Address{Guid.NewGuid():N}",
                 Name = $"Name{Guid.NewGuid():N}",
-                CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = $"CreatedBy{Guid.NewGuid():N}",
-                UpdatedAt = DateTimeOffset.UtcNow,
-                UpdatedBy = $"UpdatedBy{Guid.NewGuid():N}",
             };
+            item.BaseAuditSetParamtrs();
 
             action?.Invoke(item);
             return item;
@@ -88,11 +73,8 @@ namespace Clinic.Services.Tests
                 Phone = $"Phone{Guid.NewGuid():N}",
                 Policy = Random.Shared.Next(0, 9),
                 Birthday = DateTimeOffset.UtcNow,
-                CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = $"CreatedBy{Guid.NewGuid():N}",
-                UpdatedAt = DateTimeOffset.UtcNow,
-                UpdatedBy = $"UpdatedBy{Guid.NewGuid():N}",
             };
+            item.BaseAuditSetParamtrs();
 
             action?.Invoke(item);
             return item;
@@ -105,11 +87,8 @@ namespace Clinic.Services.Tests
                 Id = Guid.NewGuid(),
                 Time = DateTimeOffset.UtcNow,
                 Office = Random.Shared.Next(0, 1000),
-                CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = $"CreatedBy{Guid.NewGuid():N}",
-                UpdatedAt = DateTimeOffset.UtcNow,
-                UpdatedBy = $"UpdatedBy{Guid.NewGuid():N}",
             };
+            item.BaseAuditSetParamtrs();
 
             action?.Invoke(item);
             return item;

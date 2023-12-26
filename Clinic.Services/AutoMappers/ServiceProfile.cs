@@ -8,6 +8,9 @@ using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Automappers
 {
+    /// <summary>
+    /// Маппер
+    /// </summary>
     public class ServiceProfile : Profile
     {
         public ServiceProfile()

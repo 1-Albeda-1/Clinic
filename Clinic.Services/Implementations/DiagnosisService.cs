@@ -11,6 +11,7 @@ using Clinc.Services.Contracts.Exceptions;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="IDiagnosisService"/>
     public class DiagnosisService : IDiagnosisService, IServiceAnchor
     {
         private readonly IDiagnosisReadRepository diagnosisReadRepository;

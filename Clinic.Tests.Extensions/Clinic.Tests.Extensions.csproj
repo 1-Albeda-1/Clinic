@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="FluentAssertions" Version="6.8.0" />
+    <ProjectReference Include="..\Clinic.Context.Contract\Clinic.Context.Contracts.csproj" />
+    <ProjectReference Include="..\Clinic.Services.Contracts\Clinic.Services.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

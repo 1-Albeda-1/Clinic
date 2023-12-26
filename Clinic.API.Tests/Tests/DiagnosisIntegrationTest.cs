@@ -1,16 +1,13 @@
-﻿using FluentAssertions;
-using Newtonsoft.Json;
-using Clinic.API.Models;
-using Clinic.API.Tests.Infrastructures;
-using Clinic.Common.Interface;
-using Clinic.Context.Contracts.Interface;
-using Clinic.Context.Contracts.Models;
-using Xunit;
-using AutoMapper;
+﻿using Clinic.API.Models;
 using Clinic.API.Models.CreateRequest;
-using Clinic.Services.Tests;
-using System.Text;
 using Clinic.API.Models.Request;
+using Clinic.API.Tests.Infrastructures;
+using FluentAssertions;
+using Newtonsoft.Json;
+using System.Text;
+using Xunit;
+using Clinic.Tests.Extensions;
+
 
 namespace Clinic.API.Tests.Tests
 {

@@ -6,6 +6,9 @@ using Clinic.Repositories.ReadRepositories;
 
 namespace Clinic.API.Validators.TimeTable
 {
+    /// <summary>
+    /// Валидатор <see cref="TimeTableRequest"/>
+    /// </summary>
     public class CreateTimeTableRequestValidator : AbstractValidator<CreateTimeTableRequest>
     {
         public CreateTimeTableRequestValidator(

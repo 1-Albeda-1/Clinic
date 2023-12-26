@@ -9,6 +9,7 @@ using Clinic.Services.Tests;
 using FluentValidation.TestHelper;
 using Xunit;
 using Clinic.Context.Contracts.Models;
+using Clinic.Tests.Extensions;
 
 namespace Clinic.API.Tests.ValidatorTests.TimeTable
 {

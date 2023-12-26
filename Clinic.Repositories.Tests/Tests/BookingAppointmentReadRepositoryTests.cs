@@ -3,6 +3,7 @@ using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Clinic.Repositories.ReadRepositories;
 using FluentAssertions;
 using Xunit;
+using Clinic.Tests.Extensions;
 
 namespace Clinic.Repositories.Tests.Tests
 {

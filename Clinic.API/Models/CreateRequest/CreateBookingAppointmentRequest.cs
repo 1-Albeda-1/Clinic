@@ -1,5 +1,8 @@
 ﻿namespace Clinic.API.Models.CreateRequest
 {
+    /// <summary>
+    /// Модель запроса создания записи
+    /// </summary>
     public class CreateBookingAppointmentRequest
     {
         /// <summary>

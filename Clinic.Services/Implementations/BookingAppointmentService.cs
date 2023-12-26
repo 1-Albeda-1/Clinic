@@ -15,6 +15,7 @@ using System.Xml;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="IBookingAppointmentService"/>
     public class BookingAppointmentService : IBookingAppointmentService, IServiceAnchor
     {
         private readonly IBookingAppointmentReadRepository bookingAppointmentReadRepository;

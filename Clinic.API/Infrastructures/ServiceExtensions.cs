@@ -8,11 +8,15 @@ using Clinic.Services.Automappers;
 using Microsoft.OpenApi.Models;
 using Clinic.API.AutoMappers;
 using Clinic.API.Infrastructures.Validator;
+using Newtonsoft.Json.Converters;
 
 namespace Clinic.API.Infrastructures
 {
     public static class ServiceExtensions
     {
+        /// <summary>
+        /// Регистрирует все сервисы, репозитории и все что нужно для контекста
+        /// </summary>
         public static void AddDependences(this IServiceCollection service)
         {
             service.AddTransient<IDateTimeProvider, DateTimeProvider>();
@@ -21,13 +25,32 @@ namespace Clinic.API.Infrastructures
             service.RegistrationRepository();
             service.RegistrationService();
             service.AddTransient<IApiValidatorService, ApiValidatorService>();
-        }
-
-        public static void AddMapper(this IServiceCollection service)
-        {
             service.AddAutoMapper(typeof(APIMappers), typeof(ServiceProfile));
         }
-     
+
+        // <summary>
+        /// Включает фильтры и ставит шрифт на перечесления
+        /// </summary>
+        /// <param name="services"></param>
+        public static void RegistrationControllers(this IServiceCollection services)
+        {
+            services.AddControllers(x =>
+            {
+                x.Filters.Add<ClinicExceptionFilter>();
+            })
+                .AddNewtonsoftJson(o =>
+                {
+                    o.SerializerSettings.Converters.Add(new StringEnumConverter
+                    {
+                        CamelCaseText = false
+                    });
+                })
+                .AddControllersAsServices();
+        }
+
+        /// <summary>
+        /// Настройки свагера
+        /// </summary>
         public static void GetSwaggerDocument(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -40,6 +63,10 @@ namespace Clinic.API.Infrastructures
                 c.SwaggerDoc("TimeTable", new OpenApiInfo { Title = "Сущность расписание", Version = "v1" });
             });
         }
+
+        /// <summary>
+        /// Настройки свагера
+        /// </summary>
         public static void GetSwaggerDocumentUI(this WebApplication app)
         {
             app.UseSwagger();

@@ -4,6 +4,9 @@ using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 
 namespace Clinic.API.Validators.BookingAppointment
 {
+    /// <summary>
+    /// Валидатор <see cref="BookingAppointmentRequest"/>
+    /// </summary>
     public class BookingAppointmentRequestValidator : AbstractValidator<BookingAppointmentRequest>
     {
         public BookingAppointmentRequestValidator(

@@ -15,14 +15,17 @@ namespace Clinic.API.Enums
         /// Не определено
         /// </summary>
         None,
+
         /// <summary>
         ///  Первая
         /// </summary>
         First,
+
         /// <summary>
         ///  Вторая
         /// </summary>
         Second,
+
         /// <summary>
         ///  Высшая
         /// </summary>

@@ -26,6 +26,7 @@
     <ProjectReference Include="..\Clinic.Context.Tests\Clinic.Context.Tests.csproj" />
     <ProjectReference Include="..\Clinic.Repositories.Tests\Clinic.Repositories.Tests.csproj" />
     <ProjectReference Include="..\Clinic.Services.Tests\Clinic.Services.Tests.csproj" />
+    <ProjectReference Include="..\Clinic.Tests.Extensions\Clinic.Tests.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Clinic.Shared;
+﻿using Clinic.General;
 
 namespace Clinic.API.Models.Exceptions
 {

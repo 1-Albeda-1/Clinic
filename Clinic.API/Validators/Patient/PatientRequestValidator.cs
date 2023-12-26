@@ -5,6 +5,9 @@ using Clinic.Repositories.ReadRepositories;
 
 namespace Clinic.API.Validators.Patient
 {
+    /// <summary>
+    /// Валидатор <see cref="PatientRequest"/>
+    /// </summary>
     public class PatientRequestValidator : AbstractValidator<PatientRequest>
     {
         public PatientRequestValidator(

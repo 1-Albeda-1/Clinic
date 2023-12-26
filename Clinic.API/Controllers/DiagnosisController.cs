@@ -29,6 +29,9 @@ namespace Clinic.API.Controllers
             this.validatorService = validatorService;
         }
 
+        /// <summary>
+        /// Получить список диагнозов
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<DiagnosisResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -70,7 +73,7 @@ namespace Clinic.API.Controllers
         /// <summary>
         /// Изменить диагноз
         /// </summary>
-        [HttpPut]
+        [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(DiagnosisResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiValidationExceptionDetail), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status404NotFound)]

@@ -7,8 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Repositories.ReadRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="IPatientReadRepository"/>
+    /// </summary>
     public class PatientReadRepository : IPatientReadRepository,  IRepositoryAnchor
     {
+        /// <summary>
+        /// Reader для связи с бд
+        /// </summary>
         private readonly IRead reader;
 
         public PatientReadRepository(IRead reader)

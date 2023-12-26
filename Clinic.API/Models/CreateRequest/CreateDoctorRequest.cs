@@ -2,6 +2,9 @@
 
 namespace Clinic.API.Models.CreateRequest
 {
+    /// <summary>
+    /// Модель запроса создания врача
+    /// </summary>
     public class CreateDoctorRequest
     {
         /// <summary>

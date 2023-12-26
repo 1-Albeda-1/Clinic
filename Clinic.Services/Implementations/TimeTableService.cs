@@ -14,6 +14,7 @@ using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="ITimeTableService"/>
     public class TimeTableService : ITimeTableService, IServiceAnchor
     {
         private readonly ITimeTableReadRepository timeTableReadRepository;

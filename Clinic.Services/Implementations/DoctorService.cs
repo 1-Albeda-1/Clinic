@@ -12,6 +12,7 @@ using Clinic.Services.Contracts.Exceptions;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="IDoctorService"/>
     public class DoctorService : IDoctorService,  IServiceAnchor
     {
         private readonly IDoctorReadRepository doctorReadRepository;

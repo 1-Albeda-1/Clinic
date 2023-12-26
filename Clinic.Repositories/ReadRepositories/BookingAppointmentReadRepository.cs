@@ -9,8 +9,14 @@ using System.Net.Sockets;
 
 namespace Clinic.Repositories.ReadRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="IBookingAppointmentReadRepository"/>
+    /// </summary>
     public class BookingAppointmentReadRepository : IBookingAppointmentReadRepository, IRepositoryAnchor
     {
+        /// <summary>
+        /// Reader для связи с бд
+        /// </summary>
         private readonly IRead reader;
 
         public BookingAppointmentReadRepository(IRead reader)
