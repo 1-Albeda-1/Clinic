@@ -34,7 +34,7 @@ namespace Clinic.API.Tests.ValidatorTests.BookingAppointment
                 Id = Guid.NewGuid(),
                 PatientId = Guid.NewGuid(),
                 TimeTableId = Guid.NewGuid(),
-                Сomplaint = "a",
+                Complaint = "a",
             };
 
             // Act
@@ -63,7 +63,7 @@ namespace Clinic.API.Tests.ValidatorTests.BookingAppointment
                 Id = Guid.NewGuid(),
                 PatientId = patient.Id,
                 TimeTableId = timetable.Id,
-                Сomplaint = $"Сomplaint{Guid.NewGuid():N}",
+                Complaint = $"Сomplaint{Guid.NewGuid():N}",
             };
 
             // Act

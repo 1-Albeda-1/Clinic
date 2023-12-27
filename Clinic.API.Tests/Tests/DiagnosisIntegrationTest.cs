@@ -2,12 +2,13 @@
 using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
 using Clinic.API.Tests.Infrastructures;
+using Clinic.Services.Contracts.Models;
+using Clinic.Tests.Extensions;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Text;
 using Xunit;
-using Clinic.Tests.Extensions;
-
 
 namespace Clinic.API.Tests.Tests
 {
@@ -23,25 +24,20 @@ namespace Clinic.API.Tests.Tests
         {
             // Arrange
             var client = factory.CreateClient();
-            var diagnosis = mapper.Map<CreateDiagnosisRequest>(TestDataGenerator.Diagnosis());
+            var diagnosis = mapper.Map<CreateDiagnosisRequest>(mapper.Map<DiagnosisModel>(TestDataGenerator.Diagnosis()));
 
             // Act
             string data = JsonConvert.SerializeObject(diagnosis);
             var contextdata = new StringContent(data, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/Cinema", contextdata);
-
-            // Assert
-            response.EnsureSuccessStatusCode();
+            var response = await client.PostAsync("/Diagnosis", contextdata);
             var resultString = await response.Content.ReadAsStringAsync();
-
             var result = JsonConvert.DeserializeObject<DiagnosisResponse>(resultString);
-            result.Should().NotBeNull()
-                .And
-                .BeEquivalentTo(new
-                {
-                    diagnosis.Name,
-                    diagnosis.Medicament
-                });
+
+            var cinemaFirst = await context.Diagnosises.FirstAsync(x => x.Id == result!.Id);
+
+            // Assert          
+            cinemaFirst.Should()
+                .BeEquivalentTo(diagnosis);
         }
 
         [Fact]
@@ -53,46 +49,18 @@ namespace Clinic.API.Tests.Tests
             await context.Diagnosises.AddAsync(diagnosis);
             await unitOfWork.SaveChangesAsync();
 
-            var diagnosisRequest = mapper.Map<DiagnosisRequest>(TestDataGenerator.Diagnosis(x => x.Id = diagnosis.Id));
+            var diagnosisRequest = mapper.Map<DiagnosisRequest>(mapper.Map<DiagnosisModel>(TestDataGenerator.Diagnosis(x => x.Id = diagnosis.Id)));
 
             // Act
             string data = JsonConvert.SerializeObject(diagnosisRequest);
             var contextdata = new StringContent(data, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync("/Diagnosis", contextdata);
+            await client.PutAsync("/Diagnosis", contextdata);
 
-            // Assert
-            response.EnsureSuccessStatusCode();
-            var resultString = await response.Content.ReadAsStringAsync();
+            var cinemaFirst = await context.Diagnosises.FirstAsync(x => x.Id == diagnosisRequest.Id);
 
-            var result = JsonConvert.DeserializeObject<DiagnosisResponse>(resultString);
-            result.Should().NotBeNull()
-                .And
-                .BeEquivalentTo(new
-                {
-                    diagnosis.Id
-                })
-                .And
-                .NotBeEquivalentTo(new
-                {
-                    diagnosis.Name,
-                    diagnosis.Medicament
-                });
-        }
-
-        [Fact]
-        public async Task DeleteShouldWork()
-        {
-            // Arrange
-            var client = factory.CreateClient();
-            var diagnosis = TestDataGenerator.Diagnosis();
-            await context.Diagnosises.AddAsync(diagnosis);
-            await unitOfWork.SaveChangesAsync();
-
-            // Act
-            await client.DeleteAsync($"/Diagnosis/{diagnosis.Id}");
-
-            // Assert
-            context.Diagnosises.Should().ContainSingle(x => x.Id == diagnosis.Id && x.DeletedAt != null);
+            // Assert           
+            cinemaFirst.Should()
+                .BeEquivalentTo(diagnosisRequest);
         }
 
         [Fact]
@@ -112,13 +80,14 @@ namespace Clinic.API.Tests.Tests
             // Assert
             response.EnsureSuccessStatusCode();
             var resultString = await response.Content.ReadAsStringAsync();
-
             var result = JsonConvert.DeserializeObject<DiagnosisResponse>(resultString);
 
-            result.Should().NotBeNull()
+            result.Should()
+                .NotBeNull()
                 .And
                 .BeEquivalentTo(new
                 {
+                    diagnosis1.Id,
                     diagnosis1.Name,
                     diagnosis1.Medicament
                 });
@@ -141,12 +110,40 @@ namespace Clinic.API.Tests.Tests
             // Assert
             response.EnsureSuccessStatusCode();
             var resultString = await response.Content.ReadAsStringAsync();
-
             var result = JsonConvert.DeserializeObject<IEnumerable<DiagnosisResponse>>(resultString);
+
             result.Should()
                 .NotBeNull()
                 .And
-                .ContainSingle(x => x.Id == diagnosis1.Id);
+                .Contain(x => x.Id == diagnosis1.Id)
+                .And
+                .NotContain(x => x.Id == diagnosis2.Id);
+        }
+
+        [Fact]
+        public async Task DeleteShouldWork()
+        {
+            // Arrange
+            var client = factory.CreateClient();
+            var diagnosis = TestDataGenerator.Diagnosis();
+            await context.Diagnosises.AddAsync(diagnosis);
+            await unitOfWork.SaveChangesAsync();
+
+            // Act
+            await client.DeleteAsync($"/Diagnosis/{diagnosis.Id}");
+
+            var diagnosisFirst = await context.Diagnosises.FirstAsync(x => x.Id == diagnosis.Id);
+
+            // Assert
+            diagnosisFirst.DeletedAt.Should()
+                .NotBeNull();
+
+            diagnosisFirst.Should()
+                .BeEquivalentTo(new
+                {
+                    diagnosis.Name,
+                    diagnosis.Medicament
+                });
         }
     }
 }

@@ -2,7 +2,6 @@
 using Clinic.API.AutoMappers;
 using Clinic.API.Tests.Infrastructures;
 using Clinic.Common.Interface;
-using Clinic.Context.Contracts;
 using Clinic.Context.Contracts.Interface;
 using Clinic.Services.Automappers;
 using Xunit;

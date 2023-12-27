@@ -89,7 +89,7 @@ namespace Clinic.Services.Tests.Tests
                 .And.BeEquivalentTo(new
                 {
                     target.Id,
-                    target.Сomplaint
+                    target.Complaint
                 });
         }
 
@@ -276,7 +276,7 @@ namespace Clinic.Services.Tests.Tests
                 .BeEquivalentTo(new
                 {
                     model.Id,
-                    model.Сomplaint
+                    model.Complaint
                 });
         }
     }

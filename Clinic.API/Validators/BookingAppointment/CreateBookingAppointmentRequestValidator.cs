@@ -15,7 +15,7 @@ namespace Clinic.API.Validators.BookingAppointment
             IPatientReadRepository patientReadRepository)
         {
 
-            RuleFor(x => x.Сomplaint)
+            RuleFor(x => x.Complaint)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Жалоба не должна быть пустой или null");

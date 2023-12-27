@@ -23,6 +23,6 @@
         /// <summary>
         /// Жалоба пациента
         /// </summary>
-        public string? Сomplaint { get; set; } = string.Empty;
+        public string? Complaint { get; set; } = string.Empty;
     }
 }

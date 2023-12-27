@@ -6,7 +6,6 @@ using Xunit;
 
 namespace Clinic.API.Tests.Tests
 {
-
     public class MapperTest
     {
         [Fact]
