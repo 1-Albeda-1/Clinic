@@ -25,6 +25,6 @@ namespace Clinic.API.Models
         /// <summary>
         /// Жалоба пациента
         /// </summary>
-        public string? Complaint { get; set; } = string.Empty;
+        public string? Complaint { get; set; }
     }
 }

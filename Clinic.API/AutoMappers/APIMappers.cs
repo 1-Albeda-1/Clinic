@@ -24,7 +24,7 @@ namespace Clinic.API.AutoMappers
                  .ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
             CreateMap<CreateDiagnosisRequest, DiagnosisModel>(MemberList.Destination)
                  .ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
-            CreateMap<CreateDiagnosisRequest, DoctorModel>(MemberList.Destination)
+            CreateMap<CreateDoctorRequest, DoctorModel>(MemberList.Destination)
                  .ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
 
             CreateMap<MedClinicRequest, MedClinicModel>(MemberList.Destination).ReverseMap();
