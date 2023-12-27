@@ -10,7 +10,7 @@ namespace Clinic.Tests.Extensions
             var item = new BookingAppointment
             {
                 Id = Guid.NewGuid(),
-                Complaint = $"Сomplaint{Guid.NewGuid():N}",
+                Complaint = $"Complaint{Guid.NewGuid():N}",
             };
             item.BaseAuditSetParamtrs();
 
