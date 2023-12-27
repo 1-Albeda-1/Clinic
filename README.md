@@ -355,7 +355,7 @@ INSERT INTO [dbo].[BookingAppointments]
     ([Id],
     [PatientId],
     [TimeTableId],
-    [Сomplaint],
+    [Complaint],
     [CreatedAt],
     [CreatedBy],
     [UpdatedAt],
