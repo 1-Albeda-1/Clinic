@@ -14,6 +14,7 @@ using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="ITimeTableService"/>
     public class TimeTableService : ITimeTableService, IServiceAnchor
     {
         private readonly ITimeTableReadRepository timeTableReadRepository;
@@ -52,11 +53,6 @@ namespace Clinic.Services.Implementations
             if (targetTimeTable == null)
             {
                 throw new ClinicEntityNotFoundException<TimeTable>(id);
-            }
-
-            if (targetTimeTable.DeletedAt.HasValue)
-            {
-                throw new ClinicInvalidOperationException($"Расписание с идентификатором {id} уже удалено");
             }
 
             timeTableWriteRepository.Delete(targetTimeTable);

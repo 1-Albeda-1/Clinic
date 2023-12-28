@@ -15,29 +15,35 @@ namespace Clinic.API.Enums
         /// Не определено
         /// </summary>
         None,
+
         /// <summary>
         ///  Терапевтическое
         /// </summary>
         Therapeutic,
+
         /// <summary>
         ///  Хирургическое
         /// </summary>
         Surgical,
+
         /// <summary>
         ///  Гинекологическое
         /// </summary>
         Gynecological,
+
         /// <summary>
         ///  Травмпункт
         /// </summary>
         Emergency,
+
         /// <summary>
         ///  Кардиологическое
         /// </summary>
         Cardiological,
+
         /// <summary>
         ///  Педиатрическое
         /// </summary>
-        Pediatric,
+        Pediatric
     }
 }

@@ -7,6 +7,7 @@ using Clinic.Repositories.ReadRepositories;
 using Clinic.Services.Tests;
 using FluentValidation.TestHelper;
 using Xunit;
+using Clinic.Tests.Extensions;
 
 namespace Clinic.API.Tests.ValidatorTests.Patient
 {

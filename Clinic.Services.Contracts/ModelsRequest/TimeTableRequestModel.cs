@@ -1,12 +1,8 @@
-﻿using Clinic.Services.Contracts.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Clinic.Services.Contracts.ModelsRequest
+﻿namespace Clinic.Services.Contracts.ModelsRequest
 {
+    /// <summary>
+    /// Модель запроса создания расписания
+    /// </summary>
     public class TimeTableRequestModel
     {
         /// <summary>

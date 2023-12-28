@@ -32,6 +32,9 @@ namespace Clinic.API.Controllers
             this.validatorService = validatorService;
         }
 
+        /// <summary>
+        /// Получить список расписаний
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<TimeTableResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)

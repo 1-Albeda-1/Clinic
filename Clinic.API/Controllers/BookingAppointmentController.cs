@@ -33,6 +33,9 @@ namespace Clinic.API.Controllers
             this.validatorService = validatorService;
         }
 
+        /// <summary>
+        /// Получить список записей
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookingAppointmentResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)

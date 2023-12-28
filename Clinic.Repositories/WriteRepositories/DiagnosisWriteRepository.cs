@@ -6,6 +6,9 @@ using System.Net.Sockets;
 
 namespace Clinic.Repositories.WriteRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="IDiagnosisWriteRepository"/>
+    /// </summary>
     public class DiagnosisWriteRepository : BaseWriteRepository<Diagnosis>, IDiagnosisWriteRepository, IRepositoryAnchor
     {
         public DiagnosisWriteRepository(IWriterContext writerContext)

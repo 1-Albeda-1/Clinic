@@ -12,6 +12,7 @@ using Clinic.Services.Implementations;
 using Xunit;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 using Clinic.Services.Contracts.Models;
+using Clinic.Tests.Extensions;
 
 namespace Clinic.Services.Tests.Tests
 {
@@ -166,8 +167,8 @@ namespace Clinic.Services.Tests.Tests
             Func<Task> result = () => doctorService.DeleteAsync(model.Id, CancellationToken);
 
             // Assert
-            await result.Should().ThrowAsync<ClinicInvalidOperationException>()
-                .WithMessage($"*{model.Id}*");
+            await result.Should().ThrowAsync<ClinicEntityNotFoundException<Doctor>>()
+               .WithMessage($"*{model.Id}*");
         }
 
         /// <summary>

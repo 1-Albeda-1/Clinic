@@ -1,5 +1,8 @@
 ﻿namespace Clinic.API.Models.CreateRequest
 {
+    /// <summary>
+    /// Модель запроса создания записи
+    /// </summary>
     public class CreateBookingAppointmentRequest
     {
         /// <summary>
@@ -15,6 +18,6 @@
         /// <summary>
         /// Жалоба пациента
         /// </summary>
-        public string Сomplaint { get; set; } = string.Empty;
+        public string? Complaint { get; set; }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using FluentAssertions;
-using Clinic.Common.Interface;
 using Clinic.Context.Contracts.Models;
 using Clinic.Context.Tests;
 using Clinic.Repositories.ReadRepositories;
@@ -8,11 +6,11 @@ using Clinic.Repositories.WriteRepositories;
 using Clinic.Services.Automappers;
 using Clinic.Services.Contracts.Exceptions;
 using Clinic.Services.Contracts.Interface;
-using Clinic.Services.Implementations;
-using Xunit;
-using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
-using Clinic.Services.Contracts;
 using Clinic.Services.Contracts.ModelsRequest;
+using Clinic.Services.Implementations;
+using Clinic.Tests.Extensions;
+using FluentAssertions;
+using Xunit;
 
 namespace Clinic.Services.Tests.Tests
 {
@@ -161,8 +159,8 @@ namespace Clinic.Services.Tests.Tests
             Func<Task> result = () => timeTableService.DeleteAsync(model.Id, CancellationToken);
 
             // Assert
-            await result.Should().ThrowAsync<ClinicInvalidOperationException>()
-                .WithMessage($"*{model.Id}*");
+            await result.Should().ThrowAsync<ClinicEntityNotFoundException<TimeTable>>()
+               .WithMessage($"*{model.Id}*");
         }
 
         /// <summary>

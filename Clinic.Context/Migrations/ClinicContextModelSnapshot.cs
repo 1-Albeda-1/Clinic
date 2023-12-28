@@ -28,6 +28,9 @@ namespace Clinic.Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Complaint")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
 
@@ -52,9 +55,6 @@ namespace Clinic.Context.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Сomplaint")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -1,11 +1,13 @@
-﻿using FluentValidation;
+﻿using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
-using Clinic.API.Models.CreateRequest;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
-using Clinic.Repositories.ReadRepositories;
+using FluentValidation;
 
 namespace Clinic.API.Validators.TimeTable
 {
+    /// <summary>
+    /// Валидатор <see cref="TimeTableRequest"/>
+    /// </summary>
     public class CreateTimeTableRequestValidator : AbstractValidator<CreateTimeTableRequest>
     {
         public CreateTimeTableRequestValidator(

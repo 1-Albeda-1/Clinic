@@ -8,6 +8,7 @@ using Clinic.Repositories.ReadRepositories;
 using Clinic.Services.Tests;
 using FluentValidation.TestHelper;
 using Xunit;
+using Clinic.Tests.Extensions;
 
 namespace Clinic.API.Tests.ValidatorTests.Doctor
 {
@@ -33,8 +34,8 @@ namespace Clinic.API.Tests.ValidatorTests.Doctor
                 Surname = string.Empty,
                 Name = string.Empty,
                 Patronymic = string.Empty,
-                CategoriesType = 100,
-                DepartmentType = 100
+                CategoriesType = (Enums.CategoriesTypesResponse)200,
+                DepartmentType = (Enums.DepartmentTypesResponse)200
             };
 
             // Act

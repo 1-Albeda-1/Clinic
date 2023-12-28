@@ -3,6 +3,9 @@ using Clinic.API.Models.Request;
 
 namespace Clinic.API.Validators.Doctor
 {
+    /// <summary>
+    /// Валидатор <see cref="DoctorRequest"/>
+    /// </summary>
     public class DoctorRequestValidator : AbstractValidator<DoctorRequest>
     {
         public DoctorRequestValidator()

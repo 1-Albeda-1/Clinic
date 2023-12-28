@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.8.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -29,6 +30,7 @@
     <ProjectReference Include="..\Clinic.Repositories\Clinic.Repositories.csproj" />
     <ProjectReference Include="..\Clinic.Services.Contracts\Clinic.Services.Contracts.csproj" />
     <ProjectReference Include="..\Clinic.Services\Clinic.Services.csproj" />
+    <ProjectReference Include="..\Clinic.Tests.Extensions\Clinic.Tests.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

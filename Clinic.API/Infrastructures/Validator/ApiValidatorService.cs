@@ -7,7 +7,7 @@ using Clinic.API.Validators.Patient;
 using Clinic.API.Validators.TimeTable;
 using Clinic.Repositories.Contracts;
 using Clinic.Services.Contracts.Exceptions;
-using Clinic.Shared;
+using Clinic.General;
 using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 
 namespace Clinic.API.Infrastructures.Validator

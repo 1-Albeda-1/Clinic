@@ -1,5 +1,8 @@
 ﻿namespace Clinic.Services.Contracts.ModelsRequest
 {
+    /// <summary>
+    /// Модель запроса создания пациента
+    /// </summary>
     public class PatientRequestModel
     {
         /// <summary>

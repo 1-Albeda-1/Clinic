@@ -30,6 +30,9 @@ namespace Clinic.API.Controllers
             this.validatorService = validatorService;
         }
 
+        /// <summary>
+        /// Получить список врачей
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<DoctorResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -58,7 +61,7 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(ApiValidationExceptionDetail), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Add(CreateDiagnosisRequest model, CancellationToken cancellationToken)
+        public async Task<IActionResult> Add(CreateDoctorRequest model, CancellationToken cancellationToken)
         {
             await validatorService.ValidateAsync(model, cancellationToken);
 

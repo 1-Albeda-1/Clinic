@@ -35,6 +35,9 @@ namespace Clinic.API.Controllers
             this.validatorService = validatorService;
         }
 
+        /// <summary>
+        /// Получить список пациентов
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<PatientResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)

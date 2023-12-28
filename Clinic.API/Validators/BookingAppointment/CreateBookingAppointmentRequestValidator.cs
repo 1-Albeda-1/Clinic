@@ -5,6 +5,9 @@ using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
 
 namespace Clinic.API.Validators.BookingAppointment
 {
+    /// <summary>
+    /// Валидатор <see cref="BookingAppointmentRequest"/>
+    /// </summary>
     public class CreateBookingAppointmentRequestValidator : AbstractValidator<CreateBookingAppointmentRequest>
     {
         public CreateBookingAppointmentRequestValidator(
@@ -12,7 +15,7 @@ namespace Clinic.API.Validators.BookingAppointment
             IPatientReadRepository patientReadRepository)
         {
 
-            RuleFor(x => x.Сomplaint)
+            RuleFor(x => x.Complaint)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Жалоба не должна быть пустой или null");

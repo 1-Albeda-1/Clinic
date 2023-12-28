@@ -15,6 +15,7 @@ using System.Xml;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="IBookingAppointmentService"/>
     public class BookingAppointmentService : IBookingAppointmentService, IServiceAnchor
     {
         private readonly IBookingAppointmentReadRepository bookingAppointmentReadRepository;
@@ -55,11 +56,6 @@ namespace Clinic.Services.Implementations
                 throw new ClinicEntityNotFoundException<BookingAppointment>(id);
             }
 
-            if (targetBookingAppointment.DeletedAt.HasValue)
-            {
-                throw new ClinicInvalidOperationException($"Запись на прием с идентификатором {id} уже удалена");
-            }
-
             bookingAppointmentWriteRepository.Delete(targetBookingAppointment);
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }
@@ -96,7 +92,7 @@ namespace Clinic.Services.Implementations
             foreach (var bookingAppointment in bookingAppointments)
             {
                 if (!patients.TryGetValue(bookingAppointment.PatientId, out var patient) ||
-                !timeTables.TryGetValue(bookingAppointment.TimeTableId, out var client))
+                !timeTables.TryGetValue(bookingAppointment.TimeTableId, out var timetable))
                 {
                     continue;
                 }
@@ -105,7 +101,7 @@ namespace Clinic.Services.Implementations
                     var bookingAppointmentModel = mapper.Map<BookingAppointmentModel>(bookingAppointment);
 
                     bookingAppointmentModel.Patient = mapper.Map<PatientModel>(patient);
-                    bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(timeTables);
+                    bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(timetable);
 
                     result.Add(bookingAppointmentModel);
                 }

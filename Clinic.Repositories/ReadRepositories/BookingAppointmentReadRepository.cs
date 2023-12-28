@@ -9,8 +9,14 @@ using System.Net.Sockets;
 
 namespace Clinic.Repositories.ReadRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="IBookingAppointmentReadRepository"/>
+    /// </summary>
     public class BookingAppointmentReadRepository : IBookingAppointmentReadRepository, IRepositoryAnchor
     {
+        /// <summary>
+        /// Reader для связи с бд
+        /// </summary>
         private readonly IRead reader;
 
         public BookingAppointmentReadRepository(IRead reader)
@@ -26,6 +32,7 @@ namespace Clinic.Repositories.ReadRepositories
         Task<BookingAppointment?> IBookingAppointmentReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => reader.Read<BookingAppointment>()
                 .ById(id)
+                .NotDeletedAt()
                 .FirstOrDefaultAsync(cancellationToken);
 
         Task<Dictionary<Guid, BookingAppointment>> IBookingAppointmentReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)

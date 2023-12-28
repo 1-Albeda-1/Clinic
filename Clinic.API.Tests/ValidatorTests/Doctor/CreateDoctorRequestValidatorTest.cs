@@ -8,7 +8,7 @@ using Clinic.Services.Contracts.Enums;
 using Clinic.Services.Tests;
 using FluentValidation.TestHelper;
 using Xunit;
-
+using Clinic.Tests.Extensions;
 
 namespace Clinic.API.Tests.ValidatorTests.Doctor
 {
@@ -56,8 +56,8 @@ namespace Clinic.API.Tests.ValidatorTests.Doctor
                 Surname = $"LastName{Guid.NewGuid():N}",
                 Name = $"FirstName{Guid.NewGuid():N}",
                 Patronymic = $"Patronymic{Guid.NewGuid():N}",
-                CategoriesType = 1,
-                DepartmentType = 1,
+                CategoriesType = Enums.CategoriesTypesResponse.None,
+                DepartmentType = Enums.DepartmentTypesResponse.None,
             };
 
             // Act

@@ -7,6 +7,7 @@ using Clinic.Repositories.ReadRepositories;
 using Clinic.Services.Tests;
 using FluentValidation.TestHelper;
 using Xunit;
+using Clinic.Tests.Extensions;
 
 namespace Clinic.API.Tests.ValidatorTests.BookingAppointment
 {
@@ -33,7 +34,7 @@ namespace Clinic.API.Tests.ValidatorTests.BookingAppointment
                 Id = Guid.NewGuid(),
                 PatientId = Guid.NewGuid(),
                 TimeTableId = Guid.NewGuid(),
-                Сomplaint = "a",
+                Complaint = "a",
             };
 
             // Act
@@ -62,7 +63,7 @@ namespace Clinic.API.Tests.ValidatorTests.BookingAppointment
                 Id = Guid.NewGuid(),
                 PatientId = patient.Id,
                 TimeTableId = timetable.Id,
-                Сomplaint = $"Сomplaint{Guid.NewGuid():N}",
+                Complaint = $"Сomplaint{Guid.NewGuid():N}",
             };
 
             // Act

@@ -2,6 +2,9 @@
 
 namespace Clinic.API.Models.Request
 {
+    /// <summary>
+    /// Модель запроса создания поликлиники
+    /// </summary>
     public class MedClinicRequest : CreateMedClinicRequest
     {
         /// <summary>

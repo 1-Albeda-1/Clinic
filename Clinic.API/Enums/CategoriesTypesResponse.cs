@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Clinic.API.Enums
+﻿namespace Clinic.API.Enums
 {
     /// <summary>
     /// Типы категорий врачей
@@ -15,17 +9,20 @@ namespace Clinic.API.Enums
         /// Не определено
         /// </summary>
         None,
+
         /// <summary>
         ///  Первая
         /// </summary>
         First,
+
         /// <summary>
         ///  Вторая
         /// </summary>
         Second,
+
         /// <summary>
         ///  Высшая
         /// </summary>
-        Highest,
+        Highest
     }
 }

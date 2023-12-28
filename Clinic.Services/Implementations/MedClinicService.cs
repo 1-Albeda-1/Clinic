@@ -11,6 +11,7 @@ using Clinic.Services.Contracts.Exceptions;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="IMedClinicService"/>
     public class MedClinicService : IMedClinicService, IServiceAnchor
     {
         private readonly IMedClinicReadRepository medClinicReadRepository;
@@ -42,12 +43,6 @@ namespace Clinic.Services.Implementations
             if (targetMedClinic == null)
             {
                 throw new ClinicEntityNotFoundException<MedClinic>(id);
-            }
-
-
-            if (targetMedClinic.DeletedAt.HasValue)
-            {
-                throw new ClinicInvalidOperationException($"Поликлиника с идентификатором {id} уже удалена");
             }
 
             medClinicWriteRepository.Delete(targetMedClinic);

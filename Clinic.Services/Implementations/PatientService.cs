@@ -14,6 +14,7 @@ using Clinic.Services.Contracts.ModelsRequest;
 
 namespace Clinic.Services.Implementations
 {
+    /// <inheritdoc cref="IPatientService"/>
     public class PatientService : IPatientService, IServiceAnchor
     {
         private readonly IPatientReadRepository patientReadRepository;
@@ -52,11 +53,6 @@ namespace Clinic.Services.Implementations
             if (targetPatient == null)
             {
                 throw new ClinicEntityNotFoundException<Patient>(id);
-            }
-
-            if (targetPatient.DeletedAt.HasValue)
-            {
-                throw new ClinicInvalidOperationException($"Пациент с идентификатором {id} уже удален");
             }
 
             patientWriteRepository.Delete(targetPatient);

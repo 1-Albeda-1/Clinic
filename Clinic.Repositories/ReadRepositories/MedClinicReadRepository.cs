@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace Clinic.Repositories.ReadRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="IMedClinicReadRepository"/>
+    /// </summary>
     public class MedClinicReadRepository : IMedClinicReadRepository, IRepositoryAnchor
     {
+        /// <summary>
+        /// Reader для связи с бд
+        /// </summary>
         private readonly IRead reader;
 
         public MedClinicReadRepository(IRead reader)
@@ -26,6 +32,7 @@ namespace Clinic.Repositories.ReadRepositories
         Task<MedClinic?> IMedClinicReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => reader.Read<MedClinic>()
                 .ById(id)
+                .NotDeletedAt()
                 .FirstOrDefaultAsync(cancellationToken);
 
         Task<Dictionary<Guid, MedClinic>> IMedClinicReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)

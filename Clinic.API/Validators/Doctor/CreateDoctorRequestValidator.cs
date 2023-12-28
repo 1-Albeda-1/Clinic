@@ -4,6 +4,9 @@ using Clinic.API.Models.CreateRequest;
 
 namespace Clinic.API.Validators.Doctor
 {
+    /// <summary>
+    /// Валидатор <see cref="DoctorRequest"/>
+    /// </summary>
     public class CreateDoctorRequestValidator : AbstractValidator<CreateDoctorRequest>
     {
         public CreateDoctorRequestValidator()

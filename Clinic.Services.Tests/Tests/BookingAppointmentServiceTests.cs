@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using FluentAssertions;
-using Clinic.Common.Interface;
 using Clinic.Context.Contracts.Models;
 using Clinic.Context.Tests;
 using Clinic.Repositories.ReadRepositories;
@@ -8,11 +6,11 @@ using Clinic.Repositories.WriteRepositories;
 using Clinic.Services.Automappers;
 using Clinic.Services.Contracts.Exceptions;
 using Clinic.Services.Contracts.Interface;
-using Clinic.Services.Implementations;
-using Xunit;
-using Clinic.Repositories.Contracts.ReadRepositoriesContracts;
-using System;
 using Clinic.Services.Contracts.ModelsRequest;
+using Clinic.Services.Implementations;
+using Clinic.Tests.Extensions;
+using FluentAssertions;
+using Xunit;
 
 namespace Clinic.Services.Tests.Tests
 {
@@ -91,7 +89,7 @@ namespace Clinic.Services.Tests.Tests
                 .And.BeEquivalentTo(new
                 {
                     target.Id,
-                    target.Сomplaint
+                    target.Complaint
                 });
         }
 
@@ -164,7 +162,7 @@ namespace Clinic.Services.Tests.Tests
             Func<Task> result = () => bookingAppointmentService.DeleteAsync(model.Id, CancellationToken);
 
             // Assert
-            await result.Should().ThrowAsync<ClinicInvalidOperationException>()
+            await result.Should().ThrowAsync<ClinicEntityNotFoundException<BookingAppointment>>()
                 .WithMessage($"*{model.Id}*");
         }
 
@@ -278,7 +276,7 @@ namespace Clinic.Services.Tests.Tests
                 .BeEquivalentTo(new
                 {
                     model.Id,
-                    model.Сomplaint
+                    model.Complaint
                 });
         }
     }

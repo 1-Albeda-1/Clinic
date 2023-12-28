@@ -7,8 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Repositories.ReadRepositories
 {
+    /// <summary>
+    /// Реализация <see cref="IPatientReadRepository"/>
+    /// </summary>
     public class PatientReadRepository : IPatientReadRepository,  IRepositoryAnchor
     {
+        /// <summary>
+        /// Reader для связи с бд
+        /// </summary>
         private readonly IRead reader;
 
         public PatientReadRepository(IRead reader)
@@ -27,6 +33,7 @@ namespace Clinic.Repositories.ReadRepositories
         Task<Patient?> IPatientReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => reader.Read<Patient>()
                 .ById(id)
+                .NotDeletedAt()
                 .FirstOrDefaultAsync(cancellationToken);
 
         Task<Dictionary<Guid, Patient>> IPatientReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
