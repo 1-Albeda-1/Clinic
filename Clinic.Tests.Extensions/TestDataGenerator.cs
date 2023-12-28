@@ -68,8 +68,8 @@ namespace Clinic.Tests.Extensions
                 Surname = $"{Guid.NewGuid():N}",
                 Name = $"{Guid.NewGuid():N}",
                 Patronymic = $"{Guid.NewGuid():N}",
-                Phone = $"{Random.Shared.Next(0, 9)}",
-                Policy = Random.Shared.Next(0, 9),
+                Phone = $"{string.Join("",Guid.NewGuid().ToString().Take(15))}",
+                Policy = Random.Shared.Next(0, 9999),
                 Birthday = DateTimeOffset.UtcNow
             };
             item.BaseAuditSetParamtrs();
@@ -90,88 +90,5 @@ namespace Clinic.Tests.Extensions
             action?.Invoke(item);
             return item;
         }
-
-        //public static BookingAppointmentRequestModel BookingAppointmentRequestModel(Action<BookingAppointmentRequestModel>? action = null)
-        //{
-        //    var item = new BookingAppointmentRequestModel
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Complaint = $"{Guid.NewGuid():N}"
-        //    };
-
-        //    action?.Invoke(item);
-        //    return item;
-        //}
-
-        //public static DiagnosisModel DiagnosisModel(Action<DiagnosisModel>? action = null)
-        //{
-        //    var item = new DiagnosisModel
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Name = $"{Guid.NewGuid():N}",
-        //        Medicament = $"{Guid.NewGuid():N}"
-        //    };
-
-        //    action?.Invoke(item);
-        //    return item;
-        //}
-        //public static DoctorModel DoctorModel(Action<DoctorModel>? action = null)
-        //{
-        //    var item = new DoctorModel
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Surname = $"{Guid.NewGuid():N}",
-        //        Name = $"{Guid.NewGuid():N}",
-        //        Patronymic = $"{Guid.NewGuid():N}",
-        //        CategoriesType = CategoriesTypesModel.First,
-        //        DepartmentType = DepartmentTypesModel.Pediatric
-        //    };
-
-        //    action?.Invoke(item);
-        //    return item;
-        //}
-
-        //public static MedClinicModel MedClinicModel(Action<MedClinicModel>? action = null)
-        //{
-        //    var item = new MedClinicModel
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Address = $"{Guid.NewGuid():N}",
-        //        Name = $"{Guid.NewGuid():N}"
-        //    };
-
-        //    action?.Invoke(item);
-        //    return item;
-        //}
-
-        //public static PatientRequestModel PatientRequestModel(Action<PatientRequestModel>? action = null)
-        //{
-        //    var item = new PatientRequestModel
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Surname = $"{Guid.NewGuid():N}",
-        //        Name = $"{Guid.NewGuid():N}",
-        //        Patronymic = $"{Guid.NewGuid():N}",
-        //        Phone = $"{Guid.NewGuid():N}",
-        //        Policy = Random.Shared.Next(0, 9),
-        //        Birthday = DateTimeOffset.UtcNow
-        //    };
-
-        //    action?.Invoke(item);
-        //    return item;
-        //}
-
-        //public static TimeTableRequestModel TimeTableRequestModel(Action<TimeTableRequestModel>? action = null)
-        //{
-        //    var item = new TimeTableRequestModel
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Time = DateTimeOffset.UtcNow,
-        //        Office = Random.Shared.Next(0, 1000)
-        //    };
-
-        //    action?.Invoke(item);
-        //    return item;
-        //}
     }
 }

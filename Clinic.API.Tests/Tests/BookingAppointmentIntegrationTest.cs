@@ -4,6 +4,7 @@ using Clinic.API.Models.Request;
 using Clinic.API.Tests.Infrastructures;
 using Clinic.Context.Contracts.Models;
 using Clinic.Services.Contracts.Models;
+using Clinic.Services.Contracts.ModelsRequest;
 using Clinic.Tests.Extensions;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +24,20 @@ namespace Clinic.API.Tests.Tests
         {
             patient = TestDataGenerator.Patient();
             timeTable = TestDataGenerator.TimeTable();
+            var medClinic = TestDataGenerator.MedClinic();
+            var diagnosis = TestDataGenerator.Diagnosis();
+            var doctor = TestDataGenerator.Doctor();
 
+            timeTable.DoctorId = doctor.Id;
+            patient.MedClinicId = medClinic.Id;
+            patient.DiagnosisId = diagnosis.Id;
+
+            context.Doctors.Add(doctor);
+            context.MedClinics.Add(medClinic);
+            context.Diagnosises.Add(diagnosis);
             context.Patients.Add(patient);
             context.TimeTables.Add(timeTable);
-            unitOfWork.SaveChangesAsync();
+            unitOfWork.SaveChangesAsync().Wait();
         }
 
         [Fact]
@@ -35,7 +46,11 @@ namespace Clinic.API.Tests.Tests
             // Arrange
             var clientFactory = factory.CreateClient();
 
-            var bookingAppointment = mapper.Map<CreateBookingAppointmentRequest>(mapper.Map<BookingAppointmentModel>(TestDataGenerator.BookingAppointment()));
+            var model = mapper.Map<BookingAppointmentModel>(TestDataGenerator.BookingAppointment());
+            var request = mapper.Map<BookingAppointmentRequest>(model);
+
+
+            var bookingAppointment = mapper.Map<CreateBookingAppointmentRequest>(mapper.Map<BookingAppointmentRequestModel>(request));
             bookingAppointment.PatientId = patient.Id;
             bookingAppointment.TimeTableId = timeTable.Id;
 

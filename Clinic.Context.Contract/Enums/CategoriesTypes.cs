@@ -29,6 +29,6 @@ namespace Clinic.Context.Contracts.Enums
         /// <summary>
         ///  Высшая
         /// </summary>
-        Highest,
+        Highest
     }
 }

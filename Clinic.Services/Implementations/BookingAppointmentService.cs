@@ -92,7 +92,7 @@ namespace Clinic.Services.Implementations
             foreach (var bookingAppointment in bookingAppointments)
             {
                 if (!patients.TryGetValue(bookingAppointment.PatientId, out var patient) ||
-                !timeTables.TryGetValue(bookingAppointment.TimeTableId, out var client))
+                !timeTables.TryGetValue(bookingAppointment.TimeTableId, out var timetable))
                 {
                     continue;
                 }
@@ -101,7 +101,7 @@ namespace Clinic.Services.Implementations
                     var bookingAppointmentModel = mapper.Map<BookingAppointmentModel>(bookingAppointment);
 
                     bookingAppointmentModel.Patient = mapper.Map<PatientModel>(patient);
-                    bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(timeTables);
+                    bookingAppointmentModel.TimeTable = mapper.Map<TimeTableModel>(timetable);
 
                     result.Add(bookingAppointmentModel);
                 }

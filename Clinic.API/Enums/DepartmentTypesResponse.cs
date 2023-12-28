@@ -44,6 +44,6 @@ namespace Clinic.API.Enums
         /// <summary>
         ///  Педиатрическое
         /// </summary>
-        Pediatric,
+        Pediatric
     }
 }

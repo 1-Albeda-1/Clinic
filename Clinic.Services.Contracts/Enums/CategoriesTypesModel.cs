@@ -23,6 +23,6 @@
         /// <summary>
         ///  Высшая
         /// </summary>
-        Highest,
+        Highest
     }
 }

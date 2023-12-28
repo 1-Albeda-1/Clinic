@@ -31,7 +31,7 @@ namespace Clinic.API.Tests.Tests
 
             context.MedClinics.Add(medClinic);
             context.Diagnosises.Add(diagnosis);
-            unitOfWork.SaveChangesAsync();
+            unitOfWork.SaveChangesAsync().Wait();
         }
 
         [Fact]

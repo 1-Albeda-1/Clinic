@@ -56,7 +56,7 @@ namespace Clinic.API.Tests.Tests
             var contextdata = new StringContent(data, Encoding.UTF8, "application/json");
             await client.PutAsync("/Diagnosis", contextdata);
 
-            var cinemaFirst = await context.Diagnosises.FirstAsync(x => x.Id == diagnosisRequest.Id);
+            var cinemaFirst = await context.Diagnosises.FirstAsync(x => x.Id == diagnosis.Id);
 
             // Assert           
             cinemaFirst.Should()

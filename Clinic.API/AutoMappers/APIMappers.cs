@@ -34,14 +34,17 @@ namespace Clinic.API.AutoMappers
                 .ForMember(x => x.MedClinic, opt => opt.Ignore())
                 .ForMember(x => x.Diagnosis, opt => opt.Ignore()).ReverseMap();
 
-            CreateMap<PatientRequest, PatientRequestModel>(MemberList.Destination);
-            CreateMap<CreatePatientRequest, PatientRequestModel>(MemberList.Destination).ReverseMap();
+            CreateMap<PatientRequest, PatientRequestModel>(MemberList.Destination).ReverseMap();
+            CreateMap<CreatePatientRequest, PatientRequestModel>(MemberList.Destination)
+                .ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
 
             CreateMap<TimeTableRequest, TimeTableModel>(MemberList.Destination)
                 .ForMember(x => x.Doctor, opt => opt.Ignore()).ReverseMap();
 
-            CreateMap<TimeTableRequest, TimeTableRequestModel>(MemberList.Destination);
-            CreateMap<CreateTimeTableRequest, TimeTableRequestModel>(MemberList.Destination).ReverseMap();
+            CreateMap<TimeTableRequest, TimeTableRequestModel>(MemberList.Destination).ReverseMap();
+
+            CreateMap<CreateTimeTableRequest, TimeTableRequestModel>(MemberList.Destination)
+                .ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
 
 
             CreateMap<BookingAppointmentRequest, BookingAppointmentModel>(MemberList.Destination)
@@ -49,15 +52,15 @@ namespace Clinic.API.AutoMappers
                 .ForMember(x => x.TimeTable, opt => opt.Ignore()).ReverseMap();
 
             CreateMap<BookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination);
-            CreateMap<CreateBookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination).ReverseMap();
+            CreateMap<CreateBookingAppointmentRequest, BookingAppointmentRequestModel>(MemberList.Destination)
+                .ForMember(x => x.Id, opt => opt.Ignore()).ReverseMap();
 
 
             CreateMap<TimeTableModel, TimeTableResponse>(MemberList.Destination);
             CreateMap<MedClinicModel, MedClinicResponse>(MemberList.Destination);
             CreateMap<DoctorModel, DoctorResponse>(MemberList.Destination);
             CreateMap<DiagnosisModel, DiagnosisResponse>(MemberList.Destination);
-            CreateMap<BookingAppointmentModel, BookingAppointmentResponse>(MemberList.Destination);
-            CreateMap<DoctorModel, DoctorResponse>(MemberList.Destination);
+            CreateMap<BookingAppointmentModel, BookingAppointmentResponse>(MemberList.Destination).ReverseMap();
 
             CreateMap<PatientModel, PatientResponse>(MemberList.Destination);
 

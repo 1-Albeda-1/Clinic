@@ -44,6 +44,6 @@ namespace Clinic.Context.Contracts.Enums
         /// <summary>
         ///  Педиатрическое
         /// </summary>
-        Pediatric,
+        Pediatric
     }
 }

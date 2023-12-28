@@ -61,7 +61,7 @@ namespace Clinic.API.Controllers
         [ProducesResponseType(typeof(ApiValidationExceptionDetail), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Add(CreateDiagnosisRequest model, CancellationToken cancellationToken)
+        public async Task<IActionResult> Add(CreateDoctorRequest model, CancellationToken cancellationToken)
         {
             await validatorService.ValidateAsync(model, cancellationToken);
 
@@ -73,7 +73,7 @@ namespace Clinic.API.Controllers
         /// <summary>
         /// Изменить врача по Id
         /// </summary>
-        [HttpPut("{id:guid}")]
+        [HttpPut]
         [ProducesResponseType(typeof(DoctorResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiExceptionDetail), StatusCodes.Status400BadRequest)]

@@ -38,6 +38,6 @@
         /// <summary>
         ///  Педиатрическое
         /// </summary>
-        Pediatric,
+        Pediatric
     }
 }

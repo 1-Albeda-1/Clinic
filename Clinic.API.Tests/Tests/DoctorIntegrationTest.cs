@@ -2,7 +2,6 @@
 using Clinic.API.Models.CreateRequest;
 using Clinic.API.Models.Request;
 using Clinic.API.Tests.Infrastructures;
-using Clinic.Context.Contracts.Enums;
 using Clinic.Services.Contracts.Models;
 using Clinic.Tests.Extensions;
 using FluentAssertions;
