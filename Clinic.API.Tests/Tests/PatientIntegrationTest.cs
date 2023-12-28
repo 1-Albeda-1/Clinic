@@ -112,8 +112,8 @@ namespace Clinic.API.Tests.Tests
                 .BeEquivalentTo(new
                 {
                     patient1.Id,
-                    patient1.Name,
                     patient1.Surname,
+                    patient1.Name,
                     patient1.Patronymic,
                     patient1.Phone,
                     patient1.Policy,
@@ -174,8 +174,8 @@ namespace Clinic.API.Tests.Tests
             patientFirst.Should()
                 .BeEquivalentTo(new
                 {
-                    patient.Name,
                     patient.Surname,
+                    patient.Name,
                     patient.Patronymic,
                     patient.Phone,
                     patient.Policy,

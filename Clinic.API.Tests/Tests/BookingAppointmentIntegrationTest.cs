@@ -4,7 +4,6 @@ using Clinic.API.Models.Request;
 using Clinic.API.Tests.Infrastructures;
 using Clinic.Context.Contracts.Models;
 using Clinic.Services.Contracts.Models;
-using Clinic.Services.Contracts.ModelsRequest;
 using Clinic.Tests.Extensions;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +35,7 @@ namespace Clinic.API.Tests.Tests
             // Arrange
             var clientFactory = factory.CreateClient();
 
-            var bookingAppointment = mapper.Map<CreateBookingAppointmentRequest>(mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment()));
+            var bookingAppointment = mapper.Map<CreateBookingAppointmentRequest>(mapper.Map<BookingAppointmentModel>(TestDataGenerator.BookingAppointment()));
             bookingAppointment.PatientId = patient.Id;
             bookingAppointment.TimeTableId = timeTable.Id;
 
@@ -65,7 +64,7 @@ namespace Clinic.API.Tests.Tests
             await context.BookingAppointments.AddAsync(bookingAppointment);
             await unitOfWork.SaveChangesAsync();
 
-            var bookingAppointmentRequest = mapper.Map<BookingAppointmentRequest>(mapper.Map<BookingAppointmentRequestModel>(TestDataGenerator.BookingAppointment(x => x.Id = bookingAppointment.Id)));
+            var bookingAppointmentRequest = mapper.Map<BookingAppointmentRequest>(mapper.Map<BookingAppointmentModel>(TestDataGenerator.BookingAppointment(x => x.Id = bookingAppointment.Id)));
             SetDependenciesOrBookingAppointmentRequestModelWithBookingAppointment(bookingAppointment, bookingAppointmentRequest);
 
             // Act

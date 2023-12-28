@@ -1,6 +1,8 @@
 ﻿using Clinic.API.Models;
 using Clinic.API.Models.CreateRequest;
+using Clinic.API.Models.Request;
 using Clinic.API.Tests.Infrastructures;
+using Clinic.Context.Contracts.Enums;
 using Clinic.Services.Contracts.Models;
 using Clinic.Tests.Extensions;
 using FluentAssertions;
@@ -48,7 +50,7 @@ namespace Clinic.API.Tests.Tests
             await context.Doctors.AddAsync(doctor);
             await unitOfWork.SaveChangesAsync();
 
-            var doctorRequest = mapper.Map<DoctorResponse>(mapper.Map<DoctorModel>(TestDataGenerator.Doctor(x => x.Id = doctor.Id)));
+            var doctorRequest = mapper.Map<DoctorRequest>(mapper.Map<DoctorModel>(TestDataGenerator.Doctor(x => x.Id = doctor.Id)));
 
             // Act
             string data = JsonConvert.SerializeObject(doctorRequest);
@@ -87,11 +89,11 @@ namespace Clinic.API.Tests.Tests
                 .BeEquivalentTo(new
                 {
                     doctor1.Id,
-                    doctor1.Name,
                     doctor1.Surname,
+                    doctor1.Name,
                     doctor1.Patronymic,
-                    doctor1.DepartmentType,
-                    doctor1.CategoriesType
+                    doctor1.CategoriesType,
+                    doctor1.DepartmentType
                 });
         }
 
@@ -143,11 +145,11 @@ namespace Clinic.API.Tests.Tests
             doctorFirst.Should()
                 .BeEquivalentTo(new
                 {
-                    doctor.Name,
                     doctor.Surname,
+                    doctor.Name,
                     doctor.Patronymic,
-                    doctor.DepartmentType,
-                    doctor.CategoriesType
+                    doctor.CategoriesType,
+                    doctor.DepartmentType
                 });
         }
     }
