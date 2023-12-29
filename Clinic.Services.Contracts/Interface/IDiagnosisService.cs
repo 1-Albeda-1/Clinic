@@ -10,7 +10,7 @@ namespace Clinic.Services.Contracts.Interface
         Task<IEnumerable<DiagnosisModel>> GetAllAsync(CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="CinemaModel"/> по идентификатору
+        /// Получить <see cref="DiagnosisModel"/> по идентификатору
         /// </summary>
         Task<DiagnosisModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
